@@ -1,0 +1,3 @@
+[submodule "Fulcrum-Template-Typst"]
+	path = Fulcrum-Template-Typst
+	url = https://github.com/SJTU-AI4Math/Fulcrum-Template-Typst.git
