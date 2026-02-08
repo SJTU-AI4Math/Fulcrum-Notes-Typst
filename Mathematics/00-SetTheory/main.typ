@@ -1,4 +1,4 @@
-#import "../../Fulcrum-Template-Typst/FulcrumCN.typ": *
+#import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
 #show: FulcrumCN
 
