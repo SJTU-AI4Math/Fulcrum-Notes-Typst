@@ -1,6 +1,6 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
-#show: Fulcrum
+#show: FulcrumCN
 
 // 标题
 #align(center)[
@@ -60,9 +60,8 @@
   uuid: "Omega.Combinator",
   [$Omega$ 组合子],
   [$Omega$ Combinator],
-  [
-    定义 *$Omega$ 组合子*为 $(lambda x. x x)(lambda x. x x)$.
-  ],
+  [$Omega$ 组合子],
+  [$(lambda x. x x)(lambda x. x x)$],
 )
 
 #注(
@@ -75,7 +74,19 @@
 
 = *类型论*
 
+#let Type = optionLink("Type", [$op("Type")$], url: "https://zh.wikipedia.org/wiki/%E7%B1%BB%E5%9E%8B%E8%AE%BA")
+#let Type-decl = (
+  obj,
+  type,
+) => [$obj #optionLink("Type.decl", $:$, url: "https://zh.wikipedia.org/wiki/%E7%B1%BB%E5%9E%8B%E8%AE%BA") type$]
+
+#let Prop = optionLink("Prop", [$op("Prop")$], url: "https://zh.wikipedia.org/wiki/%E5%91%BD%E9%A2%98")
+
+#let def-CN = (declList, target, body, notation) => [设 #declList, 定义 *#target* 为 #body, 记作 #notation.]
+
 == *函数类型*
+
+#let implies = [$==>$]
 
 == *归纳类型*
 
