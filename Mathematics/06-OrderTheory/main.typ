@@ -1,7 +1,6 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
 #import "../03-TypeTheory/main.typ": *
-#import "../03-SetTheory/main.typ": *
 
 #show: FulcrumCN
 
@@ -60,7 +59,7 @@
   hypotheses: ([ $T$ 上有#偏序结构], [#Type-decl($a,b$, $T$)]),
   [$a<b$],
   [ $a <= b and a != b$],
-  isPremise: true,
+  isPredicate: true,
 )
 
 #注("", "")[
@@ -88,7 +87,7 @@
   hypotheses: ([ $T$ 上有#偏序结构], [#Type-decl($u$, $T$)], [#Type-decl($S$, $Set(T)$)]),
   [$u$ 是 $S$ 的上界],
   [ $forall (s : S), s <= u$],
-  isPremise: true,
+  isPredicate: true,
 )
 #定义(
   uuid: "LowerBound",
@@ -97,7 +96,7 @@
   hypotheses: ([#link(<UpperBound>, [同上])],),
   [$u$ 是 $S$ 的下界],
   [ $forall (s : S), u <= s$],
-  isPremise: true,
+  isPredicate: true,
   extention: true,
 )
 #定义(
@@ -107,7 +106,7 @@
   hypotheses: ([#link(<UpperBound>, [同上])],),
   [$S$ 有上界],
   [ $exists (u : T), u$ 是 $S$ 的#上界],
-  isPremise: true,
+  isPredicate: true,
   extention: true,
 )
 #定义(
@@ -117,7 +116,7 @@
   hypotheses: ([#link(<LowerBound>, [同上])],),
   [$S$ 有下界],
   [ $exists (u : T), u$ 是 $S$ 的#下界],
-  isPremise: true,
+  isPredicate: true,
   extention: true,
 )
 #定义(
@@ -127,7 +126,7 @@
   hypotheses: ([#link(<BoundedAbove>, [同上])],),
   [$S$ 有界],
   [ $S$ 有#上界$and S$有#下界],
-  isPremise: true,
+  isPredicate: true,
   extention: true,
 )
 
