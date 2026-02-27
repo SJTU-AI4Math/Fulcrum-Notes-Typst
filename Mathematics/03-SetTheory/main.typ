@@ -5,6 +5,7 @@
 #import "../06-OrderTheory/main.typ": *
 
 #show: FulcrumCN
+#hideRemark
 
 // 标题
 #align(center)[
@@ -19,11 +20,11 @@
 
 = 集合论
 
-#注("", "")[
+#注[
   本章所述集合论为类型论元语言下的朴素集合论，而非 ZFC 或其他公理系统下的公理集合论。
 ]
 
-#约定("", "")[#Type-decl($alpha$, Type)]
+#约定[#Type-decl($alpha$, Type)]
 
 == 类型集合
 
@@ -36,11 +37,7 @@
   notation: $Set(alpha)$,
 )
 
-#注(
-  "", ""
-)[
-  在集合元素所属的类型可从上下文中推断时，通常直接称为集合而不指明类型。
-]
+#注[在集合元素所属的类型可从上下文中推断时，通常直接称为集合而不指明类型。]
 
 #show math.in: optionLink("Set.mem", $in$, url: "https://zh.wikipedia.org/wiki/%E5%85%83%E7%B4%A0_(%E6%95%B8%E5%AD%B8)")
 
@@ -54,7 +51,7 @@
   [ $A(x)$],
 )
 
-#注("", "")[
+#注[
   “$x in A$” 亦称作“$x$ 是 $A$ 的元素”，或“$A$ 包含 $x$”，又记作 $A in.rev x$。
 ]
 
@@ -68,9 +65,7 @@
   notation: $setOf(x, type: A, P(x))$,
 )
 
-#注(
-  "", ""
-)[
+#注[
   - 在上下文中可以推理出集合所属的类型时，$setOf(x, type: A, P(x))$ 常简记作 $setOf(x, P(x))$。
 
   - 在类型集合语言下，谓词与集合事实上是同一回事。
@@ -80,7 +75,7 @@
 
 == 集合之间的关系
 
-#约定("", "")[#Type-decl($A, B$, Set($alpha$))]
+#约定[#Type-decl($A, B$, Set($alpha$))]
 
 #show math.subset.eq: optionLink("Set.subset", $subset.eq$, url: "TBD")
 
@@ -100,7 +95,7 @@
 #show math.supset.eq: optionLink("Set.subset.remark", $supset.eq$, url: "TBD")
 #show math.supset.eq.not: optionLink("Set.subset.remark", $supset.eq.not$, url: "TBD")
 
-#注(uuid: "Set.subset.remark", "", "")[
+#注(uuid: "Set.subset.remark")[
   - “$A$ 包含于 $B$”亦称作“$A$ 是 $B$ 的子集”，或“$B$ 包含 $A$”，又记作 $B supset.eq A$。注意“包含”一词既可能指集合间关系、又可能指元素与集合间关系，应注意区分。
 
   - “$not (A subset.eq B)$” 简记为 $A subset.eq.not B$，类似地 $not (B supset.eq A)$ 简记为 $B supset.eq.not A$。

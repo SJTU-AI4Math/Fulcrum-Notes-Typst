@@ -22,7 +22,7 @@
 
 == 基本定义
 
-#约定("", "")[$#Type-decl($T$, Type)$]
+#约定[$#Type-decl($T$, Type)$]
 
 #结构(
   uuid: "Preorder",
@@ -56,7 +56,7 @@
   isPredicate: true,
 )
 
-#注("", "")[
+#注[
   记号上，用 $a>=b$ 表示 $b<=a$，用 $a>b$ 表示 $b<a$。
 ]
 
@@ -105,10 +105,30 @@
   "Bounded",
   hypotheses: ([#link(<BoundedAbove>, [同上])],),
   [$S$ 有界],
-  [ $S$ 有#上界$and S$有#下界],
+  [ $S$ 有#上界 $and S$ 有#下界],
   isPredicate: true,
   extention: true,
 )
+
+#let 滤过序结构 = optionLink(
+  "FilteredOrder",
+  [滤过序结构],
+)
+
+#结构(
+  uuid: "FilteredOrder",
+  "滤过序结构",
+  "Filtered Order",
+  extends: ([ $T$ 上有#偏序结构],[$T$ 非空]),
+  [$T$ 上的#滤过序结构],
+  (
+    (name: [滤过性], value: [$forall (x, y : T), {x,y}$ 有上界]),
+  ),
+)
+
+#注[
+  #滤过序结构;即任意两个元素都有公共上界的#偏序结构。
+]
 
 #结构(
   uuid: "TotalOrder",
@@ -121,9 +141,25 @@
   ),
 )
 
-#注("", "")[
+#注[
   #全序结构;即允许任意两个元素进行比较的#偏序结构。
 ]
+
+#let 良序结构 = optionLink(
+  "WellOrder",
+  [良序结构],
+)
+
+#结构(
+  uuid: "WellOrder",
+  "良序结构",
+  "Well Order",
+  extends: ([ $T$ 上有#全序结构],),
+  [$T$ 上的#良序结构],
+  (
+    (name: [良序性], value: [$forall (S : Set(T)), S != emptyset implies exists (m : T), m in S and forall (s : S), m <= s$]),
+  ),
+)
 
 == 序范畴
 

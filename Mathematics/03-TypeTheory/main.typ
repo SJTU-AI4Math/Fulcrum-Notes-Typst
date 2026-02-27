@@ -2,6 +2,8 @@
 
 #show: FulcrumCN
 
+// #hideRemark
+
 // 标题
 #align(center)[
   #block(text(weight: "bold", size: 2em)[集合论])
@@ -64,13 +66,8 @@
   [$(lambda x. x x)(lambda x. x x)$],
 )
 
-#注(
-  "",
-  "",
-  [
-    注意到 $Omega$ 组合子的 $beta$-规约是不停机的.
-  ],
-)
+#注[注意到 $Omega$ 组合子的 $beta$-规约是不停机的. ],
+
 
 = *类型论*
 
@@ -139,12 +136,10 @@
   ],
 )
 
-#注(
-  uuid: "Monad.rmk",
-  "",
-  "",
-  [在有一个自函子映射 $M : Type -> Type$ 的情况下, 我们一般直接称 $M$ 为单子],
-)
+#注(uuid: "Monad.rmk")[
+  在有一个自函子映射 $M : Type -> Type$ 的情况下, 我们一般直接称 $M$ 为单子
+]
+
 
 #let Option = text("Option", font: "Consolas")
 
@@ -163,11 +158,7 @@
   ],
 )
 
-#注(
-  uuid: "Option.rmk",
-  "",
-  "",
-  [
+#注(uuid: "Option.rmk")[
     假设 $A : Type$, 有两个函数 $f, g$, 它们的计算均是这样的情况:
     + 可能返回一个值 $a : A$;
     + 可能返回空值.
@@ -197,7 +188,7 @@
     (这是因为 $Option$ 是 $Type$ 范畴上的自函子, 而 $->$ 是 $Type$ 范畴中的态射)
 
     于是我们有 $g()$
-  ],
+  ]
 )
 
 #let List = text("List", font: "Consolas")
@@ -217,10 +208,7 @@
   ],
 )
 
-#注(
-  "",
-  "",
-  [
+#注[
     我们知道 $NN : Type$, 那么 $List NN : Type$
 
     $A -> B : Type$, $List (A -> B) = List A -> List B$ ?
@@ -234,8 +222,7 @@
     $g : A -> List NN := a mapsto [3,4,5]$
 
     $[f,g] : A -> List (List NN) := a mapsto [[1,2],[3,4,5]] --> [1,2,3,4,5]$
-  ],
-)
+  ]
 
 #xmp(
   "",
