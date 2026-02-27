@@ -1,6 +1,9 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
+#import "../03-SetTheory/export.typ": *
 #import "../03-TypeTheory/main.typ": *
+
+#import "./export.typ": *
 
 #show: FulcrumCN
 
@@ -19,13 +22,8 @@
 
 == 基本定义
 
-本节约定：
-+ $#Type-decl($T$, Type)$
+#约定("", "")[$#Type-decl($T$, Type)$]
 
-#let 预序结构 = optionLink(
-  "Preorder",
-  [预序结构],
-)
 #结构(
   uuid: "Preorder",
   "预序结构",
@@ -38,10 +36,6 @@
   ),
 )
 
-#let 偏序结构 = optionLink(
-  "PartialOrder",
-  [偏序结构],
-)
 #结构(
   uuid: "PartialOrder",
   "偏序结构",
@@ -65,20 +59,6 @@
 #注("", "")[
   记号上，用 $a>=b$ 表示 $b<=a$，用 $a>b$ 表示 $b<a$。
 ]
-
-#let 全序结构 = optionLink(
-  "TotalOrder",
-  [全序结构],
-)
-
-#let 上界 = optionLink(
-  "UpperBound",
-  [上界],
-)
-#let 下界 = optionLink(
-  "LowerBound",
-  [下界],
-)
 
 #定义(
   uuid: "UpperBound",

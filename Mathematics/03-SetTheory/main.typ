@@ -1,5 +1,6 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
+#import "./export.typ"
 #import "../03-TypeTheory/main.typ": *
 #import "../06-OrderTheory/main.typ": *
 
@@ -26,14 +27,6 @@
 
 == 类型集合
 
-#let Set = type => [
-  #optionLink(
-    "Set",
-    $op("Set")$,
-    url: "https://zh.wikipedia.org/wiki/%E9%9B%86%E5%90%88_(%E6%95%B0%E5%AD%A6)",
-  )#h(0.2em)#type
-]
-
 #定义(
   uuid: "Set",
   "集合",
@@ -47,13 +40,6 @@
   "", ""
 )[
   在集合元素所属的类型可从上下文中推断时，通常直接称为集合而不指明类型。
-]
-
-#let setOf = (name, type: [], body) => [
-  #optionLink("setOf", $\{$)#name#if (type != []) [ $:#type$]#optionLink("setOf", [ $|$ ])#body#optionLink(
-    "setOf",
-    $\}$,
-  )
 ]
 
 #show math.in: optionLink("Set.mem", $in$, url: "https://zh.wikipedia.org/wiki/%E5%85%83%E7%B4%A0_(%E6%95%B8%E5%AD%B8)")
@@ -126,9 +112,12 @@
   uuid: "Set.instSubsetPartialOrder",
   "集合在子集关系下有偏序结构",
   "",
-  [$(dot subset.eq dot)$ 是#偏序结构],
+  [集合类型上有#偏序结构],
   members: (
-    (name: "自反性", value: $forall A in Set(alpha), A subset.eq A$),
+    (name: "二元关系", varName: $dot subset.eq dot$, value: $Set(alpha) -> Set(alpha) -> Prop$),
+    (name: "自反性", value: $forall A : Set(alpha), A subset.eq A$),
+    (name: "反对称性", value: $forall A, B : Set(alpha), (A subset.eq B and B subset.eq A) implies A = B$),
+    (name: "传递性", value: $forall A, B, C : Set(alpha), (A subset.eq B and B subset.eq C) implies A subset.eq C$),
   )
 )
 
