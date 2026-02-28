@@ -6,6 +6,7 @@
 #import "./export.typ": *
 
 #show: FulcrumCN
+#show: SetStyle
 
 // 标题
 #align(center)[
@@ -22,15 +23,18 @@
 
 == 基本定义
 
-#约定[$#Type-decl($T$, Type)$]
+#约定[
+  - $T : Type$
+  - $(dot <= dot) : T -> T -> Prop$
+]
 
 #结构(
   uuid: "Preorder",
   "预序结构",
   "Preorder",
-  [$T$ 上的预序结构],
+  isPredicate: true,
+  [$(T, <=)$ 是#预序结构],
   (
-    (name: [二元关系], varName: [$dot <= dot$], value: [$T -> T -> Prop$]),
     (name: [自反性], name_en: [Reflexivity], value: [$forall (x : T), x <= x$]),
     (name: [传递性], name_en: [Transitivity], value: [$forall (x, y, z : T), (x <= y and y <= z) implies x <= z$]),
   ),
@@ -40,17 +44,19 @@
   uuid: "PartialOrder",
   "偏序结构",
   "Partial Order",
-  extends: ([ $T$ 上有#预序结构],),
-  [$T$ 上的偏序结构],
+  extends: ([#预序结构],),
+  [$(T, <=)$ 是#偏序结构],
   (
     (name: [反对称性], name_en: [Antisymmetry], value: [$forall (x, y : T), (x <= y and y <= x) implies x = y$]),
   ),
 )
 
+#注[#预序结构;中可能会出现一系列相互小于等于的元素，又它们关于传递性封闭，所以会产生一个序意义下的等价类，#偏序结构;的反对称性保证了所有这样等价类中的元素唯一。]
+
 #定义(
   "严格偏序关系",
   "Strict Partial Order",
-  hypotheses: ([ $T$ 上有#偏序结构], [#Type-decl($a,b$, $T$)]),
+  hypotheses: ([ $(T, <=)$ 是#偏序结构], [#Type-decl($a,b$, $T$)]),
   [$a<b$],
   [ $a <= b and a != b$],
   isPredicate: true,
@@ -64,9 +70,10 @@
   uuid: "UpperBound",
   "上界",
   "Upper Bound",
-  hypotheses: ([ $T$ 上有#偏序结构], [#Type-decl($u$, $T$)], [#Type-decl($S$, $Set(T)$)]),
+  hypotheses: ([ $(T, <=)$ 是#偏序结构], [#Type-decl($u$, $T$)], [#Type-decl($S$, $Set(T)$)]),
   [$u$ 是 $S$ 的上界],
-  [ $forall (s : S), s <= u$],
+  [$ forall (s : S), s <= u $],
+  bstyle: "display",
   isPredicate: true,
 )
 #定义(
@@ -115,12 +122,18 @@
   [滤过序结构],
 )
 
+#let 非空 = optionLink(
+  "Inhabited",
+  [非空],
+)
+
 #结构(
   uuid: "FilteredOrder",
   "滤过序结构",
   "Filtered Order",
-  extends: ([ $T$ 上有#偏序结构],[$T$ 非空]),
-  [$T$ 上的#滤过序结构],
+  hypotheses: ([ $T$ #非空],),
+  extends: ([#偏序结构],),
+  [$(T, <=)$ 是#滤过序结构],
   (
     (name: [滤过性], value: [$forall (x, y : T), {x,y}$ 有上界]),
   ),
@@ -157,7 +170,7 @@
   extends: ([ $T$ 上有#全序结构],),
   [$T$ 上的#良序结构],
   (
-    (name: [良序性], value: [$forall (S : Set(T)), S != emptyset implies exists (m : T), m in S and forall (s : S), m <= s$]),
+    (name: [良序性], value: [$forall S : Set(T), S != emptyset implies S$ 有极小值]),
   ),
 )
 

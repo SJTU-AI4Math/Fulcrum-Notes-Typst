@@ -1,5 +1,10 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 
+#let SetStyle = (body) => {
+  show math.emptyset : optionLink("Set.empty", $diameter$)
+  body
+}
+
 #let Set = type => [
   #optionLink(
     "Set",
