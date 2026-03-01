@@ -177,3 +177,107 @@
 == 序范畴
 
 
+= 滤子
+
+#约定[
+  - $alpha : Type$
+  - $cal(F), cal(G) : Set((Set(alpha)))$
+]
+
+== 基本定义
+
+#let 滤子 = optionLink(
+  "Filter",
+  [滤子],
+)
+
+#let univ = (type) => [$cal(U)_type$]
+
+#结构(
+  uuid: "Filter",
+  "滤子",
+  "Filter",
+  isPredicate: true,
+  [$cal(F)$ 是#滤子],
+  (
+    (name: [包含全集], value: [$univ(alpha) in cal(F)$]),
+    (name: [超集封闭], value: [$forall (x, y : Set(alpha)), (x in cal(F) and x subset.eq y) implies y in cal(F)$]),
+    (name: [交封闭], value: [$forall (x, y : Set(alpha)), x, y in cal(F) implies x inter y in cal(F)$]),
+  ),
+)
+
+#注[]
+
+#let 主滤子 = optionLink(
+  "PrincipalFilter",
+  [主滤子],
+)
+
+#let PFilter = (S) => $#optionLink(
+  "PrincipalFilter", $cal(P)$
+) (S)$
+
+#定义(
+  uuid: "PrincipalFilter",
+  "主滤子",
+  "Principal Filter",
+  hypotheses: ([ $S : Set(alpha)$],),
+  [$S$ 的#主滤子],
+  [ $#setOf($X$, type: $Set(alpha)$, [ $S subset.eq X$ ]) $],
+  notation: [$PFilter(S)$]
+)
+
+#let 滤子核 = optionLink(
+  "FilterKernel",
+  [滤子核],
+)
+
+#定义(
+  uuid: "FilterKernel",
+  "滤子核",
+  "Filter Kernel",
+  hypotheses: ([ $cal(F)$ 是#滤子],),
+  [$cal(F)$ 的#滤子核],
+  [ $inter.big cal(F)$],
+)
+
+#性质(
+  uuid: "PrincipalFilterLegal",
+  "主滤子是合法滤子","",
+  hypotheses: ([ $S : Set(alpha)$],),
+  [$PFilter(S)$ 是#滤子],
+  extention: true
+)
+
+#let 单子 = optionLink(
+  "monad",
+  [单子],
+)
+
+#定义(
+  uuid: "FilterJoin",
+  "滤子并",
+  "Filter Join",
+  hypotheses: ([ $cal(F), cal(G)$ 是#滤子],),
+  [$cal(F)$ 和 $cal(G)$ 的滤子并],
+  [TBD],
+)
+
+#注[#滤子;事实上是一个#单子;；但我并没有理解这个 Flatten 函数的具体定义。]
+
+#定义(
+  uuid: "FilterOrder",
+  "滤子偏序",
+  "",
+  hypotheses: ([ $cal(F), cal(G)$ 是#滤子],),
+  [$cal(F) <= cal(G)$],
+  isPredicate: true,
+  [ $cal(F) subset.eq cal(G)$],
+)
+
+#结构性质(
+  uuid: "instPartialOrderFilter",
+  "滤子偏序是合法偏序",
+  "",
+  [$(alpha text("上的")#滤子, <=)$ 是#偏序结构],
+)
