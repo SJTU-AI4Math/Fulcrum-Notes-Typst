@@ -92,7 +92,7 @@
 
 // 自然数类型
 
-#let Nat = [$op("Nat")$]
+#let Nat = optionLink("NaturalNumber", $bb(N)$)
 #let Natzero = [$op("zero")$]
 #let Natsucc = [$op("succ")$]
 

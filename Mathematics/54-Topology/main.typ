@@ -4,7 +4,7 @@
 
 /* set theory */
 #import "../03-SetTheory/export.typ": *
-#import "../03-TypeTheory/main.typ": *
+#import "../03-TypeTheory/export.typ": *
 
 #show: FulcrumCN
 
