@@ -78,8 +78,8 @@
 )[$S without U in tau$]
 
 #注[对于集合上的拓扑空间, 只需指定一个幂集上的一元谓词来定义什么是开集.]
-#注[#openSet 和 #closedSet 是对称的. 我们也可以使用闭集定义拓扑. ]
-#注[#openSet 和 #closedSet 是相对的概念, 但并不完全对立. 例如在离散拓扑中, 每个子集既是开集又是闭集.]
+#注[#openSet;和#closedSet;是对称的. 我们也可以使用闭集定义拓扑. ]
+#注[#openSet;和#closedSet;是相对的概念, 但并不完全对立. 例如在离散拓扑中, 每个子集既是开集又是闭集.]
 
 #定义(
   uuid: "Neighborhood",
@@ -157,8 +157,21 @@
 #性质(
   "集合是闭集当且仅当其闭包是自身",
   "A set is closed if and only if its closure is itself",
+  bstyle: "display",
 )[
   $ A "是闭集" arrow.l.r.double A = Closure(A) $
+]
+
+#定义(
+  uuid: "ClosurePoint",
+  "闭包点",
+  "Closure Point",
+  isPredicate: true,
+  bstyle: "display",
+  hypotheses: ([$(S,tau)$ 是#ts], [$E:Set(alpha) subset.eq S$, $x:alpha in S$]),
+  [点 $x$ 是集合 $E$ 的一个闭包点],
+)[
+  $ x in Closure(E) arrow.l.r.double forall U in Nbr(x), U inter E eq.not emptyset $
 ]
 
 #定义(
@@ -170,6 +183,69 @@
   [集合 $A$ 的边界],
 )[
   $Closure(A) without Interior(A)$
+]
+
+== 拓扑空间的构造
+
+#结构(
+  uuid: "GeneratedTopology",
+  "生成拓扑",
+  "Generated Topology",
+  isPredicate: true,
+  hypotheses: ([$S: Set(alpha)$, $cal(B): Set(Set(alpha))$],),
+  [由集合 $cal(B)$ 生成的拓扑],
+  (
+    (name: [覆盖性], value: [$union.big cal(B) = S$]),
+    (
+      name: [生成性],
+      value: [$B_1, B_2 in cal(B), B_1 inter B_2 eq.not emptyset implies exists B_3 in cal(B), B_3 subset.eq B_1 inter B_2 and B_3 eq.not emptyset$],
+    ),
+  ),
+)
+
+#定义(
+  uuid: "TopologicalBasis",
+  "拓扑基",
+  "Topological Basis",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#ts], [$cal(B):Set(alpha) subset.eq tau$]),
+  [集合 $cal(B)$ 是拓扑 $tau$ 的一个拓扑基],
+)[
+  $tau$ 是由 $cal(B)$ 生成的拓扑, 即 $forall U in tau$, $U$ 可以表示为 $U = union.big { B in cal(B) | B subset.eq U }$.
+]
+
+#注[
+  拓扑空间的拓扑基不唯一.
+]
+
+#定义(
+  uuid: "SubspaceTopology",
+  "子空间拓扑",
+  "Subspace Topology",
+  isPredicate: false,
+  hypotheses: ([$(S,tau)$ 是#ts], [$X subset.eq S$]),
+  bstyle: "display",
+  [集合 $X$ 上的子空间拓扑],
+)[
+  $ tau_X = { U inter X | U in tau } $
+]
+
+#注[
+  由子集诱导的子空间拓扑是从原拓扑中以该子集为边界“截取”出来的. 所以, 子空间拓扑中的#openSet/#closedSet;不一定是原拓扑中的#openSet/#closedSet.
+]
+
+#定义(
+  uuid: "ProductTopology",
+  "积拓扑",
+  "Product Topology",
+  isPredicate: false,
+  hypotheses: ([$(X,tau_X), (Y, tau_Y)$ 是#ts],),
+  [$X$ 和 $Y$ 的积拓扑],
+)[
+  $
+    tau = { U subset.eq X times Y | forall (x,y) in U, exists U_x in tau_X, U_y in tau_Y, (x,y) in U_x times U_y subset.eq U }
+  $
+  定义 $(X times Y, tau)$ 为 $X$ 和 $Y$ 的*积拓扑空间*.
 ]
 
 == 极限
@@ -203,6 +279,7 @@
   isPredicate: false,
   hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
   notation: [$A'$],
+  bstyle: "display",
   [集合 $A$ 的导集],
 )[
   全体极限点的集合 $ { x in S | x "是 A 的一个极限点" } $
@@ -215,10 +292,7 @@
   isPredicate: true,
   hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$], [$x in S$]),
   [点 $x$ 是集合 $A$ 的一个孤立点],
-)[
-  $x$ 不在 $A$ 的导集中, 即
-  $ x in A and x not in A' $
-]
+)[$x in A and x not in A'$]
 
 #性质(
   "导集与闭包的关系",
@@ -240,8 +314,45 @@
   "Dense Set",
   isPredicate: true,
   hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
-  [集合 $A$ 是 $S$ 中的一个#denseSet],
+  [集合 $A$ 是 $S$ 中的一个#denseForSet],
 )[$Closure(A) = S$.]
+
+#注[
+  谈论稠密集可以在某个拓扑子空间 $X$ 中进行. 这时我们称集合 $A$ 在 $X$ 中稠密, 即 $A$ 在 $X$ 的闭包是 $X$ 本身, 即 $Closure_X(A) = X$.
+]
+
+#定义(
+  uuid: "NowhereDense",
+  "稀疏集 / 无处稠密集",
+  "Nowhere Dense Set",
+  isPredicate: true,
+  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  [集合 $A$ 是 $S$ 中的一个稀疏集 / 无处稠密集],
+)[
+  $Interior(Closure(A)) = emptyset$.
+]
+
+#定义(
+  uuid: "SelfDense",
+  "自稠密集",
+  "Self-Dense Set",
+  isPredicate: true,
+  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  [集合 $A$ 是 $S$ 中的一个自稠密集],
+)[$A$ 的导集包含了 $A$ 本身, 即 $A subset.eq A'$.]
+
+#定义(
+  uuid: "PerfectSet",
+  "完美集",
+  "Perfect Set",
+  isPredicate: true,
+  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  [集合 $A$ 是 $S$ 中的一个完美集],
+)[$A' = A$]
+
+#注[
+  完美集是一个没有孤立点的闭集. 例如在实数轴上, Cantor 集合就是一个完美集.
+]
 
 #定义(
   uuid: "SeqLimit",
@@ -277,9 +388,174 @@
   "Sequential Compactness",
   isPredicate: true,
   hypotheses: ([$(S,tau)$ 是#ts], [$x_n: Nat arrow S$]),
-  [序列 $x_n$ 具有#序列紧性],
+  [序列 $x_n$ 具有#序列紧;性],
 )[
   序列 $x_n$ 有#convergentForSeq;子列. 即 $exists p:Nat arrow Nat, x_(p(n)) subset.eq x_n$, $x_(p(n)) arrow x$.
 ]
 
-#注[序列紧性简称为*列紧性*. 在函数空间中又叫*正规性*.]
+#注[#序列紧;性简称为*列紧性*. 在函数空间中又叫*正规性*.]
+
+== 连通性
+
+#定义(
+  uuid: "Connectedness",
+  "连通性",
+  "Connectedness",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  [集合 $A$ 是一个连通集合],
+)[
+  $A$ 不能表示为 $A = U union V$ 的形式, 其中 $U$ 和 $V$ 是 $A$ 的两个不交的非平凡开子集, 即
+  $exists.not U subset.neq A, V subset.neq A$, $U$ 和 $V$ 是 $A$ 的开集, $U inter V eq emptyset$, $U eq.not emptyset$, $V eq.not emptyset and A = U union V$.
+]
+
+#定义(
+  uuid: "PathConnectedness",
+  "道路连通",
+  "Path Connectedness",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  [集合 $A$ 是一个道路连通的集合],
+)[
+  $forall x, y in A$, $exists f: [0,1] arrow A$, $f(0) = x$, $f(1) = y$, $f:C([0,1])$.
+]
+
+#性质(
+  "道路连通蕴含连通",
+  "Path connectedness implies connectedness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+)[$A$ 是#pathConnected $==>$ $A$ 是#connected]
+
+#例(
+  "连通不蕴含道路连通",
+  "Connectedness does not imply path connectedness",
+)[
+  考虑 $bb(R)^2$ 上的集合
+  $ A = { (x, y) in bb(R)^2 | y = sin(frac(1, x)) forall x > 0 }union { (0, y) in bb(R)^2 | y in [-1, 1] } $
+  则 $A$ 是连通的但不是道路连通的.
+]
+
+== 紧致性
+
+#定义(
+  uuid: "OpenCover",
+  "开覆盖",
+  "Open Cover",
+  isPredicate: true,
+  bstyle: "display",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$], [$C: Set(Set(S))$]),
+  [集合族 $C$ 是集合 $A$ 的一个开覆盖],
+)[
+  $forall U in C$, $U in tau$,
+  $ A subset.eq union.big U $
+]
+
+#定义(
+  uuid: "Compactness",
+  "紧致性",
+  "Compactness",
+  isPredicate: true,
+  bstyle: "display",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  [集合 $A$ 是一个#compact;集],
+)[
+  $forall C$, $C$ 是 $A$ 的一个开覆盖 $arrow.double$ $exists F subset.eq C$, $F$ 是 $A$ 的一个有限的子开覆盖.
+  #linebreak()
+  即: 任意开覆盖都有有限子覆盖.
+]
+
+#注[
+  #compact;性又叫紧性, 又被称为 *Heine-Borel 性质*.
+]
+
+#例(
+  "实数上的开区间不是紧致集",
+  "The open interval in real numbers is not compact",
+)[
+  在实数轴上, 区间 $(0,1)$ 不是紧集. 这是因为 $(0,1)$ 的开覆盖 $\{ (frac(1, n),1) | n in Nat and n > 1 \}$ 没有有限子覆盖.
+]
+
+#性质(
+  "紧致集的闭子集也是紧致的",
+  "Closed subsets of compact sets are compact",
+  hypotheses: ([$(S,tau)$ 是#ts], [$K subset.eq S$ #compact]),
+)[$forall C subset.eq K$, $C$ 是#closedSet $arrow$ $C$ #compact]
+
+#性质(
+  "紧致性的绝对性",
+  "Absoluteness of compactness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$(X,tau_X)$ 是 $S$ 的一个拓扑子空间], [$K subset.eq X$]),
+)[$K$ 在 $X$ 中#compact; $arrow.l.r.double$ $K$ 在 $S$ 中#compact;]
+
+#定义(
+  uuid: "CountableCompactness",
+  "可数紧性",
+  "Countable Compactness",
+  isPredicate: true,
+  bstyle: "display",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  [集合 $A$ 具有#可数紧;性],
+)[
+  $forall C$, $C$ 是 $A$ 的一个可数的开覆盖 $arrow.double$ $exists F subset.eq C$, $F$ 是 $A$ 的一个有限的子开覆盖.
+  #linebreak()
+  即: 任意可数开覆盖都有有限子覆盖.
+]
+
+#注[
+  在一般的#ts;中, 紧致性、可数紧性、序列紧性三者是完全不同的性质. 具体而言有以下的关系:
+]
+
+#性质(
+  "紧致性蕴含可数紧性",
+  "Compactness implies countable compactness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$ #compact]),
+)[
+  $A$ #可数紧.
+]
+
+#性质(
+  "序列紧性蕴含可数紧性",
+  "Sequential compactness implies countable compactness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$ #序列紧]),
+)[$A$ #可数紧.]
+
+#例(
+  "紧性不蕴含序列紧性",
+  "Compactness does not imply sequential compactness",
+)[
+  考虑 Tychonoff 空间
+  $ product_(i in I) X_i $
+  $I$ 是索引集. 其中每个 $X_i$ 是#compact;的, 则其积空间是紧致的. 但当 $I$ 是不可数集时, 它不是#序列紧;的.
+]
+
+#例(
+  "序列紧性不蕴含紧性",
+  "Sequential compactness does not imply compactness",
+)[
+  考虑第一个不可数序数 $omega_1$ 上的序数拓扑 $[0,omega_1)$, 则它是#序列紧;的, 但不是#compact;的. 取开覆盖
+  $ { [0, alpha) | alpha < omega_1 } $
+  则它没有有限子覆盖.
+]
+
+#注[
+  在度量空间中, #compact;、#可数紧;、#序列紧;三者是等价的.
+]
+
+#定理(
+  uuid: "HeineBorel",
+  "Heine-Borel 定理",
+  "Heine-Borel theorem",
+)[
+  设 $E subset.eq bb(R)^n$, 则以下三种性质等价:
+  #linebreak()
+  (1) $E$ #compact;;
+  (2) $E$ #序列紧;;
+  (3) $E$ #可数紧;;
+  (4) $E$ 是#closedSet;且有界的.
+]
+
+#例(
+  "一般拓扑空间中的有界闭集不一定是紧致集",
+  "A closed and bounded set in topological space is not necessarily compact",
+)[]
+
