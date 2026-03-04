@@ -185,6 +185,69 @@
   $Closure(A) without Interior(A)$
 ]
 
+== 拓扑空间的构造
+
+#结构(
+  uuid: "GeneratedTopology",
+  "生成拓扑",
+  "Generated Topology",
+  isPredicate: true,
+  hypotheses: ([$S: Set(alpha)$, $cal(B): Set(Set(alpha))$],),
+  [由集合 $cal(B)$ 生成的拓扑],
+  (
+    (name: [覆盖性], value: [$union.big cal(B) = S$]),
+    (
+      name: [生成性],
+      value: [$B_1, B_2 in cal(B), B_1 inter B_2 eq.not emptyset implies exists B_3 in cal(B), B_3 subset.eq B_1 inter B_2 and B_3 eq.not emptyset$],
+    ),
+  ),
+)
+
+#定义(
+  uuid: "TopologicalBasis",
+  "拓扑基",
+  "Topological Basis",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#ts], [$cal(B):Set(alpha) subset.eq tau$]),
+  [集合 $cal(B)$ 是拓扑 $tau$ 的一个拓扑基],
+)[
+  $tau$ 是由 $cal(B)$ 生成的拓扑, 即 $forall U in tau$, $U$ 可以表示为 $U = union.big { B in cal(B) | B subset.eq U }$.
+]
+
+#注[
+  拓扑空间的拓扑基不唯一.
+]
+
+#定义(
+  uuid: "SubspaceTopology",
+  "子空间拓扑",
+  "Subspace Topology",
+  isPredicate: false,
+  hypotheses: ([$(S,tau)$ 是#ts], [$X subset.eq S$]),
+  bstyle: "display",
+  [集合 $X$ 上的子空间拓扑],
+)[
+  $ tau_X = { U inter X | U in tau } $
+]
+
+#注[
+  由子集诱导的子空间拓扑是从原拓扑中以该子集为边界“截取”出来的. 所以, 子空间拓扑中的#openSet/#closedSet;不一定是原拓扑中的#openSet/#closedSet.
+]
+
+#定义(
+  uuid: "ProductTopology",
+  "积拓扑",
+  "Product Topology",
+  isPredicate: false,
+  hypotheses: ([$(X,tau_X), (Y, tau_Y)$ 是#ts],),
+  [$X$ 和 $Y$ 的积拓扑],
+)[
+  $
+    tau = { U subset.eq X times Y | forall (x,y) in U, exists U_x in tau_X, U_y in tau_Y, (x,y) in U_x times U_y subset.eq U }
+  $
+  定义 $(X times Y, tau)$ 为 $X$ 和 $Y$ 的*积拓扑空间*.
+]
+
 == 极限
 
 #定义(
@@ -418,6 +481,12 @@
   hypotheses: ([$(S,tau)$ 是#ts], [$K subset.eq S$ #compact]),
 )[$forall C subset.eq K$, $C$ 是#closedSet $arrow$ $C$ #compact]
 
+#性质(
+  "紧致性的绝对性",
+  "Absoluteness of compactness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$(X,tau_X)$ 是 $S$ 的一个拓扑子空间], [$K subset.eq X$]),
+)[$K$ 在 $X$ 中#compact; $arrow.l.r.double$ $K$ 在 $S$ 中#compact;]
+
 #定义(
   uuid: "CountableCompactness",
   "可数紧性",
@@ -432,6 +501,10 @@
   即: 任意可数开覆盖都有有限子覆盖.
 ]
 
+#注[
+  在一般的#ts;中, 紧致性、可数紧性、序列紧性三者是完全不同的性质. 具体而言有以下的关系:
+]
+
 #性质(
   "紧致性蕴含可数紧性",
   "Compactness implies countable compactness",
@@ -440,16 +513,49 @@
   $A$ #可数紧.
 ]
 
-#注[
-  在一般的#ts;中, 紧致性、可数紧性、序列紧性三者是完全不同的性质. 具体而言有以下的关系:
-]
-
-#性质(
-  "紧致性蕴含可数紧性",
-  "Compactness implies countable compactness",
-)[]
-
 #性质(
   "序列紧性蕴含可数紧性",
   "Sequential compactness implies countable compactness",
+  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$ #序列紧]),
+)[$A$ #可数紧.]
+
+#例(
+  "紧性不蕴含序列紧性",
+  "Compactness does not imply sequential compactness",
+)[
+  考虑 Tychonoff 空间
+  $ product_(i in I) X_i $
+  $I$ 是索引集. 其中每个 $X_i$ 是#compact;的, 则其积空间是紧致的. 但当 $I$ 是不可数集时, 它不是#序列紧;的.
+]
+
+#例(
+  "序列紧性不蕴含紧性",
+  "Sequential compactness does not imply compactness",
+)[
+  考虑第一个不可数序数 $omega_1$ 上的序数拓扑 $[0,omega_1)$, 则它是#序列紧;的, 但不是#compact;的. 取开覆盖
+  $ { [0, alpha) | alpha < omega_1 } $
+  则它没有有限子覆盖.
+]
+
+#注[
+  在度量空间中, #compact;、#可数紧;、#序列紧;三者是等价的.
+]
+
+#定理(
+  uuid: "HeineBorel",
+  "Heine-Borel 定理",
+  "Heine-Borel theorem",
+)[
+  设 $E subset.eq bb(R)^n$, 则以下三种性质等价:
+  #linebreak()
+  (1) $E$ #compact;;
+  (2) $E$ #序列紧;;
+  (3) $E$ #可数紧;;
+  (4) $E$ 是#closedSet;且有界的.
+]
+
+#例(
+  "一般拓扑空间中的有界闭集不一定是紧致集",
+  "A closed and bounded set in topological space is not necessarily compact",
 )[]
+
