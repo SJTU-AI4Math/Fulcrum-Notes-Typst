@@ -12,12 +12,12 @@
 )
 
 #let openSet = optionLink(
-  "Open-Set",
+  "OpenSet",
   [开集],
 )
 
 #let closedSet = optionLink(
-  "Closed-Set",
+  "ClosedSet",
   [闭集],
 )
 
@@ -31,19 +31,39 @@
   [极限点],
 )
 
-#let denseSet = optionLink(
-  "DenseSet",
-  [稠密集],
+#let denseForSet = (
+  optionLink("DenseSet", [稠密的]),
 )
 
 #let convergentForSeq = optionLink(
   "SeqConvergence",
-  [收敛的],
+  [收敛],
 )
 
-#let 序列紧性 = optionLink(
+#let connected = optionLink(
+  "Connected",
+  [连通],
+)
+
+#let pathConnected = optionLink(
+  "PathConnected",
+  [道路连通],
+)
+
+// property:
+#let 序列紧 = optionLink(
   "SequentialCompactness",
-  [序列紧性],
+  [序列紧],
+)
+
+#let compact = optionLink(
+  "Compactness",
+  [紧致],
+)
+
+#let 可数紧 = optionLink(
+  "CountableCompactness",
+  [可数紧],
 )
 
 // operator:
