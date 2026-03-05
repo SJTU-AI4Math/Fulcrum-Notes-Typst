@@ -14,7 +14,7 @@
 #let 拓扑空间 = optionLink(
   "TopologicalSpace",
   [拓扑空间],
-  url: "https://zh.wikipedia.org/wiki/%E6%8B%93%E6%89%91%E7%A9%BA%E9%97%B4"
+  url: "https://zh.wikipedia.org/wiki/%E6%8B%93%E6%89%91%E7%A9%BA%E9%97%B4",
 )
 
 #let openSet = optionLink(
@@ -43,12 +43,12 @@
 )
 
 #let connected = optionLink(
-  "Connected",
+  "Connectedness",
   [连通],
 )
 
 #let pathConnected = optionLink(
-  "PathConnected",
+  "PathConnectedness",
   [道路连通],
 )
 
@@ -72,6 +72,16 @@
   [可数紧],
 )
 
+#let continuity = optionLink(
+  "Continuity",
+  [连续],
+)
+
+#let continuous = optionLink(
+  "MapContinuity",
+  [连续],
+)
+
 // instance:
 #let 平凡拓扑 = optionLink(
   "TrivialTopology",
@@ -88,10 +98,18 @@
   #optionLink("NeighborhoodFamily", $op("Nbr")$)#h(0.1em) (#body)
 ]
 
+#let DelNbr = body => [
+  #optionLink("DeletedNeighborhood", $limits(op("Nbr"))^circle.tiny$)#h(0.1em) (#body)
+]
+
 #let Interior = body => [
   #optionLink("Interior", $op("Int")$)#h(0.1em) (#body)
 ]
 
 #let Closure = body => [
   #optionLink("Closure", $op("Cl")$)#h(0.1em) (#body)
+]
+
+#let Cont = (sour, targ) => [
+  #optionLink("MapContinuity", $op("C")$)#h(0.1fr) (#sour, #targ)
 ]

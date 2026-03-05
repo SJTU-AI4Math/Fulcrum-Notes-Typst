@@ -267,6 +267,19 @@
 ]
 
 #定义(
+  uuid: "DeletedNeighborhoodFamily",
+  "去心邻域系 / 去心邻域族",
+  "Deleted Neighborhood Family",
+  isPredicate: false,
+  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x in S$]),
+  notation: [$DelNbr(x)$],
+  bstyle: "display",
+  [点 $x$ 的去心邻域系 / 去心邻域族],
+)[
+  $ { N : Set(alpha), N in tau | x in N and N without {x} in Nbr(x) } $
+]
+
+#定义(
   uuid: "LimitPoint",
   "极限点 / 聚点",
   "Limit Point / Accumulation Point",
@@ -640,4 +653,206 @@
   $bb(R)$ 上的通常拓扑是由所有开区间
   $ (a,b) = { x | a < x < b }, (a,b in bb(R) union { -infinity, +infinity }) $
   生成的拓扑.
+]
+
+= 连续映射
+
+== 映射的极限与连续性
+
+#定义(
+  uuid: "MapLimit",
+  "映射的极限",
+  "Limit of Map",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  bstyle: "display",
+  notation: [$y=limits(lim)_(t arrow x) f(t)$],
+  [$f$ 在点 $x$ 处的极限是 $y$],
+)[
+  $ forall V_y in Nbr(y), exists U_x in DelNbr(x), f(U_x) subset.eq V_y $
+]
+
+#定义(
+  uuid: "MapConvergence",
+  "映射收敛",
+  "Convergence of Map",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  bstyle: "display",
+  notation: [$t arrow x implies (t) arrow y$],
+  [$f$ 在点 $x$ 处收敛于 $y$],
+)[
+  $f$ 在点 $x$ 处的极限是 $y$.
+]
+
+#注[
+  1. 映射的极限与映射在该点处的收敛是等价的.
+  2. 映射的极限与映射在该点处的像无关.
+]
+
+#性质(
+  uuid: "HeineReductionPrinciple",
+  "Heine 归结原理",
+  "Heine's Reduction Principle",
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  bstyle: "display",
+)[
+  $f$ 在点 $x$ 处的极限是 $y$ 当且仅当对于任意序列 $x_n$ 收敛于 $x$, 序列 $f(x_n)$ 收敛于 $y$.
+  $
+    lim_(t arrow x) f(t) = y arrow.l.r.double.long (forall {x_n}: Nat arrow X, lim_(n arrow infinity) x_n = x arrow.r.double.long lim_(n arrow infinity) f(x_n) = y )
+  $
+]
+
+#定义(
+  uuid: "Continuity",
+  "连续性",
+  "Continuity",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$]),
+  bstyle: "display",
+  [映射 $f$ 在点 $x$ 处连续],
+)[
+  $f$ 在点 $x$ 处的极限是 $f(x)$:
+  $ lim_(t arrow x) f(t) = f(x). $
+]
+
+#定义(
+  uuid: "MapContinuity",
+  "连续映射",
+  "Continuous Map",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E: Set(alpha) subset.eq X$], [$f: E arrow Y$]),
+  notation: [$f in Cont(E, Y)$],
+  [映射 $f$ 是 $E$ 上的连续映射],
+)[
+  $forall x in E, lim_(t arrow x) f(t) = f(x)$.
+  #linebreak()
+  即: $f$ 在任意 $x in E$ 处都#continuous.
+]
+
+#性质(
+  uuid: "ContinuityViaNeighborhood",
+  "连续性的邻域定义",
+  "Neighborhood Definition of Continuity",
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$]),
+  bstyle: "display",
+)[
+  $f$ 在 $x$ 处#continuity;当且仅当对于任意 $f(x)$ 的邻域 $V$, 都存在 $x$ 的一个邻域 $U$, 使得 $f(U) subset.eq V$. 即:
+  $forall V in Nbr(f(x)), exists U in Nbr(x), f(U) subset.eq V$.
+]
+
+#性质(
+  uuid: "ContinuityViaPreimage",
+  "连续性的原像定义",
+  "Preimage Definition of Continuity",
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: E arrow Y$], [$x: E$]),
+  bstyle: "display",
+)[
+  $f in Cont(E, Y)$ 当且仅当 $f(E)$ 的任意#openSet;的原像都是 $E$ 中的一个开集, 即
+  $ forall V in tau_Y and V subset.eq f(E), f^(-1)(V) subset.eq E and f^(-1)(V) in tau_X $.
+  同理, $f$ 是 $E$ 上的#continuous;映射当且仅当 $f(E)$ 的任意#closedSet;的原像都是 $E$ 中的一个闭集.
+]
+
+#性质(
+  "复合运算保持连续性",
+  "Composition Preserves Continuity",
+  hypotheses: (
+    [$(X,tau_X)$ 是一个#ts],
+    [$(Y,tau_Y)$ 是一个#ts],
+    [$(Z,tau_Z)$ 是一个#ts],
+    [$E subset.eq X$],
+    [$f: Cont(E, Y)$],
+    [$g: Cont(f(E), Z)$],
+  ),
+)[
+  $g circle.small f in Cont(E, Z)$.
+]
+
+#性质(
+  "连续映射保持连通性",
+  "Continuous Maps Preserve Connectedness",
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: Cont(E, Y)$]),
+)[
+  $f(E)$ 在 $Y$ 中#connected.
+]
+
+#性质(
+  "连续映射保持紧致性",
+  "Continuous Maps Preserve Compactness",
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: Cont(E, Y)$]),
+)[
+  $f(E)$ 在 $Y$ 中#compact.
+]
+
+== 同胚映射
+
+#定义(
+  uuid: "OpenMap",
+  "开映射",
+  "Open Map",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$]),
+  [映射 $f$ 是 $X$ 到 $Y$ 的开映射],
+)[
+  $forall U subset.eq X$, $U$ 是 $X$ 的一个开集 $arrow f(U)$ 是 $Y$ 的一个开集.
+]
+
+#注[
+  开映射作用下#openSet;的像一定是开集, 用来将拓扑结构推前; 连续映射作用下, #openSet;的原像一定是开集, 将拓扑结构拉回. 这也就是为什么*连续映射*又被称为*逆开映射*.
+]
+
+#例(
+  "开映射不一定是连续映射",
+  "An open map is not necessarily a continuous map",
+)[
+  考虑 $bb(R)$ 上的映射 $f$: 当 $x in bb(Q)$ 时 $f(x) = x$, 当 $x in bb(R) without bb(Q)$ 时 $f(x) = x + 1$. 则 $f$ 是一个开映射, 但不是一个#continuous;映射.
+]
+
+#例(
+  "连续映射不一定是开映射",
+  "A continuous map is not necessarily an open map",
+)[
+  考虑 $bb(R)$ 上的常值映射 $f(x) = 0$. 则 $f$ 是一个#continuous;映射, 但不是一个开映射.
+]
+
+
+#定义(
+  uuid: "Homeomorphism",
+  "同胚映射",
+  "Homeomorphism",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$]),
+  [映射 $f$ 是 $X$ 和 $Y$ 之间 / $X$ 到 $Y$ 的同胚映射],
+)[
+  $f$ 是双射, $f in Cont(X, Y)$, $f^(-1) in Cont(Y, X)$.
+]
+
+#注[
+  上述定义也可以表述为: 一个映射是同胚映射当且仅当它同时是连续映射、开映射、双射.
+]
+
+#定义(
+  uuid: "Homeomorphic",
+  "同胚",
+  "Homeomorphic",
+  isPredicate: true,
+  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts]),
+  notation: [$X tilde.equiv Y$],
+  [拓扑空间 $X$ 和 $Y$ 是同胚的],
+)[
+  $exists f: X arrow Y$, $f$ 是 $X$ 和 $Y$ 之间的一个同胚映射.
+]
+
+#性质(
+  "紧拓扑空间上连续映射的逆映射也连续",
+  "The inverse of a continuous map on a compact space is also continuous",
+  hypotheses: (
+    [$(X,tau_X)$ 是一个#ts],
+    [$(Y,tau_Y)$ 是一个#ts],
+    [$f: X arrow Y$],
+    [$E subset.eq X$ #compact],
+    [$f in Cont(E, Y)$],
+  ),
+)[
+  若 $f^(-1)$ 存在, 则 $f^(-1) in Cont(f(E), X)$.
 ]
