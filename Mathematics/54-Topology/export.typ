@@ -31,10 +31,6 @@
   [极限点],
 )
 
-#let denseForSet = (
-  optionLink("DenseSet", [稠密的]),
-)
-
 #let convergentForSeq = optionLink(
   "SeqConvergence",
   [收敛],
@@ -51,6 +47,10 @@
 )
 
 // property:
+#let 稠密 = (
+  optionLink("DenseSet", [稠密]),
+)
+
 #let 序列紧 = optionLink(
   "SequentialCompactness",
   [序列紧],
@@ -64,6 +64,17 @@
 #let 可数紧 = optionLink(
   "CountableCompactness",
   [可数紧],
+)
+
+// instance:
+#let 平凡拓扑 = optionLink(
+  "TrivialTopology",
+  [平凡拓扑],
+)
+
+#let 离散拓扑 = optionLink(
+  "DiscreteTopology",
+  [离散拓扑],
 )
 
 // operator:

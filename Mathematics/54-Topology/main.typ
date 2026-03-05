@@ -5,6 +5,7 @@
 /* set theory */
 #import "../03-SetTheory/export.typ": *
 #import "../03-TypeTheory/main.typ": *
+#import "../06-OrderTheory/export.typ": *
 
 #show: FulcrumCN
 
@@ -12,6 +13,10 @@
 
 #align(center)[
   #block(text(weight: "bold", size: 2em)[点集拓扑])
+]
+
+#align(center)[
+  #block(text(weight: "bold", size: 1em)[Point-Set Topology])
 ]
 
 #outline(title: "Contents", indent: 2em)
@@ -314,7 +319,7 @@
   "Dense Set",
   isPredicate: true,
   hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
-  [集合 $A$ 是 $S$ 中的一个#denseForSet],
+  [集合 $A$ 是 $S$ 中的一个#稠密;集],
 )[$Closure(A) = S$.]
 
 #注[
@@ -380,6 +385,10 @@
 
 #注[
   谈论序列是否收敛需要在拓扑空间中进行. 即选取的拓扑不同, 序列的收敛情况也可能不同. 例如在离散拓扑中, 每个序列都收敛于每个点.
+]
+
+#注[
+  极限可能不唯一. 例如在#平凡拓扑;中, 每个序列都#convergentForSeq;于每个点.
 ]
 
 #定义(
@@ -559,3 +568,76 @@
   "A closed and bounded set in topological space is not necessarily compact",
 )[]
 
+== 拓扑空间的例子
+
+#例(
+  uuid: "TrivialTopology",
+  "平凡拓扑",
+  "Trivial Topology",
+)[
+  设 $S:Set(alpha)$, 则 $S$ 上的平凡拓扑是 $tau = { emptyset, S }$.
+]
+
+#性质(
+  "平凡拓扑空间的性质",
+  "",
+  hypotheses: ([$(S,tau)$ 是平凡拓扑空间],),
+)[
+  1. $S$ 是#connected;的, 因为 $S$ 没有非平凡的开子集, 更不用说两个不交的非平凡开子集了.
+  2. $S$ 是#compact;的, 因为 $S$ 的任意开覆盖都包含 $S$ 本身, 从而有一个有限子覆盖.
+  3. $forall x in S$, $x$ 的邻域只有一个, 为 $S$.
+  4. 设 $E subset.neq S and E eq.not emptyset$, 则 $E$ 既不是#openSet, 也不是#closedSet. $Interior(E) = emptyset$.
+  5. 对任意包含多于1个元素的集合 $A subset.eq S$, $A'=S$, $Closure(A)=S$, $partial A = S$, $A$ 中的每个点都是 $A$ 的一个极限点.
+]
+
+#注[
+  这些性质都表明, 在平凡拓扑下, 所有点都“粘”在一起, 没有任何办法区分.
+]
+
+#例(
+  uuid: "DiscreteTopology",
+  "离散拓扑",
+  "Discrete Topology",
+)[
+  设 $S:Set(alpha)$, 则 $S$ 上的离散拓扑是 $tau = { A | A subset.eq S } = cal(P)(S)$.
+]
+
+#性质(
+  "离散拓扑空间的性质",
+  "",
+  hypotheses: ([$(S,tau)$ 是离散拓扑空间],),
+)[
+  1. $forall A subset.eq S$, $A$ 既是#openSet;也是#closedSet;. $Interior(A) = A$, $Closure(A) = A$, $partial A = emptyset$.
+  2. $forall A subset.eq S$, $A$ 是#connected;的当且仅当 $A$ 是单点集.
+]
+
+#注[
+  在离散拓扑下, 每个点都是孤立的, 总有#openSet;可以精准地区分每一点.
+]
+
+#注[
+  平凡拓扑与离散拓扑是两个极端的例子. 前者的开集最少, 后者的开集最多. 前者的点之间没有任何区分, 后者的点之间完全区分.
+  这两个极端的例子可以帮助我们理解拓扑空间中开集的作用.
+]
+
+#例(
+  uuid: "OrderTopology",
+  "序拓扑",
+  "Order Topology",
+)[
+  $S:Set(alpha)$ 具有#全序结构,设 $cal(B):Set(Set(alpha))$, 满足
+  1. 包含 $S$ 所有开区间 $(a,b) = { x in S | a < x < b }$;
+  2. 若 $S$ 有最小元素 $m$, 则包含 $S$ 的所有半开区间 $[m, b) = { x in S | m <= x < b }$;
+  3. 若 $S$ 有最大元素 $M$, 则包含 $S$ 的所有半开区间 $(a, M] = { x in S | a < x <= M }$.
+  则 $cal(B)$ 是 $S$ 上的一个拓扑基, 从而 $S$ 上的序拓扑是由 $cal(B)$ 生成的拓扑.
+]
+
+#例(
+  uuid: "",
+  "实数上的通常拓扑",
+  "Usual Topology on Real Numbers",
+)[
+  $bb(R)$ 上的通常拓扑是由所有开区间
+  $ (a,b) = { x | a < x < b }, (a,b in bb(R) union { -infinity, +infinity }) $
+  生成的拓扑.
+]
