@@ -11,6 +11,12 @@
   [拓扑空间],
 )
 
+#let 拓扑空间 = optionLink(
+  "TopologicalSpace",
+  [拓扑空间],
+  url: "https://zh.wikipedia.org/wiki/%E6%8B%93%E6%89%91%E7%A9%BA%E9%97%B4"
+)
+
 #let openSet = optionLink(
   "OpenSet",
   [开集],

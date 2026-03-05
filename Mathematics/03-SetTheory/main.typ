@@ -5,6 +5,7 @@
 #import "../06-OrderTheory/main.typ": *
 
 #show: FulcrumCN
+#show: SetStyle
 #hideRemark
 
 // 标题
@@ -38,8 +39,6 @@
 )
 
 #注[在集合元素所属的类型可从上下文中推断时，通常直接称为集合而不指明类型。]
-
-#show math.in: optionLink("Set.mem", $in$, url: "https://zh.wikipedia.org/wiki/%E5%85%83%E7%B4%A0_(%E6%95%B8%E5%AD%B8)")
 
 #定义(
   uuid: "Set.mem",
@@ -77,8 +76,6 @@
 
 #约定[#Type-decl($A, B$, Set($alpha$))]
 
-#show math.subset.eq: optionLink("Set.subset", $subset.eq$, url: "TBD")
-
 #定义(
   uuid: "Set.subset",
   "子集",
@@ -88,12 +85,6 @@
   isPredicate: true,
   notation: $A subset.eq B$,
 )
-
-#show math.subset: optionLink("Set.subset.remark", $subset$, url: "TBD")
-#show math.subset.eq.not: optionLink("Set.subset.remark", $subset.eq.not$, url: "TBD")
-#show math.supset: optionLink("Set.subset.remark", $supset$, url: "TBD")
-#show math.supset.eq: optionLink("Set.subset.remark", $supset.eq$, url: "TBD")
-#show math.supset.eq.not: optionLink("Set.subset.remark", $supset.eq.not$, url: "TBD")
 
 #注(uuid: "Set.subset.remark")[
   - “$A$ 包含于 $B$”亦称作“$A$ 是 $B$ 的子集”，或“$B$ 包含 $A$”，又记作 $B supset.eq A$。注意“包含”一词既可能指集合间关系、又可能指元素与集合间关系，应注意区分。
