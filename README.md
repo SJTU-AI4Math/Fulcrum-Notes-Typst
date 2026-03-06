@@ -6,11 +6,42 @@ Fulcrum-Template-Typst 包提供的函数信息参见对应的 `README.md` 文�
 
 ## 书写规范：
 
-0级：未分块自然语言，尽量避免。
-1级：分块但未分类自然语言，包括各种定理直觉、定义动机、术语别名、语言符号习惯，应包裹在“注”环境块中。
-2级：分类自然语言，即能明确归为“定义”、“定理”等类别的条目，但不想按 Lean 伪代码语法书写，用对应的“XX块”环境块包裹。该格式下只需指定中（英）文标题和条目内容即可。
-3级：带索引自然语言，在条目前对本次声明的术语用 `#let` 关键词和 `#optionLink` 函数声明一个带索引常量，`url` 参数可以留空。条目内容中术语采用对应的常量表达。在每次 commit 之前应通过 copilot 或手动将所有常量声明放入 `main.typ` 同目录下的 `export.typ` 文件中，以规避循环导入问题。
-4级：严格按照 Lean 伪代码语法书写的条目，使用对应环境包裹，比较麻烦，如果觉得累可以不这么做。
+0. 0级：未分块自然语言，尽量避免。
+
+1. 1级：分块但未分类自然语言
+    
+    包括各种定理直觉、定义动机、术语别名、语言符号习惯，应包裹在“注”环境块中。
+
+2. 2级：分类自然语言
+    
+    即能明确归为“定义”、“定理”等类别的条目，但不想按 Lean 伪代码语法书写，用对应的“XX块”环境块包裹。该格式下只需指定中（英）文标题和条目内容即可。
+
+3. 3级：带索引自然语言
+
+    在条目前对本次声明的术语用 `#let` 关键词和 `#optionLink` 函数声明一个带索引常量，`url` 参数可以留空。
+
+    定义一个 `#let <Name>Style = body => { ... body}` 函数，内容是：
+
+    对于已有自带符号，且该符号语义定向性强、适宜重载的（比如交集 $\cap$ 并集 $\cup$ 之类的符号），在函数体的 `body` 之前通过 `#show` 命令改变其默认展示模式。
+    
+    条目内容中术语采用对应的常量表达。对于自带符号，用 `#show : <Name>Style` 来改变相关符号的默认展示模式。 
+    
+    在每次 commit 之前应通过 copilot 或手动将所有常量声明和 `#show` 命令放入 `main.typ` 同目录下的 `export.typ` 文件中，以规避循环导入问题。
+
+    随手写的让 copilot 搬东西的 prompt：
+
+    ```
+    Please move all following codes:
+    1. constant declarations, with format `#let <varName> = optionLink( ... )`;
+    2. `#show` commands, with format `#show math.<opName> : optionLink( ... )`;
+    from `main.typ` to `export.typ` (the one which shares the same directory with `main.typ`), following these rules: 
+    1. For each constant declaration, make sure it is placed in the global scope, and in the same order as the corresponding entries in `main.typ`. 
+    2. For each `#show` command, make sure it is placed inside `#let <Name>Style = body => { ... body}` function body before `body`, and in the same order as the corresponding entries in `main.typ`.
+    ```
+
+4. 4级：严格按照 Lean 伪代码语法书写的条目
+
+    使用对应环境包裹，比较麻烦，如果觉得累可以不这么做。
 
 二级是及格线，三级是推荐标准，四级现阶段难以达到，仅作为一种 CNL 语言测试，未来我们尝试通过重写 Lean Pretty Print 来实现自动化的 CNL 生成。
 
