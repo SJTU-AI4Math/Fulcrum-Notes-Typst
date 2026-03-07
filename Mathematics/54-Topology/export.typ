@@ -6,23 +6,18 @@
   [拓扑],
 )
 
-#let ts = optionLink(
-  "TopologicalSpace",
-  [拓扑空间],
-)
-
 #let 拓扑空间 = optionLink(
   "TopologicalSpace",
   [拓扑空间],
   url: "https://zh.wikipedia.org/wiki/%E6%8B%93%E6%89%91%E7%A9%BA%E9%97%B4",
 )
 
-#let openSet = optionLink(
+#let 开集 = optionLink(
   "OpenSet",
   [开集],
 )
 
-#let closedSet = optionLink(
+#let 闭集 = optionLink(
   "ClosedSet",
   [闭集],
 )
