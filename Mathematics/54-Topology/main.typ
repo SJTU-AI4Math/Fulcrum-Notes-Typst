@@ -69,8 +69,8 @@
   "开集",
   "Open Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$U subset.eq S$]),
-  [$U$ 是 $S$ 的一个 #openSet],
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$U subset.eq S$]),
+  [$U$ 是 $S$ 的一个#开集],
 )[$U in tau$]
 
 #定义(
@@ -78,20 +78,22 @@
   "闭集",
   "Closed Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$U subset.eq S$]),
-  [$U$ 是 $S$ 的一个 #closedSet],
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$U subset.eq S$]),
+  [$U$ 是 $S$ 的一个 #闭集],
 )[$S without U in tau$]
 
-#注[对于集合上的拓扑空间, 只需指定一个幂集上的一元谓词来定义什么是开集.]
-#注[#openSet;和#closedSet;是对称的. 我们也可以使用闭集定义拓扑. ]
-#注[#openSet;和#closedSet;是相对的概念, 但并不完全对立. 例如在离散拓扑中, 每个子集既是开集又是闭集.]
+#注[对于集合上的拓扑空间, 只需指定一个幂集上的一元谓词来定义什么是开集. #linebreak()
+  #开集;和#闭集;是对称的. 我们也可以使用闭集定义拓扑.
+]
+
+#注[#开集;和#闭集;是相对的概念, 但并不完全对立. 例如在#离散拓扑;中, 每个子集既是开集又是闭集.]
 
 #定义(
   uuid: "Neighborhood",
   "邻域",
   "Neighborhood",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x in S$], [$U subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x in S$], [$U subset.eq S$]),
   [$U$ 是 $x$ 的一个 #neighborhood],
 )[
   $exists (O subset.eq S), O in tau and x in O and O subset.eq U$,
@@ -102,7 +104,7 @@
   "邻域系 / 邻域族",
   "Neighborhood Family",
   isPredicate: false,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x in S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x in S$]),
   notation: [$Nbr(x)$],
   [点 $x$ 的邻域系 / 邻域族],
 )[
@@ -116,7 +118,7 @@
   "内部",
   "Interior",
   isPredicate: false,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$]),
   notation: [$Interior(A)$ / $A^o$],
   [集合 $A$ 的内部],
 )[
@@ -129,7 +131,7 @@
   uuid: "InteriorPoint",
   "内部点",
   "Interior Point",
-  hypotheses: ([$(S,tau)$ 是#ts], [$E:Set(alpha) subset.eq S$, $x:alpha in E$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$E:Set(alpha) subset.eq S$, $x:alpha in E$]),
 )[
   $ x in Interior(E) arrow.l.r.double E in Nbr(x) $
 ]
@@ -145,7 +147,7 @@
   uuid: "Closure",
   "闭包",
   "Closure",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   notation: [$Closure(A)$ / $overline(A)$],
   [集合 $A$ 的闭包],
 )[
@@ -173,7 +175,7 @@
   "Closure Point",
   isPredicate: true,
   bstyle: "display",
-  hypotheses: ([$(S,tau)$ 是#ts], [$E:Set(alpha) subset.eq S$, $x:alpha in S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$E:Set(alpha) subset.eq S$, $x:alpha in S$]),
   [点 $x$ 是集合 $E$ 的一个闭包点],
 )[
   $ x in Closure(E) arrow.l.r.double forall U in Nbr(x), U inter E eq.not emptyset $
@@ -183,7 +185,7 @@
   uuid: "Boundary",
   "边界",
   "Boundary",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   notation: [$partial A$],
   [集合 $A$ 的边界],
 )[
@@ -213,7 +215,7 @@
   "拓扑基",
   "Topological Basis",
   isPredicate: true,
-  hypotheses: ([$(S,tau)$ 是#ts], [$cal(B):Set(alpha) subset.eq tau$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$cal(B):Set(alpha) subset.eq tau$]),
   [集合 $cal(B)$ 是拓扑 $tau$ 的一个拓扑基],
 )[
   $tau$ 是由 $cal(B)$ 生成的拓扑, 即 $forall U in tau$, $U$ 可以表示为 $U = union.big { B in cal(B) | B subset.eq U }$.
@@ -228,7 +230,7 @@
   "子空间拓扑",
   "Subspace Topology",
   isPredicate: false,
-  hypotheses: ([$(S,tau)$ 是#ts], [$X subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$X subset.eq S$]),
   bstyle: "display",
   [集合 $X$ 上的子空间拓扑],
 )[
@@ -236,7 +238,7 @@
 ]
 
 #注[
-  由子集诱导的子空间拓扑是从原拓扑中以该子集为边界“截取”出来的. 所以, 子空间拓扑中的#openSet/#closedSet;不一定是原拓扑中的#openSet/#closedSet.
+  由子集诱导的子空间拓扑是从原拓扑中以该子集为边界“截取”出来的. 所以, 子空间拓扑中的#开集/#闭集;不一定是原拓扑中的#开集/#闭集.
 ]
 
 #定义(
@@ -244,7 +246,7 @@
   "积拓扑",
   "Product Topology",
   isPredicate: false,
-  hypotheses: ([$(X,tau_X), (Y, tau_Y)$ 是#ts],),
+  hypotheses: ([$(X,tau_X), (Y, tau_Y)$ 是#拓扑空间],),
   [$X$ 和 $Y$ 的积拓扑],
 )[
   $
@@ -260,7 +262,7 @@
   "去心邻域",
   "Deleted Neighborhood",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x in S$], [$U subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x in S$], [$U subset.eq S$]),
   [$U: Set(alpha)$ 是点 $x: S$ 的一个去心邻域],
 )[
   $U union {x} in Nbr(x) and x in.not U$
@@ -271,7 +273,7 @@
   "去心邻域系 / 去心邻域族",
   "Deleted Neighborhood Family",
   isPredicate: false,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x in S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x in S$]),
   notation: [$DelNbr(x)$],
   bstyle: "display",
   [点 $x$ 的去心邻域系 / 去心邻域族],
@@ -284,7 +286,7 @@
   "极限点 / 聚点",
   "Limit Point / Accumulation Point",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$], [$x in S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$], [$x in S$]),
   [点 $x$ 是集合 $A$ 的一个#limitPoint],
 )[
   $forall U subset.eq S$, $U$ 是 $x$ 的一个去心邻域 $arrow U inter A eq.not emptyset$
@@ -295,7 +297,7 @@
   "导集",
   "Derived Set",
   isPredicate: false,
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   notation: [$A'$],
   bstyle: "display",
   [集合 $A$ 的导集],
@@ -308,20 +310,20 @@
   "孤立点",
   "Isolated Point",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$], [$x in S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$], [$x in S$]),
   [点 $x$ 是集合 $A$ 的一个孤立点],
 )[$x in A and x not in A'$]
 
 #性质(
   "导集与闭包的关系",
   "The relationship between derived set and closure",
-  hypotheses: ([$(S,tau)$ 是#ts], [$E subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$E subset.eq S$]),
 )[$E union E' = Closure(E)$.]
 
 #性质(
   "闭集的等价定义",
   "Equivalent definition of closed sets",
-  hypotheses: ([$(S,tau)$ 是#ts], [$E subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$E subset.eq S$]),
 )[
   $E$ 是闭集当且仅当 $E$ 包含了它的所有极限点, 即 $E' subset.eq E$.
 ]
@@ -331,12 +333,12 @@
   "稠密集",
   "Dense Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是 $S$ 中的一个#稠密;集],
 )[$Closure(A) = S$.]
 
 #注[
-  谈论稠密集可以在某个拓扑子空间 $X$ 中进行. 这时我们称集合 $A$ 在 $X$ 中稠密, 即 $A$ 在 $X$ 的闭包是 $X$ 本身, 即 $Closure_X(A) = X$.
+  谈论稠密集可以在某个拓扑子空间 $X$ 中进行. 这时我们称集合 $A$ 在 $X$ 中稠密, 即 $A$ 在 $X$ 的闭包是 $X$ 本身, 即 $Closure(A)_X = X$.
 ]
 
 #定义(
@@ -344,7 +346,7 @@
   "稀疏集 / 无处稠密集",
   "Nowhere Dense Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是 $S$ 中的一个稀疏集 / 无处稠密集],
 )[
   $Interior(Closure(A)) = emptyset$.
@@ -355,7 +357,7 @@
   "自稠密集",
   "Self-Dense Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是 $S$ 中的一个自稠密集],
 )[$A$ 的导集包含了 $A$ 本身, 即 $A subset.eq A'$.]
 
@@ -364,7 +366,7 @@
   "完美集",
   "Perfect Set",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$A subset.eq S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是 $S$ 中的一个完美集],
 )[$A' = A$]
 
@@ -377,7 +379,7 @@
   "序列的极限",
   "Limit of Sequence",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x_n: Nat -> S$], [$x: S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x_n: Nat -> S$], [$x: S$]),
   notation: [$lim_(n arrow infinity) x_n = x$],
   [点 $x$ 是序列 $x_n$ 的一个极限],
 )[
@@ -389,7 +391,7 @@
   "序列的收敛",
   "Convergence of Sequence",
   isPredicate: true,
-  hypotheses: ([ $(S, tau)$ 是一个#ts], [$x_n: Nat -> S$], [$x: S$]),
+  hypotheses: ([ $(S, tau)$ 是一个#拓扑空间], [$x_n: Nat -> S$], [$x: S$]),
   notation: [$x_n arrow x$],
   [序列 $x_n$ 收敛于点 $x$],
 )[
@@ -409,7 +411,7 @@
   "序列紧性",
   "Sequential Compactness",
   isPredicate: true,
-  hypotheses: ([$(S,tau)$ 是#ts], [$x_n: Nat arrow S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$x_n: Nat arrow S$]),
   [序列 $x_n$ 具有#序列紧;性],
 )[
   序列 $x_n$ 有#convergentForSeq;子列. 即 $exists p:Nat arrow Nat, x_(p(n)) subset.eq x_n$, $x_(p(n)) arrow x$.
@@ -424,7 +426,7 @@
   "连通性",
   "Connectedness",
   isPredicate: true,
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是一个连通集合],
 )[
   $A$ 不能表示为 $A = U union V$ 的形式, 其中 $U$ 和 $V$ 是 $A$ 的两个不交的非平凡开子集, 即
@@ -436,7 +438,7 @@
   "道路连通",
   "Path Connectedness",
   isPredicate: true,
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是一个道路连通的集合],
 )[
   $forall x, y in A$, $exists f: [0,1] arrow A$, $f(0) = x$, $f(1) = y$, $f:C([0,1])$.
@@ -445,7 +447,7 @@
 #性质(
   "道路连通蕴含连通",
   "Path connectedness implies connectedness",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
 )[$A$ 是#pathConnected $==>$ $A$ 是#connected]
 
 #例(
@@ -465,7 +467,7 @@
   "Open Cover",
   isPredicate: true,
   bstyle: "display",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$], [$C: Set(Set(S))$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$], [$C: Set(Set(S))$]),
   [集合族 $C$ 是集合 $A$ 的一个开覆盖],
 )[
   $forall U in C$, $U in tau$,
@@ -478,7 +480,7 @@
   "Compactness",
   isPredicate: true,
   bstyle: "display",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 是一个#compact;集],
 )[
   $forall C$, $C$ 是 $A$ 的一个开覆盖 $arrow.double$ $exists F subset.eq C$, $F$ 是 $A$ 的一个有限的子开覆盖.
@@ -500,13 +502,13 @@
 #性质(
   "紧致集的闭子集也是紧致的",
   "Closed subsets of compact sets are compact",
-  hypotheses: ([$(S,tau)$ 是#ts], [$K subset.eq S$ #compact]),
-)[$forall C subset.eq K$, $C$ 是#closedSet $arrow$ $C$ #compact]
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$K subset.eq S$ #compact]),
+)[$forall C subset.eq K$, $C$ 是#闭集 $arrow$ $C$ #compact]
 
 #性质(
   "紧致性的绝对性",
   "Absoluteness of compactness",
-  hypotheses: ([$(S,tau)$ 是#ts], [$(X,tau_X)$ 是 $S$ 的一个拓扑子空间], [$K subset.eq X$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$(X,tau_X)$ 是 $S$ 的一个拓扑子空间], [$K subset.eq X$]),
 )[$K$ 在 $X$ 中#compact; $arrow.l.r.double$ $K$ 在 $S$ 中#compact;]
 
 #定义(
@@ -515,7 +517,7 @@
   "Countable Compactness",
   isPredicate: true,
   bstyle: "display",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$]),
   [集合 $A$ 具有#可数紧;性],
 )[
   $forall C$, $C$ 是 $A$ 的一个可数的开覆盖 $arrow.double$ $exists F subset.eq C$, $F$ 是 $A$ 的一个有限的子开覆盖.
@@ -524,13 +526,13 @@
 ]
 
 #注[
-  在一般的#ts;中, 紧致性、可数紧性、序列紧性三者是完全不同的性质. 具体而言有以下的关系:
+  在一般的#拓扑空间;中, 紧致性、可数紧性、序列紧性三者是完全不同的性质. 具体而言有以下的关系:
 ]
 
 #性质(
   "紧致性蕴含可数紧性",
   "Compactness implies countable compactness",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$ #compact]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$ #compact]),
 )[
   $A$ #可数紧.
 ]
@@ -538,7 +540,7 @@
 #性质(
   "序列紧性蕴含可数紧性",
   "Sequential compactness implies countable compactness",
-  hypotheses: ([$(S,tau)$ 是#ts], [$A subset.eq S$ #序列紧]),
+  hypotheses: ([$(S,tau)$ 是#拓扑空间], [$A subset.eq S$ #序列紧]),
 )[$A$ #可数紧.]
 
 #例(
@@ -573,7 +575,7 @@
   (1) $E$ #compact;;
   (2) $E$ #序列紧;;
   (3) $E$ #可数紧;;
-  (4) $E$ 是#closedSet;且有界的.
+  (4) $E$ 是#闭集;且有界的.
 ]
 
 #例(
@@ -599,7 +601,7 @@
   1. $S$ 是#connected;的, 因为 $S$ 没有非平凡的开子集, 更不用说两个不交的非平凡开子集了.
   2. $S$ 是#compact;的, 因为 $S$ 的任意开覆盖都包含 $S$ 本身, 从而有一个有限子覆盖.
   3. $forall x in S$, $x$ 的邻域只有一个, 为 $S$.
-  4. 设 $E subset.neq S and E eq.not emptyset$, 则 $E$ 既不是#openSet, 也不是#closedSet. $Interior(E) = emptyset$.
+  4. 设 $E subset.neq S and E eq.not emptyset$, 则 $E$ 既不是#开集, 也不是#闭集. $Interior(E) = emptyset$.
   5. 对任意包含多于1个元素的集合 $A subset.eq S$, $A'=S$, $Closure(A)=S$, $partial A = S$, $A$ 中的每个点都是 $A$ 的一个极限点.
 ]
 
@@ -620,12 +622,12 @@
   "",
   hypotheses: ([$(S,tau)$ 是离散拓扑空间],),
 )[
-  1. $forall A subset.eq S$, $A$ 既是#openSet;也是#closedSet;. $Interior(A) = A$, $Closure(A) = A$, $partial A = emptyset$.
+  1. $forall A subset.eq S$, $A$ 既是#开集;也是#闭集;. $Interior(A) = A$, $Closure(A) = A$, $partial A = emptyset$.
   2. $forall A subset.eq S$, $A$ 是#connected;的当且仅当 $A$ 是单点集.
 ]
 
 #注[
-  在离散拓扑下, 每个点都是孤立的, 总有#openSet;可以精准地区分每一点.
+  在离散拓扑下, 每个点都是孤立的, 总有#开集;可以精准地区分每一点.
 ]
 
 #注[
@@ -664,7 +666,7 @@
   "映射的极限",
   "Limit of Map",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
   bstyle: "display",
   notation: [$y=limits(lim)_(t arrow x) f(t)$],
   [$f$ 在点 $x$ 处的极限是 $y$],
@@ -677,7 +679,7 @@
   "映射收敛",
   "Convergence of Map",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
   bstyle: "display",
   notation: [$t arrow x implies (t) arrow y$],
   [$f$ 在点 $x$ 处收敛于 $y$],
@@ -694,7 +696,7 @@
   uuid: "HeineReductionPrinciple",
   "Heine 归结原理",
   "Heine's Reduction Principle",
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
   bstyle: "display",
 )[
   $f$ 在点 $x$ 处的极限是 $y$ 当且仅当对于任意序列 $x_n$ 收敛于 $x$, 序列 $f(x_n)$ 收敛于 $y$.
@@ -708,7 +710,7 @@
   "连续性",
   "Continuity",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$]),
   bstyle: "display",
   [映射 $f$ 在点 $x$ 处连续],
 )[
@@ -721,7 +723,12 @@
   "连续映射",
   "Continuous Map",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E: Set(alpha) subset.eq X$], [$f: E arrow Y$]),
+  hypotheses: (
+    [$(X,tau_X)$ 是一个#拓扑空间],
+    [$(Y,tau_Y)$ 是一个#拓扑空间],
+    [$E: Set(alpha) subset.eq X$],
+    [$f: E arrow Y$],
+  ),
   notation: [$f in Cont(E, Y)$],
   [映射 $f$ 是 $E$ 上的连续映射],
 )[
@@ -734,7 +741,7 @@
   uuid: "ContinuityViaNeighborhood",
   "连续性的邻域定义",
   "Neighborhood Definition of Continuity",
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$], [$x: X$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$]),
   bstyle: "display",
 )[
   $f$ 在 $x$ 处#continuity;当且仅当对于任意 $f(x)$ 的邻域 $V$, 都存在 $x$ 的一个邻域 $U$, 使得 $f(U) subset.eq V$. 即:
@@ -745,21 +752,27 @@
   uuid: "ContinuityViaPreimage",
   "连续性的原像定义",
   "Preimage Definition of Continuity",
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: E arrow Y$], [$x: E$]),
+  hypotheses: (
+    [$(X,tau_X)$ 是一个#拓扑空间],
+    [$(Y,tau_Y)$ 是一个#拓扑空间],
+    [$E subset.eq X$],
+    [$f: E arrow Y$],
+    [$x: E$],
+  ),
   bstyle: "display",
 )[
-  $f in Cont(E, Y)$ 当且仅当 $f(E)$ 的任意#openSet;的原像都是 $E$ 中的一个开集, 即
+  $f in Cont(E, Y)$ 当且仅当 $f(E)$ 的任意#开集;的原像都是 $E$ 中的一个开集, 即
   $ forall V in tau_Y and V subset.eq f(E), f^(-1)(V) subset.eq E and f^(-1)(V) in tau_X $.
-  同理, $f$ 是 $E$ 上的#continuous;映射当且仅当 $f(E)$ 的任意#closedSet;的原像都是 $E$ 中的一个闭集.
+  同理, $f$ 是 $E$ 上的#continuous;映射当且仅当 $f(E)$ 的任意#闭集;的原像都是 $E$ 中的一个闭集.
 ]
 
 #性质(
   "复合运算保持连续性",
   "Composition Preserves Continuity",
   hypotheses: (
-    [$(X,tau_X)$ 是一个#ts],
-    [$(Y,tau_Y)$ 是一个#ts],
-    [$(Z,tau_Z)$ 是一个#ts],
+    [$(X,tau_X)$ 是一个#拓扑空间],
+    [$(Y,tau_Y)$ 是一个#拓扑空间],
+    [$(Z,tau_Z)$ 是一个#拓扑空间],
     [$E subset.eq X$],
     [$f: Cont(E, Y)$],
     [$g: Cont(f(E), Z)$],
@@ -771,7 +784,7 @@
 #性质(
   "连续映射保持连通性",
   "Continuous Maps Preserve Connectedness",
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: Cont(E, Y)$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$E subset.eq X$], [$f: Cont(E, Y)$]),
 )[
   $f(E)$ 在 $Y$ 中#connected.
 ]
@@ -779,7 +792,7 @@
 #性质(
   "连续映射保持紧致性",
   "Continuous Maps Preserve Compactness",
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$E subset.eq X$], [$f: Cont(E, Y)$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$E subset.eq X$], [$f: Cont(E, Y)$]),
 )[
   $f(E)$ 在 $Y$ 中#compact.
 ]
@@ -791,14 +804,14 @@
   "开映射",
   "Open Map",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$]),
   [映射 $f$ 是 $X$ 到 $Y$ 的开映射],
 )[
   $forall U subset.eq X$, $U$ 是 $X$ 的一个开集 $arrow f(U)$ 是 $Y$ 的一个开集.
 ]
 
 #注[
-  开映射作用下#openSet;的像一定是开集, 用来将拓扑结构推前; 连续映射作用下, #openSet;的原像一定是开集, 将拓扑结构拉回. 这也就是为什么*连续映射*又被称为*逆开映射*.
+  开映射作用下#开集;的像一定是开集, 用来将拓扑结构推前; 连续映射作用下, #开集;的原像一定是开集, 将拓扑结构拉回. 这也就是为什么*连续映射*又被称为*逆开映射*.
 ]
 
 #例(
@@ -821,7 +834,7 @@
   "同胚映射",
   "Homeomorphism",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts], [$f: X arrow Y$]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$]),
   [映射 $f$ 是 $X$ 和 $Y$ 之间 / $X$ 到 $Y$ 的同胚映射],
 )[
   $f$ 是双射, $f in Cont(X, Y)$, $f^(-1) in Cont(Y, X)$.
@@ -836,7 +849,7 @@
   "同胚",
   "Homeomorphic",
   isPredicate: true,
-  hypotheses: ([$(X,tau_X)$ 是一个#ts], [$(Y,tau_Y)$ 是一个#ts]),
+  hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间]),
   notation: [$X tilde.equiv Y$],
   [拓扑空间 $X$ 和 $Y$ 是同胚的],
 )[
@@ -847,12 +860,135 @@
   "紧拓扑空间上连续映射的逆映射也连续",
   "The inverse of a continuous map on a compact space is also continuous",
   hypotheses: (
-    [$(X,tau_X)$ 是一个#ts],
-    [$(Y,tau_Y)$ 是一个#ts],
+    [$(X,tau_X)$ 是一个#拓扑空间],
+    [$(Y,tau_Y)$ 是一个#拓扑空间],
     [$f: X arrow Y$],
     [$E subset.eq X$ #compact],
     [$f in Cont(E, Y)$],
   ),
 )[
   若 $f^(-1)$ 存在, 则 $f^(-1) in Cont(f(E), X)$.
+]
+
+== 拓扑空间的分离性
+
+#定义(
+  uuid: "T0Space",
+  "T0 空间 / Kolmogorov 空间",
+  "T0 Space / Kolmogorov Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T0 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies (exists U in Nbr(x), and y in.not U) or (exists V in Nbr(y), and x in.not V)$,
+]
+
+#注[
+  在 T0 空间中, 任意两点都可以被一个#开集;区分, 使其一个在开集内, 另一个在开集外.
+]
+#例(
+  "Sierpinski 空间",
+  "Sierpinski Space",
+)[
+  #拓扑空间; $S={x,y}$ 上的 Sierpinski 空间是 $tau = { emptyset, {x}, S }$. 则 $S$ 是一个 T0 空间. 但它不满足更强的分离性.
+]
+
+#定义(
+  uuid: "T1Space",
+  "T1 空间 / Frechet 空间",
+  "T1 Space / Frechet Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T1 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies exists U in Nbr(x), and y in.not U, and exists V in Nbr(y), and x in.not V$,
+]
+
+#注[
+  在 T1 空间中, 任意一点都可以被#开集;区分.
+]
+
+#性质(
+  "T1 空间的等价定义",
+  "Equivalent definition of T1 space",
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+)[
+  $S$ 是 T1 空间 $arrow.l.r.double$ $forall x in S$, ${x}$ 是#闭集.
+  #linebreak()
+  即: 单点集是闭集.
+]
+
+#例(
+  "无限集合上的有限补拓扑",
+  "Cofinite Topology",
+)[
+  设 $X:Set(alpha)$ 是无限集合. 定义#topology:
+  $ tau:= {U subset.eq X | X without U "is finite"} union { emptyset } $
+  则 $(X,tau)$ 是#拓扑空间. 它是一个 T1 空间, 因为任意单点集 ${x}$ 的补集 $X without {x}$ 都是无限的, 从而 ${x}$ 是#闭集. 但它不满足更强的分离性.
+]
+
+#例(
+  "T1 空间上的极限可能不唯一",
+  "Limits may not be unique in T1 spaces",
+)[
+  设 $(X,tau)$ 是无限集合上的有限补拓扑空间, 则该空间中的序列可以收敛到多个极限, 实际上是无穷多个极限. 因为这其中的点的开邻域都是无限集合.
+]
+
+#定义(
+  uuid: "T2Space",
+  "T2 空间 / Hausdorff 空间",
+  "T2 Space / Hausdorff Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T2 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies exists U in Nbr(x), and V in Nbr(y), and U inter V = emptyset$,
+]
+
+#性质(
+  "T2 空间上的极限是唯一的",
+  "Limits are unique in T2 spaces",
+)[]
+
+#注[
+  T2 空间实际上保证了任意两点都可以用各自的不交邻域区分. 这种严格的分离性确保了点不会粘在一起, 从而保证了极限的唯一性.
+]
+
+#性质(
+  "T2 空间中的紧致集是闭集",
+  "Compact sets are closed in T2 spaces",
+  hypotheses: ([$(S,tau)$ 是 T2 空间], [$K subset.eq S$ #compact]),
+)[
+  $K$ 是#闭集;.
+]
+
+#性质(
+  "T2 空间上的紧集套定理",
+  "Nested Compact Set Theorem in T2 spaces",
+  hypotheses: (
+    [$(S,tau)$ 是 T2 空间],
+    [$K_n: Nat arrow Set(S)$],
+    [$forall n in Nat, K_(n+1) subset.eq K_n$],
+    [$forall n in Nat, K_n eq.not emptyset, K$ #compact],
+  ),
+)[
+  $inter.big_(n in Nat) K_n eq.not emptyset$.
+]
+
+#性质(
+  "Hausdorff 空间之间的连续映射保持点列的收敛性",
+  "Continuous maps between Hausdorff spaces preserve convergence of sequences",
+  hypotheses: (
+    [$(X,tau_X)$ 是 T2 空间],
+    [$(Y,tau_Y)$ 是 T2 空间],
+    [$f: X arrow Y$],
+    [$x_n: Nat arrow X$],
+    [$x: X$],
+    [$x_n arrow x$],
+    [$f$ 在 $x$ 处#continuity;],
+  ),
+)[
+  $f(x_n) arrow f(x)$.
+  #linebreak()
+  此定理的另一种表述方法是: 若 $f$ 是 T2 空间之间的连续映射, 则极限与映射可交换顺序.
 ]
