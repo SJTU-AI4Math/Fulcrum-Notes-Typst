@@ -9,6 +9,8 @@
 
 #let implies = optionLink("Implies", $==>$, url: "https://zh.wikipedia.org/wiki/%E5%AE%9E%E8%B4%A8%E6%9D%A1%E4%BB%B6")
 
+#let iff = optionLink("Iff", $<==>$)
+
 #let Prop = optionLink("Prop", [$op("Prop")$], url: "https://zh.wikipedia.org/wiki/%E5%91%BD%E9%A2%98")
 
 #let Type = optionLink("Type", [$op("Type")$], url: "https://zh.wikipedia.org/wiki/%E7%B1%BB%E5%9E%8B%E8%AE%BA")
@@ -16,6 +18,10 @@
 
 #let Nat = optionLink("NaturalNumber", $bb(N)$, url: "https://zh.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E6%95%B0")
 
+#let Real = optionLink("RealNumber", $bb(R)$, url: "https://zh.wikipedia.org/wiki/%E5%AE%9E%E6%95%B0")
+
 #let ENNReal = optionLink("ENNReal", $macron(bb(R))_(>= 0)$, url: "https://zh.wikipedia.org/wiki/%E6%93%B4%E5%B1%95%E5%AF%A6%E6%95%B8%E7%B7%9A")
+
+#let EReal = optionLink("EReal", $macron(bb(R))$, url: "https://zh.wikipedia.org/wiki/%E6%93%B4%E5%B1%95%E5%AF%A6%E6%95%B8%E7%B7%9A")
 
 #let 两两 = optionLink("Pairwise", [两两])
