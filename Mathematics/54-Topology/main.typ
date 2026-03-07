@@ -869,3 +869,126 @@
 )[
   若 $f^(-1)$ 存在, 则 $f^(-1) in Cont(f(E), X)$.
 ]
+
+== 拓扑空间的分离性
+
+#定义(
+  uuid: "T0Space",
+  "T0 空间 / Kolmogorov 空间",
+  "T0 Space / Kolmogorov Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T0 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies (exists U in Nbr(x), and y in.not U) or (exists V in Nbr(y), and x in.not V)$,
+]
+
+#注[
+  在 T0 空间中, 任意两点都可以被一个#开集;区分, 使其一个在开集内, 另一个在开集外.
+]
+#例(
+  "Sierpinski 空间",
+  "Sierpinski Space",
+)[
+  #拓扑空间; $S={x,y}$ 上的 Sierpinski 空间是 $tau = { emptyset, {x}, S }$. 则 $S$ 是一个 T0 空间. 但它不满足更强的分离性.
+]
+
+#定义(
+  uuid: "T1Space",
+  "T1 空间 / Frechet 空间",
+  "T1 Space / Frechet Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T1 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies exists U in Nbr(x), and y in.not U, and exists V in Nbr(y), and x in.not V$,
+]
+
+#注[
+  在 T1 空间中, 任意一点都可以被#开集;区分.
+]
+
+#性质(
+  "T1 空间的等价定义",
+  "Equivalent definition of T1 space",
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+)[
+  $S$ 是 T1 空间 $arrow.l.r.double$ $forall x in S$, ${x}$ 是#闭集.
+  #linebreak()
+  即: 单点集是闭集.
+]
+
+#例(
+  "无限集合上的有限补拓扑",
+  "Cofinite Topology",
+)[
+  设 $X:Set(alpha)$ 是无限集合. 定义#topology:
+  $ tau:= {U subset.eq X | X without U "is finite"} union { emptyset } $
+  则 $(X,tau)$ 是#拓扑空间. 它是一个 T1 空间, 因为任意单点集 ${x}$ 的补集 $X without {x}$ 都是无限的, 从而 ${x}$ 是#闭集. 但它不满足更强的分离性.
+]
+
+#例(
+  "T1 空间上的极限可能不唯一",
+  "Limits may not be unique in T1 spaces",
+)[
+  设 $(X,tau)$ 是无限集合上的有限补拓扑空间, 则该空间中的序列可以收敛到多个极限, 实际上是无穷多个极限. 因为这其中的点的开邻域都是无限集合.
+]
+
+#定义(
+  uuid: "T2Space",
+  "T2 空间 / Hausdorff 空间",
+  "T2 Space / Hausdorff Space",
+  isPredicate: true,
+  hypotheses: ([$(S,tau)$ 是#拓扑空间],),
+  [$S$ 是 T2 空间],
+)[
+  $forall x, y in S$, $x eq.not y implies exists U in Nbr(x), and V in Nbr(y), and U inter V = emptyset$,
+]
+
+#性质(
+  "T2 空间上的极限是唯一的",
+  "Limits are unique in T2 spaces",
+)[]
+
+#注[
+  T2 空间实际上保证了任意两点都可以用各自的不交邻域区分. 这种严格的分离性确保了点不会粘在一起, 从而保证了极限的唯一性.
+]
+
+#性质(
+  "T2 空间中的紧致集是闭集",
+  "Compact sets are closed in T2 spaces",
+  hypotheses: ([$(S,tau)$ 是 T2 空间], [$K subset.eq S$ #compact]),
+)[
+  $K$ 是#闭集;.
+]
+
+#性质(
+  "T2 空间上的紧集套定理",
+  "Nested Compact Set Theorem in T2 spaces",
+  hypotheses: (
+    [$(S,tau)$ 是 T2 空间],
+    [$K_n: Nat arrow Set(S)$],
+    [$forall n in Nat, K_(n+1) subset.eq K_n$],
+    [$forall n in Nat, K_n eq.not emptyset, K$ #compact],
+  ),
+)[
+  $inter.big_(n in Nat) K_n eq.not emptyset$.
+]
+
+#性质(
+  "Hausdorff 空间之间的连续映射保持点列的收敛性",
+  "Continuous maps between Hausdorff spaces preserve convergence of sequences",
+  hypotheses: (
+    [$(X,tau_X)$ 是 T2 空间],
+    [$(Y,tau_Y)$ 是 T2 空间],
+    [$f: X arrow Y$],
+    [$x_n: Nat arrow X$],
+    [$x: X$],
+    [$x_n arrow x$],
+    [$f$ 在 $x$ 处#continuity;],
+  ),
+)[
+  $f(x_n) arrow f(x)$.
+  #linebreak()
+  此定理的另一种表述方法是: 若 $f$ 是 T2 空间之间的连续映射, 则极限与映射可交换顺序.
+]
