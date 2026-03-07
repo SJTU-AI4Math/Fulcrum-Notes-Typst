@@ -31,3 +31,5 @@
 ]
 
 #let 不交 = optionLink("Disjoint", [不交], url: "https://zh.wikipedia.org/wiki/%E4%B8%8D%E4%BA%A4%E9%9B%86")
+
+#let card = s => $#optionLink("Cardinality", $op("card")$) (#s)$

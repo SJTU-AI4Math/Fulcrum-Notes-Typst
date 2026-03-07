@@ -8,3 +8,8 @@
 #let GL = (V) => $
   #optionLink("GeneralLinearGroup", $op("GL")$) (#V)
 $
+
+#let 代数 = optionLink(
+  "Algebra",
+  [代数]
+)

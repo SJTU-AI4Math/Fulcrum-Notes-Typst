@@ -28,3 +28,8 @@
 )
 
 #let 集合Lebesgue可测 = optionLink("LebesgueMeasurableSet", [Lebesgue 可测])
+
+#let 几乎处处 = optionLink(
+  "AlmostEverywhere",
+  [几乎处处],
+)

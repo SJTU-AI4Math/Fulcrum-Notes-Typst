@@ -24,3 +24,8 @@
   "LowerBound",
   [下界],
 )
+
+#let 单调 = optionLink(
+  "Monotone",
+  [单调],
+)
