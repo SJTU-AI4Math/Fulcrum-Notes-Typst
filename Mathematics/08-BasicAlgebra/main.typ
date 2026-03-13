@@ -1,6 +1,8 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 #import "../03-TypeTheory/main.typ": *
+#import "../03-TypeTheory/export.typ": *
 #import "../03-SetTheory/export.typ": *
+#import "export.typ": *
 
 #show : FulcrumCN
 #show : SetStyle
@@ -27,11 +29,6 @@
 
 == 基本定义
 
-#let 半群 = optionLink(
-  "Semigroup",
-  [半群]
-)
-
 #结构(
   uuid: "Semigroup",
   "半群",
@@ -45,11 +42,6 @@
 
 #注[通常书写时省略乘号“$dot$”，即将 $a dot b$ 写作 $a b$。]
 
-#let 幂 = optionLink(
-  "NatPower",
-  [自然数幂]
-)
-
 #定义(
   "自然数幂",
   "NatPower",
@@ -62,11 +54,6 @@
     - 若 $n = 0$，$e$；
     - 若 $n = m + 1$，$a dot a^m$,
   ],
-)
-
-#let 幺半群 = optionLink(
-  "Monoid",
-  [幺半群]
 )
 
 #结构(
@@ -94,11 +81,6 @@
   [$e' = e$],
 )
 
-#let 群 = optionLink(
-  "Group",
-  [群]
-)
-
 #结构(
   uuid: "Group",
   "群",
@@ -122,68 +104,50 @@
   - $f : G -> H$
 ]
 
-#let GHom = (G, H) => $
-#optionLink("GroupHomomorphism",$op("Hom")$) (#G, #H)
-$
-
-#let 群同态 = optionLink(
-  "GroupHomomorphism",
-  [群同态]
-)
-
 #结构(
   uuid: "GroupHomomorphism",
   "群同态",
   "Group Homomorphism",
-  [$G$ 到 $H$ 的群同态],
+  [$f$ 是 $G$ 到 $H$ 的#群同态],
+  isPredicate: true,
   (
-    (name: [同态映射], varName: [$f$], value: [$G -> H$]),
     (name: [保持恒等元], value: [$f(e_G) = e_H$]),
     (name: [保持乘法], value: [$forall (a, b : G), f(a dot_G b) = f(a) dot_H f(b)$]),
   ),
   notation: [$GHom(G, H)$],
 )
 
-#let GMono = optionLink(
-  "GroupMonomorphism",
-  [$arrow.hook$]
+#性质(
+  uuid: "GroupHomomorphismIff",
+  "群同态等价定义",
+  "",
+  hypotheses: ([ $forall a,b : G, $],),
+  [$GHom(G, H)$]
 )
 
 #结构(
   uuid: "GroupMonomorphism",
   "群单同态",
   "Group Monomorphism",
-  hypotheses: ([ $f : GHom(G, H)$],),
-  extends: ([#群同态],),
-  [$G$ 到 $H$ 的群单同态],
+  extends: ([ $f$ 是#群同态],),
+  [$f$ 是 $G$ 到 $H$ 的群单同态],
   (
     (name: [单射], value: [$f$ 是单射]),
   ),
   notation: [$G GMono H$],
 )
 
-#let GEpi = optionLink(
-  "GroupEpimorphism",
-  [$arrow.twohead$]
-)
-
 #结构(
   uuid: "GroupEpimorphism",
   "群满同态",
   "Group Epimorphism",
-  hypotheses: ([#link(<GroupMonomorphism>, [同上])],),
-  extends: ([#群同态],),
-  [$G$ 到 $H$ 的群满同态],
+  extends: ([ $f$ 是#群同态],),
+  [$f$ 是 $G$ 到 $H$ 的群满同态],
   (
     (name: [满射], value: [$f$ 是满射]),
   ),
   notation: [$G GEpi H$],
   extention: true
-)
-
-#let GIso = optionLink(
-  "GroupIsomorphism",
-  [$tilde.equiv$]
 )
 
 #结构(
@@ -210,6 +174,48 @@ $
 
 == 子群
 
+#约定[
+  - $G : Type$
+  - $dot_G : G -> G -> G$
+  - $(G, dot_G)$ 是#群
+]
+
+#let SubG = $#optionLink("Subgroup", $<=$)$
+#let PSubG = $#optionLink("ProperSubgroup", $<$)$
+
+#定义(
+  uuid: "Subgroup",
+  "子群",
+  "Subgroup",
+  hypotheses: ([ $H : Set(G)$],),
+  [$H$ 是 $G$ 的子群],
+  isPredicate: true,
+  [ $(H, dot_G)$ 是#群],
+  notation: [$H SubG G$],
+)
+
+#定义(
+  uuid: "ProperSubgroup",
+  "真子群",
+  "Proper Subgroup",
+  hypotheses: (link(<Subgroup>, [同上]),),
+  [$H$ 是 $G$ 的真子群],
+  isPredicate: true,
+  isExtension: true,
+  [ $H SubG G and H != G$],
+  notation: [$H PSubG G$],
+)
+
+#性质(
+  uuid: "TrivialSubgroup",
+  [平凡子群],
+  [Trivial Subgroup],
+  cstyle: "display",
+  $ #structProp(
+    (name: "1 子群", value: $(1, dot) SubG G$),
+    (name: "全子群", value: $(G, dot) SubG G$)
+  ) $,
+)
 
 
 

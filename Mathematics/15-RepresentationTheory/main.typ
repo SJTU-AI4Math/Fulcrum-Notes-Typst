@@ -1,4 +1,5 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
+#import "export.typ": *
 #import "../03-SetTheory/export.typ": *
 #import "../06-OrderTheory/export.typ": *
 #import "../08-BasicAlgebra/main.typ": *
@@ -16,22 +17,23 @@
 = 群表示论
 
 #约定[
-  - $G, bb(K), V : Type$
+  - $G, KK, V : Type$
   - $dot_G : G -> G -> G$
-  - $+_bb(K) : bb(K) -> bb(K) -> bb(K)$
-  - $dot_bb(K) : bb(K) -> bb(K) -> bb(K)$
+  - $+_KK : KK -> KK -> KK$
+  - $dot_KK : KK -> KK -> KK$
   - $(G, dot_G)$ 是#群
-  - $(bb(K), +_bb(K), dot_bb(K))$ 是#域
-  - $V$ 是 $bb(K)$ 上的#线性空间
+  - $(KK, +_KK, dot_KK)$ 是#域
+  - $U, V$ 是 $KK$ 上的#线性空间
+  - $dim U, dim V < aleph_0$
 ]
 
-==
+== 基本定义
 
 #定义(
-  uuid: "Representation",
-  "表示",
-  "Representation",
-  [$G$ 的 $V$-表示],
+  uuid: "GroupRepresentation",
+  "群表示",
+  "Group Representation",
+  [$G$ 在 $V$ 上的#群表示],
   [ $GHom(G, GL(V))$],
 )
 
@@ -52,10 +54,40 @@
 ]
 
 #定义(
-  uuid: "Subrepresentation",
+  uuid: "PermutationRepresentation",
+  "置换表示",
+  "Permutation Representation",
+  hypotheses: (
+    [ $T : Type$],
+    $S : Set(T)$,
+    $phi: GHom(G, Sym(S))$,
+    令($V$, [#自由张成(s: $S$, f: $KK$)]),
+  ),
+  [$G$ 由 $phi$ 诱导的#置换表示],
+  bstyle: "display",
+  $ (x : G) mapsto (sum_(s : S) k_s s mapsto sum_(s : S) k_s phi (x)(s)) $,
+)
+
+#let 群子表示 = optionLink(
+  "GroupSubrepresentation",
+  [子表示]
+)
+
+#定义(
+  uuid: "GroupSubrepresentation",
   "子表示",
   "Subrepresentation",
-  hypotheses: ([$rho$ 是 $G$ 的 $V$-表示],),
-  [ $G$ 的 $W$-子表示],
-  [],
+  hypotheses: ([ $rho$ 是 $G$ 的 $V$-#群表示], [$U$ 是 $V$ 的#线性子空间], [$U$ 是 $rho$ 的#不变子空间]),
+  [$G$ 的 $U$-#群子表示],
+  [ $Lrestr(rho, U)$],
+)
+
+#定义(
+  uuid: "GroupQuotientRepresentation",
+  "商表示",
+  "Quotient Representation",
+  hypotheses: (link("SubRepresentation", [同上]), [$Lrestr(rho, U)$ 是 $G$ 的 $U$-#群子表示]),
+  [$G$ 的 $V quot U$-商表示],
+  bstyle : "display",
+  [$ x : G mapsto (v + U) : V Lquot U mapsto (rho(x)(v) + U) $],
 )

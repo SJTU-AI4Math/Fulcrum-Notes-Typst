@@ -135,8 +135,9 @@
 == 简单逼近定理
 
 #约定[
+  - $D : Set(Real)$
+  - $D 集合Lebesgue可测$
   - $f : D -> EReal$
-  - $f 函数Lebesgue可测$
 ]
 
 #let 简单 = optionLink(
@@ -147,17 +148,39 @@
 #定义(
   uuid: "SimpleFunction",
   [简单函数],
-  "",
+  [Simple Function],
   isPredicate: true,
-  [$f$ #简单],
-  [ $card(f(D)) < infinity$],
+  hypotheses: ([ $phi : D -> EReal$],),
+  [$phi$ #简单],
+  [ $phi 函数Lebesgue可测 and card(f(D)) < infinity$],
   contributors: (猫猫,)
 )
 
-#定理(
+#引理(
   uuid: "SimpleFunctionApproximation",
-  [简单逼近定理],
-  "",
-  [],
+  [简单逼近引理],
+  [Simple Approximation Lemma],
+  hypotheses: ([ $f 函数Lebesgue可测$], $f 函数有界$, $epsilon : PReal$),
+  [$
+    exists phi, psi: D -> ENNReal, 
+    #structProp(
+      (name: "简单性", value: [$phi, psi #简单$]),
+      (name: "控制性", value: [$forall x in D, phi(x) <= f(x) <= psi(x)$]),
+      (name: "精确性", value: [$forall x in D, psi(x) - phi(x) <= epsilon$])
+    )
+  $],
+  cstyle: "display",
   contributors: (猫猫,)
 )
+
+#证明[
+  #目标(name: "简单函数构造",)[$exists phi, psi: D -> ENNReal, phi, psi #简单$]
+
+  目标 1 （简单函数构造）：需构造 $phi, psi : D -> ENNReal$
+
+  目标 2 （简单性）：需证： $phi, psi #简单$
+
+  目标 3 （控制性）：需证： $forall x in D, phi(x) <= f(x) <= psi(x)$
+
+  目标 4 （精确性）：需证： $forall x in D, psi(x) - phi(x) <= epsilon$
+]
