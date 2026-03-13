@@ -8,3 +8,11 @@
   "RealFunctionContinuous",
   [连续],
 )
+
+#let dv = (f, x) => [
+  #optionLink("Derivative", $frac(dif #f, dif #x)$)
+]
+
+#let pdv = (f, x) => [
+  #optionLink("PartialDerivative", $frac(partial #f, partial #x)$)
+]

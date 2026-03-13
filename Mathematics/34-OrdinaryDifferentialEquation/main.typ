@@ -2,8 +2,11 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 #import "./export.typ": *
 
-/* set theory */
+/* topology */
 #import "../54-Topology/export.typ": *
+
+/* differential theory */
+#import "../26-BasicAnalysis/export.typ": *
 
 #show: FulcrumCN
 
@@ -210,3 +213,183 @@
 #注[
   微分方程的解 $phi.alt$ 就是增广相空间中的一族积分曲线.
 ]
+
+== 初等积分法
+
+#定义(
+  uuid: "ExactODE",
+  "恰当方程 / 正合方程 / 全微分方程",
+  "Exact ODE / Perfect ODE / Total Differential Equation",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个常微分方程],
+  ),
+  [$star$ 是恰当方程 / 正合方程 / 全微分方程],
+)[
+  $ exists Phi: bb(R)^2 arrow bb(R), dif Phi (x,y) = P(x,y) dif x +Q(x,y) dif y $
+  即
+  $ pdv(Phi, x) = P(x,y) , pdv(Phi, y) = Q(x,y) $
+]
+
+#定理(
+  uuid: "ExactODECriterion",
+  "恰当方程的充要条件",
+  "Criterion for Exact ODE",
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$R subset.eq bb(R)^2$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+    [P, Q 在 $R$ 上具有连续的一阶偏导数],
+  ),
+)[
+  $star$ 是恰当方程的充要条件是
+  $ pdv(P, y) = pdv(Q, x) $
+  在 $R$ 上恒成立.
+  #linebreak()
+  则此时 $star$ 的通解为求取 $(x_0,y_0) in R$ 到 $(x,y)$ 的曲线积分:
+  $ integral_(x_0)^x P(x,y) dif x + integral_(y_0)^y Q(x_0, y) dif y =C $
+  或者
+  $ integral_(x_0)^x P(x,y_0) dif x + integral_(y_0)^y Q(x, y) dif y =C $
+]
+
+#定义(
+  uuid: "IntegratingFactor",
+  "积分因子",
+  "Integrating Factor",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个常微分方程],
+    [$mu: bb(R)^2 arrow bb(R)$],
+  ),
+  [$mu$ 是 $star$ 的一个积分因子],
+)[
+  $ mu(x, y) (P(x,y) dif x +Q(x,y) dif y) $ 是一个恰当方程.
+]
+
+#定义(
+  uuid: "SeparableODE",
+  "可分离变量的常微分方程",
+  "Separable ODE",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+  ),
+  [$star$ 是可分离变量的常微分方程],
+)[
+  $exists M_1(x), M_2(x), N_1(y), N_2(y)$ 满足 $P(x,y) = M_1(x)N_1(y)$, $Q(x,y) = M_2(x)N_2(y)$
+]
+
+#定理(
+  uuid: "SeparableODESolution",
+  "可分离变量的常微分方程的解法",
+  "Solution to Separable ODE",
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+    [$star$ 是可分离变量的常微分方程],
+  ),
+)[
+  $star$ 的通积分为
+  $ integral frac(M_1(x), M_2(x)) dif x + integral frac(N_2(y), N_1(y)) dif y = C $
+  其中 $M_1(x), M_2(x), N_1(y), N_2(y)$ 满足 $P(x,y) = M_1(x)N_1(y)$, $Q(x,y) = M_2(x)N_2(y)$.
+]
+
+#定义(
+  uuid: "FirstorderLinearODE",
+  "一阶线性微分方程",
+  "First-order Linear ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是常微分方程],),
+  [$star$ 是一阶线性微分方程],
+)[
+  $star$ 可以写成如下形式:
+  $ y' + P(x)y = Q(x) $
+  其中 $P(x), Q(x): bb(R) arrow bb(R)$.
+]
+
+#定义(
+  uuid: "FirstorderLinearHomogeneousODE",
+  "一阶线性齐次微分方程",
+  "First-order Linear Homogeneous ODE",
+  isPredicate: true,
+  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+  [$star$ 是一阶线性齐次微分方程],
+)[
+  $Q(x)=0$ 恒成立.
+]
+
+#定理(
+  uuid: "FirstorderLinearHomogeneousODESolution",
+  "一阶线性齐次微分方程的解法",
+  "Solution to First-order Linear Homogeneous ODE",
+  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+)[
+  $star$ 的通积分为
+  $ y = C exp(- integral P(x) dif x) $
+  其中 $C$ 是任意常数.
+]
+
+#注[
+  对于一阶线性齐次方程, 我们使用分离变量法来求解即可.
+]
+
+#定理(
+  uuid: "FirstorderLinearNonhomogeneousODESolution",
+  "一阶线性非齐次微分方程的解法",
+  "Solution to First-order Linear Nonhomogeneous ODE",
+  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+)[
+  $star$ 的通积分为
+  $ y = C exp(- integral P(x) dif x) + exp(- integral P(x) dif x) integral exp(integral P(x) dif x) Q(x) dif x $
+  其中 $C$ 是任意常数.
+  #linebreak()
+  为了确定起见, 有时将它写成变上限的定积分:
+  $ y=C exp(-integral_(x_0)^x P(t) dif t)+integral_(x_0)^x Q(s) exp(-integral_s^x P(t)dif t)dif s $
+]
+
+#性质(
+  "一阶线性微分方程的积分因子",
+  "Integrating Factor for First-order Linear ODE",
+  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+)[
+  $ exp(integral P(x) dif x) $ 是 $star$ 的一个积分因子.
+]
+
+#注[
+  这俩求解一阶线性非齐次微分方程使用积分因子法. 先求出对应的一阶线性齐次微分方程的通解, 再使用积分因子将非齐次方程转化为齐次方程来求解.
+]
+
+#性质(
+  uuid: "LinearityOfFirstorderLinearHomogeneousODESolution",
+  "一阶线性齐次微分方程解的线性性质",
+  "Linearity of Solution to First-order Linear Homogeneous ODE",
+  hypotheses: ([$star: y' + P(x)y = 0$ 是一阶线性齐次微分方程], [$y_1, y_2: star$], [$alpha,beta : bb(R)$]),
+)[
+  $alpha y_1 + beta y_2: star$.
+]
+
+#性质(
+  uuid: "LinearityOfFirstorderLinearNonhomogeneousODESolution",
+  "一阶线性非齐次微分方程解的线性性质",
+  "Linearity of Solution to First-order Linear Nonhomogeneous ODE",
+  hypotheses: (
+    [$star: y' + P(x)y = Q(x)$ 是一阶线性非齐次微分方程],
+    [$ast: y' + P(x)y = 0$ 是一阶线性齐次微分方程],
+    [$y_1, y_2: star$],
+    [$y_0: ast$],
+    [$alpha,beta : bb(R)$],
+  ),
+)[
+  1. $y_1-y_2: ast$;
+  2. $y_1+alpha y_0: star$,
+  3. $alpha+beta=1$ iff $alpha y_1 + beta y_2: star$.
+]
+
