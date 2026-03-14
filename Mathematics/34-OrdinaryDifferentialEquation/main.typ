@@ -308,11 +308,11 @@
   "First-order Linear ODE",
   isPredicate: true,
   hypotheses: ([$star$ 是常微分方程],),
-  [$star$ 是一阶线性微分方程],
+  [$star$ 是#FLODE],
 )[
   $star$ 可以写成如下形式:
-  $ y' + P(x)y = Q(x) $
-  其中 $P(x), Q(x): bb(R) arrow bb(R)$.
+  $ y' + p(x)y = q(x) $
+  其中 $p(x), q(x): bb(R) arrow bb(R)$.
 ]
 
 #定义(
@@ -320,20 +320,20 @@
   "一阶线性齐次微分方程",
   "First-order Linear Homogeneous ODE",
   isPredicate: true,
-  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
   [$star$ 是一阶线性齐次微分方程],
 )[
-  $Q(x)=0$ 恒成立.
+  $q(x)=0$ 恒成立.
 ]
 
 #定理(
   uuid: "FirstorderLinearHomogeneousODESolution",
   "一阶线性齐次微分方程的解法",
   "Solution to First-order Linear Homogeneous ODE",
-  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
 )[
   $star$ 的通积分为
-  $ y = C exp(- integral P(x) dif x) $
+  $ y = C exp(- integral p(x) dif x) $
   其中 $C$ 是任意常数.
 ]
 
@@ -345,22 +345,22 @@
   uuid: "FirstorderLinearNonhomogeneousODESolution",
   "一阶线性非齐次微分方程的解法",
   "Solution to First-order Linear Nonhomogeneous ODE",
-  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
 )[
   $star$ 的通积分为
-  $ y = C exp(- integral P(x) dif x) + exp(- integral P(x) dif x) integral exp(integral P(x) dif x) Q(x) dif x $
+  $ y = C exp(- integral p(x) dif x) + exp(- integral p(x) dif x) integral exp(integral p(x) dif x) q(x) dif x $
   其中 $C$ 是任意常数.
   #linebreak()
   为了确定起见, 有时将它写成变上限的定积分:
-  $ y=C exp(-integral_(x_0)^x P(t) dif t)+integral_(x_0)^x Q(s) exp(-integral_s^x P(t)dif t)dif s $
+  $ y=C exp(-integral_(x_0)^x p(t) dif t)+integral_(x_0)^x q(s) exp(-integral_s^x p(t)dif t)dif s $
 ]
 
 #性质(
   "一阶线性微分方程的积分因子",
   "Integrating Factor for First-order Linear ODE",
-  hypotheses: ([$star: y' + P(x)y = Q(x)$ 是一阶线性微分方程],),
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
 )[
-  $ exp(integral P(x) dif x) $ 是 $star$ 的一个积分因子.
+  $ exp(integral p(x) dif x) $ 是 $star$ 的一个积分因子.
 ]
 
 #注[
@@ -371,7 +371,7 @@
   uuid: "LinearityOfFirstorderLinearHomogeneousODESolution",
   "一阶线性齐次微分方程解的线性性质",
   "Linearity of Solution to First-order Linear Homogeneous ODE",
-  hypotheses: ([$star: y' + P(x)y = 0$ 是一阶线性齐次微分方程], [$y_1, y_2: star$], [$alpha,beta : bb(R)$]),
+  hypotheses: ([$star: y' + p(x)y = 0$ 是一阶线性齐次微分方程], [$y_1, y_2: star$], [$alpha,beta : bb(R)$]),
 )[
   $alpha y_1 + beta y_2: star$.
 ]
@@ -381,8 +381,8 @@
   "一阶线性非齐次微分方程解的线性性质",
   "Linearity of Solution to First-order Linear Nonhomogeneous ODE",
   hypotheses: (
-    [$star: y' + P(x)y = Q(x)$ 是一阶线性非齐次微分方程],
-    [$ast: y' + P(x)y = 0$ 是一阶线性齐次微分方程],
+    [$star: y' + p(x)y = q(x)$ 是一阶线性非齐次微分方程],
+    [$ast: y' + p(x)y = 0$ 是一阶线性齐次微分方程],
     [$y_1, y_2: star$],
     [$y_0: ast$],
     [$alpha,beta : bb(R)$],
@@ -393,3 +393,123 @@
   3. $alpha+beta=1$ iff $alpha y_1 + beta y_2: star$.
 ]
 
+#性质(
+  "#FLODE的解的唯一性",
+  "Uniqueness of Solution to First-order Linear ODE",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE], [$x_0: bb(R)$], [$y_0: bb(R)$]),
+)[
+  $star$ 满足 Cauchy 初值条件 $y(x_0)=y_0$ 的解是唯一的.
+]
+
+#性质(
+  "一阶线性微分方程的解与0的关系",
+  "",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+)[
+  1. 如果 $q(x)=0$ 恒成立, 则 $y=0$ 是 $star$ 的一个解;
+  2. 如果 $q(x) eq.not 0$ 恒成立, 则 $y=0$ 一定不是 $star$ 的一个解.
+]
+
+== 一阶线性微分方程的几种变体
+
+#定义(
+  uuid: "ScalefreeODE",
+  "比值微分方程 / 齐次微分方程 / 无量纲微分方程",
+  "",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+  ),
+  [$star$ 是比值微分方程 / 齐次微分方程 / 无量纲微分方程],
+)[
+  $P(x,y), Q(x,y)$ 都是 $x,y$ 的同次齐次函数.
+  $ forall t in bb(R), P(t x, t y) = t^n P(x,y), Q(t x, t y) = t^n Q(x,y) $
+  其中 $n: bb(N)$.
+]
+
+#注[
+  这里的“齐次”指的是解函数的齐次性, 而不是微分方程作为等式本身的齐次性. 为了表示区别, 我们用 "Scale-free" 来表示解的齐次性, 用 "Homogeneous" 来表示微分方程的齐次性.
+]
+
+#性质(
+  "比值微分方程的等价定义",
+  "Equivalent Definition for Scalefree ODE",
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  cstyle: "display",
+)[
+  $star$ 是比值微分方程的充要条件是
+  $ exists f: bb(R) arrow bb(R), star: dv(y, x) = f(frac(y, x)) $
+]
+
+#定理(
+  "比值微分方程的换元解法",
+  "",
+  hypotheses: ([$star$ 是比值微分方程],),
+)[
+  令 $z=frac(y, x)$, 则
+  $ star: dv(y, x) = f(frac(y, x)) arrow.l.r.long.double star: x dv(z, x) = f(z)- z $
+  这是一个#SepODE.
+]
+
+#定理(
+  "比值微分方程的积分因子",
+  "Integrating Factor for Scalefree ODE",
+  hypotheses: ([$star: P(x,y) dif x +Q(x,y) dif y=0$ 是比值微分方程],),
+)[
+  $ frac(1, x P(x,y) + y Q(x,y)) $
+  是 $star$ 的一个积分因子.
+]
+
+#例(
+  "求解比值微分方程的实例",
+  "",
+)[
+  求解微分方程
+  $ dv(y, x) = frac(x+y, x-y) $
+  换元, 令 $z=frac(y, x)$, 则原方程变为
+  $ x dv(z, x) = frac(1+z, 1-z) - z $
+  分离变量, 得到
+  $ integral frac(1-z, 1+z^2) dif z = integral frac(dif x, x) $
+  由此积分, 可得
+  $ ln |x| = frac(ln |1+z^2|, 2) - arctan z +C $
+  将 $z$ 换回 $y$ 和 $x$, 可得
+  $ ln |x| = frac(ln |x^2+y^2|, 2) - arctan frac(y, x) +C $
+  指数化, 可得
+  $ sqrt(x^2+y^2) = C exp arctan frac(y, x) $
+]
+
+#注[
+  在极坐标下表示这个解, 就会得到
+  $ r = C exp theta $
+  这说明其积分曲线是一族以原点为极点的对数螺线.
+]
+
+#定义(
+  uuid: "BernoulliODE",
+  "Bernoulli 微分方程",
+  "Bernoulli ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  [$star$ 是 Bernoulli 微分方程],
+)[
+  $star$ :
+  $ y' + p(x)y = q(x) y^n $
+  其中 $p(x), q(x): bb(R) arrow bb(R)$, $n: bb(N)$, $n eq.not 0, 1$.
+]
+
+#定理(
+  uuid: "BernoulliODESolution",
+  "Bernoulli 微分方程的解法",
+  "Solution to Bernoulli ODE",
+  hypotheses: ([$star$ 是 Bernoulli 微分方程],),
+)[
+  令 $z=y^(1-n)$, 则
+  $ star: y' + p(x)y = q(x) y^n arrow.l.r.long.double star: z' + (1-n)p(x)z = (1-n)q(x) $
+  这是一个#FLODE.
+]
+
+#注[
+  在 Bernoulli 微分方程两端同乘 $(1-n) y^(-n)$ 即可证明.
+]
