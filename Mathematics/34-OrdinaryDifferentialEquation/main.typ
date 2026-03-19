@@ -513,3 +513,131 @@
 #注[
   在 Bernoulli 微分方程两端同乘 $(1-n) y^(-n)$ 即可证明.
 ]
+
+#定义(
+  uuid: "RiccatiODE",
+  "Riccati 微分方程",
+  "Riccati ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  [$star$ 是 Riccati 微分方程],
+)[
+  $star$ :
+  $ dv(y, x) = a(x) y^2 + b(x) y + c(x) $
+  其中 $a(x), b(x), c(x): bb(R) arrow bb(R)$, 且 $a (x)$ 不恒为零.
+]
+
+#性质(
+  "Riccati 微分方程的特解可以求出通解",
+  "",
+  hypotheses: ([$star$ 是 Riccati 微分方程], [$y=phi (x)$ 是 $star$ 的一个特解]),
+)[
+  引入换元 $z=y-phi (x)$,
+  则 $star$ 可以写成
+  $ dv(z, x) = (b(x)+ 2c(x) phi (x))z+ a(x)z^2 $
+  这是一个 #BernoulliODE.
+]
+
+#定理(
+  "Riccati 微分方程的 Bernoulli-Liouville 定理",
+  "Bernoulli-Liouville Theorem for Riccati ODE",
+  hypotheses: ([$a eq.not 0$], [$b:bb(R)$], [$m:bb(R)$], [$star: dv(y, x) = a y^2 + c x^m$ 是 Riccati 微分方程]),
+)[
+  $star$ 可以使用初等积分法求解当且仅当
+  $ m=0, -2, frac(-4k, 2k+1), frac(-4k, 2k-1) $
+  其中 $k:NN^*$.
+]
+
+== 隐式一阶微分方程
+
+#定义(
+  uuid: "ImplicitFirstorderODE",
+  "隐式一阶微分方程",
+  "Implicit First-order ODE",
+  isPredicate: true,
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$],),
+  [$F$ 是一个隐式一阶微分方程],
+)[
+  $F(x,y,y')=0$
+]
+
+#定理(
+  "隐式一阶微分方程的显化",
+  "Explicitization of Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$]),
+)[
+  设 $p:= dv(y, x)$. 若隐式一阶微分方程可以分离为 $y=f(x,p)$ 的形式, 则 $star$ 等价于
+  $ (pdv(f, x) (x,p)-p) dif x + pdv(f, p) (x,p) dif p = 0 $
+  这是一个显式的一阶微分方程.
+]
+
+#定义(
+  uuid: "ClairautODE",
+  "Clairaut 微分方程",
+  "Clairaut ODE",
+  isPredicate: true,
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$]),
+  [$star$ 是一个 Clairaut 微分方程],
+)[
+  $star$ 可以写成如下形式:
+  $ y = x y' + g(y') $
+  其中 $g: bb(R) arrow bb(R)$.
+]
+
+#定理(
+  uuid: "ClairautODESolution",
+  "Clairaut 微分方程的解法",
+  "Solution to Clairaut ODE",
+  hypotheses: ([$g: bb(R) arrow bb(R)$], [$star: y=x y'+g(y')$ 是 Clairaut 微分方程]),
+)[
+  $star$ 的通积分为
+  $ y = C x + g(C) $
+  其中 $C$ 是任意常数.
+  #linebreak()
+  $star$ 的奇解为
+  $ y = x p + g(p) $
+  其中 $p$ 满足 $x + g'(p) =0$.
+]
+
+#性质(
+  "奇解是通解的包络线",
+  "Singular Solution is the Envelope of General Solution",
+  hypotheses: ([$g: bb(R) arrow bb(R)$], [$star: y=x y'+g(y')$ 是 Clairaut 微分方程]),
+)[
+  $star$ 的奇解是 $star$ 的通解的一族积分曲线的包络线.
+]
+
+/*
+#定理(
+  "隐式一阶微分方程的单参数法",
+  "Single Parameter for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程],),
+)[
+  设 $p:= dv(y, x)$ 若 $star$ 可以分离为 $y=f(x,p)$ 的形式, 则 $star$ 的通积分为
+]
+*/
+
+#定理(
+  "隐式一阶微分方程的单参数法",
+  "Single Parametrization for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程]),
+)[
+  若存在 $alpha, beta: bb(R) arrow bb(R)$ 满足 $star$ 可以分离为 $p=alpha (t), y=beta (t)$ 的形式, 则 $star$ 的通解为
+  $ x= integral frac(beta ' (t), alpha (t)) dif t $
+  $ y=beta (t) $
+  特解为: 若 $exists t_0 in bb(R)$ 使得 $alpha (t_0) = 0$, 则 $y=beta (t_0)$ 是一个特解.
+]
+
+#定理(
+  "隐式一阶微分方程的参数法",
+  "Parametrization for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程]),
+)[
+  若存在 $f,g,h$ 使得 $x=f(u,v), y=g(u,v), y'=h(u,v)$, 则 $star$ 可以写成
+  $ (g_u-h f_u) dif u + (g_v-h f_v) dif v = 0 $
+  这是一个显式的一阶微分方程. 其最终的解由参数 $u,v$ 给出.
+]
+
+#注[
+  一般的参数法对于参数的选取有很高的要求. 如果没有什么观察, 很难选出合适的参数来将隐式方程转化为显式方程.
+]

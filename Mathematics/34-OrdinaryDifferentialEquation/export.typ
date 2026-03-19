@@ -13,3 +13,10 @@
     [一阶线性微分方程],
   )
 )
+
+#let BernoulliODE = (
+  optionLink(
+    "BernoulliODE",
+    [Bernoulli 微分方程],
+  )
+)
