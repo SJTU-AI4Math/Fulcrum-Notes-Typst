@@ -15,7 +15,7 @@
 #let structProp = (..members) => {
   set enum(indent: 0em);
   align(left)[
-    $cases(#mRender(members.pos()))$
+    $ cases(#ClauseMembers(members.pos())) $
   ]
 }
 

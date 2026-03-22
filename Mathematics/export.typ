@@ -16,6 +16,7 @@
   show: TypeStyle
   show: SetStyle
   show: AlgebraStyle
+  show: LinearAlgebraStyle
   show: BasicAnalysisStyle
   show: MeasureTheoryStyle
   
