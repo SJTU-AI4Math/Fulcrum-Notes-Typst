@@ -55,7 +55,7 @@
     令($epsilon$, type: $Prop$, [$forall O : Set(EReal)$, $O$ 是开集 $implies f^(-1)(O) #集合Lebesgue可测$]),
     令($zeta$, type: $Prop$, [$forall c : EReal, #setOf($x$, $f(x) = c$)#集合Lebesgue可测$])
   ),
-  [ $alpha iff beta iff gamma iff delta iff epsilon implies zeta$],
+  [$alpha iff beta iff gamma iff delta iff epsilon implies zeta$],
   contributors: (猫猫,)
 )
 
