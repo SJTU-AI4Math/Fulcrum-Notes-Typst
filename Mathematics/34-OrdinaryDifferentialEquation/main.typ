@@ -2,8 +2,11 @@
 #import "../../Fulcrum-Template-Typst/Fulcrum.typ": *
 #import "./export.typ": *
 
-/* set theory */
+/* topology */
 #import "../54-Topology/export.typ": *
+
+/* differential theory */
+#import "../26-BasicAnalysis/export.typ": *
 
 #show: FulcrumCN
 
@@ -209,4 +212,432 @@
 
 #注[
   微分方程的解 $phi.alt$ 就是增广相空间中的一族积分曲线.
+]
+
+== 初等积分法
+
+#定义(
+  uuid: "ExactODE",
+  "恰当方程 / 正合方程 / 全微分方程",
+  "Exact ODE / Perfect ODE / Total Differential Equation",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个常微分方程],
+  ),
+  [$star$ 是恰当方程 / 正合方程 / 全微分方程],
+)[
+  $ exists Phi: bb(R)^2 arrow bb(R), dif Phi (x,y) = P(x,y) dif x +Q(x,y) dif y $
+  即
+  $ pdv(Phi, x) = P(x,y) , pdv(Phi, y) = Q(x,y) $
+]
+
+#定理(
+  uuid: "ExactODECriterion",
+  "恰当方程的充要条件",
+  "Criterion for Exact ODE",
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$R subset.eq bb(R)^2$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+    [P, Q 在 $R$ 上具有连续的一阶偏导数],
+  ),
+)[
+  $star$ 是恰当方程的充要条件是
+  $ pdv(P, y) = pdv(Q, x) $
+  在 $R$ 上恒成立.
+  #linebreak()
+  则此时 $star$ 的通解为求取 $(x_0,y_0) in R$ 到 $(x,y)$ 的曲线积分:
+  $ integral_(x_0)^x P(x,y) dif x + integral_(y_0)^y Q(x_0, y) dif y =C $
+  或者
+  $ integral_(x_0)^x P(x,y_0) dif x + integral_(y_0)^y Q(x, y) dif y =C $
+]
+
+#定义(
+  uuid: "IntegratingFactor",
+  "积分因子",
+  "Integrating Factor",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个常微分方程],
+    [$mu: bb(R)^2 arrow bb(R)$],
+  ),
+  [$mu$ 是 $star$ 的一个积分因子],
+)[
+  $ mu(x, y) (P(x,y) dif x +Q(x,y) dif y) $ 是一个恰当方程.
+]
+
+#定义(
+  uuid: "SeparableODE",
+  "可分离变量的常微分方程",
+  "Separable ODE",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+  ),
+  [$star$ 是可分离变量的常微分方程],
+)[
+  $exists M_1(x), M_2(x), N_1(y), N_2(y)$ 满足 $P(x,y) = M_1(x)N_1(y)$, $Q(x,y) = M_2(x)N_2(y)$
+]
+
+#定理(
+  uuid: "SeparableODESolution",
+  "可分离变量的常微分方程的解法",
+  "Solution to Separable ODE",
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+    [$star$ 是可分离变量的常微分方程],
+  ),
+)[
+  $star$ 的通积分为
+  $ integral frac(M_1(x), M_2(x)) dif x + integral frac(N_2(y), N_1(y)) dif y = C $
+  其中 $M_1(x), M_2(x), N_1(y), N_2(y)$ 满足 $P(x,y) = M_1(x)N_1(y)$, $Q(x,y) = M_2(x)N_2(y)$.
+]
+
+#定义(
+  uuid: "FirstorderLinearODE",
+  "一阶线性微分方程",
+  "First-order Linear ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是常微分方程],),
+  [$star$ 是#FLODE],
+)[
+  $star$ 可以写成如下形式:
+  $ y' + p(x)y = q(x) $
+  其中 $p(x), q(x): bb(R) arrow bb(R)$.
+]
+
+#定义(
+  uuid: "FirstorderLinearHomogeneousODE",
+  "一阶线性齐次微分方程",
+  "First-order Linear Homogeneous ODE",
+  isPredicate: true,
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+  [$star$ 是一阶线性齐次微分方程],
+)[
+  $q(x)=0$ 恒成立.
+]
+
+#定理(
+  uuid: "FirstorderLinearHomogeneousODESolution",
+  "一阶线性齐次微分方程的解法",
+  "Solution to First-order Linear Homogeneous ODE",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+)[
+  $star$ 的通积分为
+  $ y = C exp(- integral p(x) dif x) $
+  其中 $C$ 是任意常数.
+]
+
+#注[
+  对于一阶线性齐次方程, 我们使用分离变量法来求解即可.
+]
+
+#定理(
+  uuid: "FirstorderLinearNonhomogeneousODESolution",
+  "一阶线性非齐次微分方程的解法",
+  "Solution to First-order Linear Nonhomogeneous ODE",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+)[
+  $star$ 的通积分为
+  $ y = C exp(- integral p(x) dif x) + exp(- integral p(x) dif x) integral exp(integral p(x) dif x) q(x) dif x $
+  其中 $C$ 是任意常数.
+  #linebreak()
+  为了确定起见, 有时将它写成变上限的定积分:
+  $ y=C exp(-integral_(x_0)^x p(t) dif t)+integral_(x_0)^x q(s) exp(-integral_s^x p(t)dif t)dif s $
+]
+
+#性质(
+  "一阶线性微分方程的积分因子",
+  "Integrating Factor for First-order Linear ODE",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+)[
+  $ exp(integral p(x) dif x) $ 是 $star$ 的一个积分因子.
+]
+
+#注[
+  这俩求解一阶线性非齐次微分方程使用积分因子法. 先求出对应的一阶线性齐次微分方程的通解, 再使用积分因子将非齐次方程转化为齐次方程来求解.
+]
+
+#性质(
+  uuid: "LinearityOfFirstorderLinearHomogeneousODESolution",
+  "一阶线性齐次微分方程解的线性性质",
+  "Linearity of Solution to First-order Linear Homogeneous ODE",
+  hypotheses: ([$star: y' + p(x)y = 0$ 是一阶线性齐次微分方程], [$y_1, y_2: star$], [$alpha,beta : bb(R)$]),
+)[
+  $alpha y_1 + beta y_2: star$.
+]
+
+#性质(
+  uuid: "LinearityOfFirstorderLinearNonhomogeneousODESolution",
+  "一阶线性非齐次微分方程解的线性性质",
+  "Linearity of Solution to First-order Linear Nonhomogeneous ODE",
+  hypotheses: (
+    [$star: y' + p(x)y = q(x)$ 是一阶线性非齐次微分方程],
+    [$ast: y' + p(x)y = 0$ 是一阶线性齐次微分方程],
+    [$y_1, y_2: star$],
+    [$y_0: ast$],
+    [$alpha,beta : bb(R)$],
+  ),
+)[
+  1. $y_1-y_2: ast$;
+  2. $y_1+alpha y_0: star$,
+  3. $alpha+beta=1$ iff $alpha y_1 + beta y_2: star$.
+]
+
+#性质(
+  "#FLODE的解的唯一性",
+  "Uniqueness of Solution to First-order Linear ODE",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE], [$x_0: bb(R)$], [$y_0: bb(R)$]),
+)[
+  $star$ 满足 Cauchy 初值条件 $y(x_0)=y_0$ 的解是唯一的.
+]
+
+#性质(
+  "一阶线性微分方程的解与0的关系",
+  "",
+  hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
+)[
+  1. 如果 $q(x)=0$ 恒成立, 则 $y=0$ 是 $star$ 的一个解;
+  2. 如果 $q(x) eq.not 0$ 恒成立, 则 $y=0$ 一定不是 $star$ 的一个解.
+]
+
+== 一阶线性微分方程的几种变体
+
+#定义(
+  uuid: "ScalefreeODE",
+  "比值微分方程 / 齐次微分方程 / 无量纲微分方程",
+  "",
+  isPredicate: true,
+  hypotheses: (
+    [$P: bb(R)^2 arrow bb(R)$],
+    [$Q: bb(R)^2 arrow bb(R)$],
+    [$ star: P(x,y) dif x +Q(x,y) dif y=0 $ 是一个一阶常微分方程],
+  ),
+  [$star$ 是比值微分方程 / 齐次微分方程 / 无量纲微分方程],
+)[
+  $P(x,y), Q(x,y)$ 都是 $x,y$ 的同次齐次函数.
+  $ forall t in bb(R), P(t x, t y) = t^n P(x,y), Q(t x, t y) = t^n Q(x,y) $
+  其中 $n: bb(N)$.
+]
+
+#注[
+  这里的“齐次”指的是解函数的齐次性, 而不是微分方程作为等式本身的齐次性. 为了表示区别, 我们用 "Scale-free" 来表示解的齐次性, 用 "Homogeneous" 来表示微分方程的齐次性.
+]
+
+#性质(
+  "比值微分方程的等价定义",
+  "Equivalent Definition for Scalefree ODE",
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  cstyle: "display",
+)[
+  $star$ 是比值微分方程的充要条件是
+  $ exists f: bb(R) arrow bb(R), star: dv(y, x) = f(frac(y, x)) $
+]
+
+#定理(
+  "比值微分方程的换元解法",
+  "",
+  hypotheses: ([$star$ 是比值微分方程],),
+)[
+  令 $z=frac(y, x)$, 则
+  $ star: dv(y, x) = f(frac(y, x)) arrow.l.r.long.double star: x dv(z, x) = f(z)- z $
+  这是一个#SepODE.
+]
+
+#定理(
+  "比值微分方程的积分因子",
+  "Integrating Factor for Scalefree ODE",
+  hypotheses: ([$star: P(x,y) dif x +Q(x,y) dif y=0$ 是比值微分方程],),
+)[
+  $ frac(1, x P(x,y) + y Q(x,y)) $
+  是 $star$ 的一个积分因子.
+]
+
+#例(
+  "求解比值微分方程的实例",
+  "",
+)[
+  求解微分方程
+  $ dv(y, x) = frac(x+y, x-y) $
+  换元, 令 $z=frac(y, x)$, 则原方程变为
+  $ x dv(z, x) = frac(1+z, 1-z) - z $
+  分离变量, 得到
+  $ integral frac(1-z, 1+z^2) dif z = integral frac(dif x, x) $
+  由此积分, 可得
+  $ ln |x| = frac(ln |1+z^2|, 2) - arctan z +C $
+  将 $z$ 换回 $y$ 和 $x$, 可得
+  $ ln |x| = frac(ln |x^2+y^2|, 2) - arctan frac(y, x) +C $
+  指数化, 可得
+  $ sqrt(x^2+y^2) = C exp arctan frac(y, x) $
+]
+
+#注[
+  在极坐标下表示这个解, 就会得到
+  $ r = C exp theta $
+  这说明其积分曲线是一族以原点为极点的对数螺线.
+]
+
+#定义(
+  uuid: "BernoulliODE",
+  "Bernoulli 微分方程",
+  "Bernoulli ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  [$star$ 是 Bernoulli 微分方程],
+)[
+  $star$ :
+  $ y' + p(x)y = q(x) y^n $
+  其中 $p(x), q(x): bb(R) arrow bb(R)$, $n: bb(N)$, $n eq.not 0, 1$.
+]
+
+#定理(
+  uuid: "BernoulliODESolution",
+  "Bernoulli 微分方程的解法",
+  "Solution to Bernoulli ODE",
+  hypotheses: ([$star$ 是 Bernoulli 微分方程],),
+)[
+  令 $z=y^(1-n)$, 则
+  $ star: y' + p(x)y = q(x) y^n arrow.l.r.long.double star: z' + (1-n)p(x)z = (1-n)q(x) $
+  这是一个#FLODE.
+]
+
+#注[
+  在 Bernoulli 微分方程两端同乘 $(1-n) y^(-n)$ 即可证明.
+]
+
+#定义(
+  uuid: "RiccatiODE",
+  "Riccati 微分方程",
+  "Riccati ODE",
+  isPredicate: true,
+  hypotheses: ([$star$ 是一个一阶常微分方程],),
+  [$star$ 是 Riccati 微分方程],
+)[
+  $star$ :
+  $ dv(y, x) = a(x) y^2 + b(x) y + c(x) $
+  其中 $a(x), b(x), c(x): bb(R) arrow bb(R)$, 且 $a (x)$ 不恒为零.
+]
+
+#性质(
+  "Riccati 微分方程的特解可以求出通解",
+  "",
+  hypotheses: ([$star$ 是 Riccati 微分方程], [$y=phi (x)$ 是 $star$ 的一个特解]),
+)[
+  引入换元 $z=y-phi (x)$,
+  则 $star$ 可以写成
+  $ dv(z, x) = (b(x)+ 2c(x) phi (x))z+ a(x)z^2 $
+  这是一个 #BernoulliODE.
+]
+
+#定理(
+  "Riccati 微分方程的 Bernoulli-Liouville 定理",
+  "Bernoulli-Liouville Theorem for Riccati ODE",
+  hypotheses: ([$a eq.not 0$], [$b:bb(R)$], [$m:bb(R)$], [$star: dv(y, x) = a y^2 + c x^m$ 是 Riccati 微分方程]),
+)[
+  $star$ 可以使用初等积分法求解当且仅当
+  $ m=0, -2, frac(-4k, 2k+1), frac(-4k, 2k-1) $
+  其中 $k:NN^*$.
+]
+
+== 隐式一阶微分方程
+
+#定义(
+  uuid: "ImplicitFirstorderODE",
+  "隐式一阶微分方程",
+  "Implicit First-order ODE",
+  isPredicate: true,
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$],),
+  [$F$ 是一个隐式一阶微分方程],
+)[
+  $F(x,y,y')=0$
+]
+
+#定理(
+  "隐式一阶微分方程的显化",
+  "Explicitization of Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$]),
+)[
+  设 $p:= dv(y, x)$. 若隐式一阶微分方程可以分离为 $y=f(x,p)$ 的形式, 则 $star$ 等价于
+  $ (pdv(f, x) (x,p)-p) dif x + pdv(f, p) (x,p) dif p = 0 $
+  这是一个显式的一阶微分方程.
+]
+
+#定义(
+  uuid: "ClairautODE",
+  "Clairaut 微分方程",
+  "Clairaut ODE",
+  isPredicate: true,
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$]),
+  [$star$ 是一个 Clairaut 微分方程],
+)[
+  $star$ 可以写成如下形式:
+  $ y = x y' + g(y') $
+  其中 $g: bb(R) arrow bb(R)$.
+]
+
+#定理(
+  uuid: "ClairautODESolution",
+  "Clairaut 微分方程的解法",
+  "Solution to Clairaut ODE",
+  hypotheses: ([$g: bb(R) arrow bb(R)$], [$star: y=x y'+g(y')$ 是 Clairaut 微分方程]),
+)[
+  $star$ 的通积分为
+  $ y = C x + g(C) $
+  其中 $C$ 是任意常数.
+  #linebreak()
+  $star$ 的奇解为
+  $ y = x p + g(p) $
+  其中 $p$ 满足 $x + g'(p) =0$.
+]
+
+#性质(
+  "奇解是通解的包络线",
+  "Singular Solution is the Envelope of General Solution",
+  hypotheses: ([$g: bb(R) arrow bb(R)$], [$star: y=x y'+g(y')$ 是 Clairaut 微分方程]),
+)[
+  $star$ 的奇解是 $star$ 的通解的一族积分曲线的包络线.
+]
+
+/*
+#定理(
+  "隐式一阶微分方程的单参数法",
+  "Single Parameter for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程],),
+)[
+  设 $p:= dv(y, x)$ 若 $star$ 可以分离为 $y=f(x,p)$ 的形式, 则 $star$ 的通积分为
+]
+*/
+
+#定理(
+  "隐式一阶微分方程的单参数法",
+  "Single Parametrization for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程]),
+)[
+  若存在 $alpha, beta: bb(R) arrow bb(R)$ 满足 $star$ 可以分离为 $p=alpha (t), y=beta (t)$ 的形式, 则 $star$ 的通解为
+  $ x= integral frac(beta ' (t), alpha (t)) dif t $
+  $ y=beta (t) $
+  特解为: 若 $exists t_0 in bb(R)$ 使得 $alpha (t_0) = 0$, 则 $y=beta (t_0)$ 是一个特解.
+]
+
+#定理(
+  "隐式一阶微分方程的参数法",
+  "Parametrization for Implicit First-order ODE",
+  hypotheses: ([$F: bb(R)^3 arrow bb(R)$], [$star: F(x,y,y')=0$ 是一个隐式一阶微分方程]),
+)[
+  若存在 $f,g,h$ 使得 $x=f(u,v), y=g(u,v), y'=h(u,v)$, 则 $star$ 可以写成
+  $ (g_u-h f_u) dif u + (g_v-h f_v) dif v = 0 $
+  这是一个显式的一阶微分方程. 其最终的解由参数 $u,v$ 给出.
+]
+
+#注[
+  一般的参数法对于参数的选取有很高的要求. 如果没有什么观察, 很难选出合适的参数来将隐式方程转化为显式方程.
 ]
