@@ -187,3 +187,149 @@
 )[
   $forall W$ 是 $V$ 的#线性子空间, $W$ 是 $V$ 中的#闭集.
 ]
+
+#定理(
+  "Banach 空间等价于依范数收敛的级数都收敛",
+  "A Banach space is equivalent to the convergence of series that converge in norm",
+  hypotheses: ([$X$ 是#nvs],),
+)[
+  $X$ 是#bs; $arrow.l.r.double$ 对于 $X$ 中的任意序列 ${x_n}_(n=1)^infinity$, 如果级数 $sum_(n=1)^infinity ||x_n||$ 收敛, 则级数 $sum_(n=1)^infinity x_n$ 在 $X$ 中收敛.
+]
+
+== 线性算子
+
+#定义(
+  uuid: "BoundedLinearOperator",
+  "有界线性算子",
+  "Bounded Linear Operator",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是线性映射]),
+  notation: [$T in Blo(X, Y)$],
+  [$T$ 是*有界线性算子*],
+)[
+  There exists a constant $C >= 0$ such that $forall x in X, ||T x||_Y <= C||x||_X$
+]
+
+#注[
+  等价地, #有界线性算子 $T$ 将单位闭球映到 $Y$ 中的半径不超过 $C$ 的单位闭球中.
+]
+
+#定义(
+  "有界线性算子的范数",
+  "Norm of a bounded linear operator",
+  hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是#有界线性算子]),
+  [$T$ 的范数],
+)[
+  定义 $T$ 的范数为 $||T|| = inf{C >= 0 : forall x in X, ||T x||_Y <= C||x||_X}$.
+]
+
+#定理(
+  [$Blo(X, Y)$ 成为 #bs 的条件],
+  "Condition for the operator space to be a Banach space",
+  hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是#有界线性算子]),
+)[
+  $Blo(X, Y)$ 是 #bs; $arrow.l.r.double$ $Y$ 是 #bs.
+]
+
+#性质(
+  "有界线性算子列保持范数收敛性",
+  "",
+  hypotheses: (
+    [$X$ 是#nvs, $Y$ 是#nvs],
+    [${T_n : X arrow Y}_(n=1)^infinity$ 是一列#有界线性算子],
+    [$||T_n-T|| arrow 0$],
+  ),
+)[
+  $||T_n|| arrow ||T||$
+]
+
+#性质(
+  "有界线性算子列保持逐点收敛性",
+  "",
+  hypotheses: (
+    [$X$ 是#nvs, $Y$ 是#nvs],
+    [${T_n : X arrow Y}_(n=1)^infinity$ 是一列#有界线性算子],
+    [$||T_n-T|| arrow 0$],
+  ),
+)[
+  $T_n x arrow T x$ for all $x in X$
+]
+
+#定理(
+  "有界线性算子等价于连续线性算子",
+  "Bounded linear operators are equivalent to continuous linear operators",
+  hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是线性映射]),
+)[
+  $T$ 是#有界线性算子; $arrow.l.r.double$ $T$ #continuous.
+]
+
+#注[
+  证明详见【数学分析III】教材.
+
+  提示: $arrow.l.double$: $||T tilde(x)||<=frac(epsilon, delta), forall ||tilde(x)|| <= 1, tilde(x)=frac(x, delta)$.
+
+  $arrow.double$: $||T x||<=epsilon$ whenever $||x||<=delta:=frac(epsilon, ||T x||_(max))$.
+]
+
+#注[
+  直观上理解, 有界线性算子是那些不会将小向量映射成大向量的线性映射. 这与连续性的定义相吻合, 因为连续性要求对于任意小的输入变化, 输出也必须有相应的小的变化.
+
+  事实上, #有界线性算子;不仅是连续的, 还是 Lipschitz 连续的, 因为 $||T x - T y|| = ||T(x-y)|| <= ||T|| ||x-y||$.
+
+  在有限维的情形下所有线性算子都是有界的，因此都是连续的.
+]
+
+#例(
+  "微分算子在无限维空间上是无界线性算子",
+  "Unbounded linear operators on infinite-dimensional spaces",
+)[
+  定义 $T: Cont([0,1], bb(R)) arrow Cont([0,1], bb(R))$ 通过 $T f(x) = f'(x)$, 其中 $Cont([0,1], bb(R))$ 配备上确界范数. 则 $T$ 是一个线性算子, 但它不是有界的. 因为对于函数列 $f_n(x) = x^n$, $||f_n||_infinity = 1$, 但 $||T f_n||_infinity = ||f_n'||_infinity = n arrow infinity$.
+]
+
+#性质(
+  "有界线性算子的复合仍是有界线性算子",
+  "Composition of bounded linear operators is still a bounded linear operator",
+  hypotheses: (
+    [$X$ 是#nvs, $Y$ 是#nvs, $Z$ 是#nvs],
+    [$T: in Blo(X, Y)$],
+    [$S: in Blo(Y, Z)$],
+  ),
+)[
+  $S compose T: X arrow Z$ 是#有界线性算子, 且 $||S compose T|| <= ||S|| dot ||T||$.
+]
+
+#注[
+  Let $||x||=1$.
+  $ || S T || = sup {||S(T x)||} = sup {||S y||} <= ||S|| ||T|| ||x|| $
+]
+
+#例(
+  "全体矩阵空间",
+  "The space of all matrices",
+)[
+  全体矩阵 $M_(m times n) (bb(R)) tilde.equiv scr(B) (bb(R)^n, bb(R)^m)$ 是 Banach 空间, 其范数定义为算子范数 $||A|| = sup_(||x||=1) ||A x||$.
+]
+
+#例(
+  "序列空间上的有界线性算子",
+  "Bounded linear operators on sequence spaces",
+)[
+  $Lambda: ell^p arrow ell^p$ 定义为 $Lambda(x_1, x_2, ...) = (lambda_1 x_1, lambda_2 x_2, dots)$ 是有界线性算子, 其范数为 $||Lambda|| = limits(sup)_(||x||=1) ||Lambda x||$.
+  #linebreak()
+  Factually, $Phi: ell^infinity arrow scr(B) (ell^p), {lambda_j} mapsto Lambda$ is an *isometric* isomorphism, where $Lambda(x_1, x_2, ...) = (lambda_1 x_1, lambda_2 x_2, ...)$.
+]
+
+#注[
+  直观上理解, 我们将有限维的对角矩阵算子扩展到了无穷维, 当且仅当它的对角线元素是可和的.
+]
+
+#例(
+  "序列空间上的移位算子",
+  "Shift operators / Fredholm operators on sequence spaces",
+)[
+  $ell^p$ 上的左移和右移算子是有界线性算子, 其范数为 $1$. 其中 $L$ 是满射, $R$ 是单射. $dim ker L=1$.
+]
+
+#注[
+  这说明存在线性满射具有非平凡核空间的情况, 这与有限维空间中的情况不同.
+]
