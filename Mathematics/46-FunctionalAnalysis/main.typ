@@ -49,14 +49,14 @@
       name: [绝对齐次性],
       name_en: [Absolute Homogeneity],
       value: [
-        $forall lambda in bb(R), x in V: p(lambda x) = |lambda| p(x)$,
+        $forall lambda : bb(R), x : V: p(lambda x) = |lambda| p(x)$,
       ],
     ),
     (
       name: [次可加性 / 三角不等式],
       name_en: [Subadditivity / Triangle Inequality],
       value: [
-        $forall x,y in V: p(x+y) <= p(x) + p(y)$,
+        $forall x,y : V, p(x+y) <= p(x) + p(y)$,
       ],
     ),
   ),
@@ -90,8 +90,8 @@
   hypotheses: ([$(X,||dot||)$ 是#nvs], [$d(x,y) = ||x-y||$]),
 )[
   $d$ 满足以下性质:
-  1. *平移不变性 (Translation Invariance)*: $||x - y|| = ||(x - z) - (y - z)||, forall z in X$.
-  2. *绝对齐次性 (Absolute Homogeneity)*: $||alpha x - alpha y|| = |alpha| dot ||x - y|| forall alpha in bb(R)$.
+  1. *平移不变性 (Translation Invariance)*: $||x - y|| = ||(x - z) - (y - z)||, forall z : X$.
+  2. *绝对齐次性 (Absolute Homogeneity)*: $||alpha x - alpha y|| = |alpha| dot ||x - y|| forall alpha : bb(R)$.
 ]
 
 #注[
@@ -109,8 +109,8 @@
 ]
 
 #例(
-  "有限维 Eucild 空间",
-  "Finite-dimensional Euclidean spaces",
+  "装备 p 范数的有限维 Eucild 空间",
+  "Finite-dimensional Euclidean spaces equipped with p-norms",
 )[
   $(bb(R)^d, ||dot||_p)$ 是 #bs, 其中 $||dot||_p$ 是 $p$ 范数: 定义为: 如果 $1 <= p < infinity$, $||x||_p = (sum_(i=1)^d |x_i|^p)^(frac(1, p))$; 如果 $p = infinity$, 则定义为 $||x||_infinity = max_(1 <= i <= d) |x_i|$.
 ]
@@ -120,26 +120,37 @@
 ]
 
 #例(
-  "收敛序列空间",
-  "Sequence spaces",
+  "装备 p 范数的收敛序列空间",
+  "Sequence spaces equipped with p-norms",
 )[
   $ell^p$ 是 Banach 空间. 定义为所有求和收敛的序列:
 
   $ell^p = {x = (x_n)_{n=1}^infinity : sum_(n=1)^infinity |x_n|^p < infinity}$, 其中 $||x||_p = (sum_(n=1)^infinity |x_n|^p)^(frac(1, p))$.
 
   当 $p=infinity$ 时, 定义为所有有界序列:
-  $ell^infinity = {x = (x_n)_{n=1}^infinity : sup_(n in bb(N)) |x_n| < infinity}$, 其中 $||x||_infinity = sup_(n in bb(N)) |x_n|$.
+  $ell^infinity = {x = (x_n)_{n=1}^infinity : sup_(n : bb(N)) |x_n| < infinity}$, 其中 $||x||_infinity = sup_(n : bb(N)) |x_n|$.
 ]
 
 #例(
-  "连续函数空间",
-  "Spaces of continuous functions",
+  "装备上确界范数的连续函数空间",
+  "Spaces of continuous functions equipped with the supremum norm",
 )[
-  设 $X$ 是 #compact 度量空间, $C(X)$ 定义为所有在 $X$ 上连续的实值函数, 配备上确界范数 $||f||_infinity = sup_(x in X) |f(x)|$. 则 $(C(X), ||dot||_infinity)$ 是 Banach 空间.
+  设 $X$ 是 #compact 度量空间, $Cont(X, bb(R))$ 定义为所有在 $X$ 上连续的实值函数, 配备上确界范数 $||f||_infinity = sup_(x : X) |f(x)|$. 则 $(Cont(X, bb(R)), ||dot||_infinity)$ 是 #bs.
 ]
 
 #注[
   证明#compact;集上的一致收敛保持连续性: 使用连续性和收敛性三段控制即可.
+]
+
+#例(
+  "装备 Lipschitz 范数的带基点的 Lipschitz 函数空间",
+  "Spaces of Lipschitz functions equipped with the Lipschitz norm",
+)[
+  设 $X$ 是#compact;度量空间, $x_0 : X$, $f: Lip(X, bb(R))$, 定义 $L_0(X)$ 为所有满足 $f(x_0) = 0$ 的 $f$ 的集合, 其范数为 Lipschitz 常数 $||f||_("Lip") = sup_(x eq.not y) frac(|f(x) - f(y)|, d(x,y))$. 则 $(L_0(X), ||dot||_("Lip"))$ 是 #bs.
+]
+
+#注[
+  如果不带基点, 则该空间不是#nvs. 因为这时的 Lipschitz 常数甚至不是范数.
 ]
 
 #例(
@@ -204,10 +215,10 @@
   "Bounded Linear Operator",
   isPredicate: true,
   hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是线性映射]),
-  notation: [$T in Blo(X, Y)$],
+  notation: [$T : Blo(X, Y)$],
   [$T$ 是*有界线性算子*],
 )[
-  There exists a constant $C >= 0$ such that $forall x in X, ||T x||_Y <= C||x||_X$
+  There exists a constant $C >= 0$ such that $forall x : X, ||T x||_Y <= C||x||_X$
 ]
 
 #注[
@@ -220,7 +231,7 @@
   hypotheses: ([$X$ 是#nvs, $Y$ 是#nvs], [$T: X arrow Y$ 是#有界线性算子]),
   [$T$ 的范数],
 )[
-  定义 $T$ 的范数为 $||T|| = inf{C >= 0 : forall x in X, ||T x||_Y <= C||x||_X}$.
+  定义 $T$ 的范数为 $||T|| = inf{C >= 0 : forall x : X, ||T x||_Y <= C||x||_X}$.
 ]
 
 #定理(
@@ -252,7 +263,7 @@
     [$||T_n-T|| arrow 0$],
   ),
 )[
-  $T_n x arrow T x$ for all $x in X$
+  $forall x: X T_n x arrow T x$
 ]
 
 #定理(
@@ -291,8 +302,8 @@
   "Composition of bounded linear operators is still a bounded linear operator",
   hypotheses: (
     [$X$ 是#nvs, $Y$ 是#nvs, $Z$ 是#nvs],
-    [$T: in Blo(X, Y)$],
-    [$S: in Blo(Y, Z)$],
+    [$T: : Blo(X, Y)$],
+    [$S: : Blo(Y, Z)$],
   ),
 )[
   $S compose T: X arrow Z$ 是#有界线性算子, 且 $||S compose T|| <= ||S|| dot ||T||$.
@@ -331,5 +342,52 @@
 ]
 
 #注[
-  这说明存在线性满射具有非平凡核空间的情况, 这与有限维空间中的情况不同.
+  这说明存在线性满射具有非平凡核空间的情况, 也存在线性单射不是线性满射的情况, 这与有限维空间中的情况不同.
+]
+
+#例(
+  "积分算子",
+  "Integral operators",
+)[
+  积分算子: $I:C[0,1] arrow C[0,1], f mapsto integral_0^x f(y) dif y$ 是有界线性算子, 其范数为 $1$.
+]
+
+#定理(
+  "有界线性算子的逆也是有界线性算子",
+  "The inverse of a bounded linear operator is also a bounded linear operator",
+  hypotheses: ([$X$ 是 #bs], [$T: Blo(X, X)$ 是双射]),
+)[
+  $T^(-1): X arrow X$ 是#有界线性算子.
+]
+
+#结构(
+  "Banach 代数",
+  "Banach Algebra",
+  isPredicate: true,
+  [#线性空间 $A$ 上的乘法使 $A$ 成为*Banach 代数*],
+  (
+    (
+      name: [代数结构],
+      name_en: [Algebraic Structure],
+      value: [
+        $A$ 配备一个二元运算 $dot : A times A arrow A$, 满足结合律 $(x dot y) dot z = x dot (y dot z)$, 分配律 $x dot (y + z) = x dot y + x dot z$ 和 $(x + y) dot z = x dot z + y dot z$, 以及存在单位元 $e$ 使得 $e dot x = x dot e = x$.
+      ],
+    ),
+    (
+      name: [范数性质],
+      name_en: [Norm Properties],
+      value: [
+        $exists M > 0$, $||x dot y|| <= M ||x|| ||y||$ 和 $||e|| = 1$.
+      ],
+    ),
+  ),
+)
+
+#例(
+  "连续函数空间上的 Banach 代数",
+  "Banach algebra of continuous functions",
+)[
+  设 $X$ 是#compact;度量空间, $Cont(X, bb(R))$ 定义为所有在 $X$ 上连续的实值函数, 配备上确界范数 $||f||_infinity = sup_(x : X) |f(x)|$. 则 $(Cont(X, bb(R)), ||dot||_infinity)$ 是 Banach 代数, 其乘法定义为函数的逐点乘积: $(f dot g)(x) = f(x) g(x)$.
+
+  这是一个交换的 Banach 代数.
 ]
