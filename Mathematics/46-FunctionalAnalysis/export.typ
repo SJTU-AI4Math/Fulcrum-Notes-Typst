@@ -23,8 +23,19 @@
   )
 )
 
+#let 有界线性泛函 = (
+  optionLink(
+    "BoundedLinearFunctional",
+    [有界线性泛函],
+  )
+)
+
 // operator
 
 #let Blo = (sour, targ) => [
   #optionLink("BoundedLinearOperator", $scr(B)$)#h(0.1fr) (#sour, #targ)
+]
+
+#let Spec = T => [
+  #optionLink("Spectrum", $sigma$)#h(-0.1fr) (#T)
 ]

@@ -154,6 +154,21 @@
 ]
 
 #例(
+  "装备C1范数的连续可微函数空间",
+  "Spaces of continuously differentiable functions equipped with the C1 norm",
+)[
+  设 $X$ 是#compact;度量空间, $C^1(X, bb(R))$ 定义为所有在 $X$ 上连续可微的实值函数, 配备 $C^1$ 范数 $||f||_("C1") = ||f||_infinity + ||f'||_infinity$. 则 $(C^1(X, bb(R)), ||dot||_("C1"))$ 是 #bs.
+]
+
+#注[
+  装备上确界范数的 $C^1$ 函数空间不是#bs. 因为存在连续可微函数列的极限是不是连续可微的. 例如, 定义 $f_n (x) = sqrt(x^2 + frac(1, n^2))$. 则 $f_n$ 是连续可微的, 但极限函数 $f(x) = |x|$ 在 $x=0$ 处不是连续可微的.
+]
+
+#注[
+  有时也为连续可微函数空间配备带基点的 $C^1$ 函数空间范数: $||f||_("C1") = f(x_0) + ||f'||_infinity$, 这里 $x_0$ 是 $X$ 中的固定一点. 则 $(C^1(X, bb(R)), ||dot||_("C1"))$ 是 #bs.
+]
+
+#例(
   "无限维空间上的闭球不是紧的",
   "Closed balls in infinite-dimensional spaces are not compact",
 )[
@@ -220,9 +235,20 @@
 )[
   There exists a constant $C >= 0$ such that $forall x : X, ||T x||_Y <= C||x||_X$
 ]
+#定义(
+  uuid: "BoundedLinearFunctional",
+  "有界线性泛函",
+  "Bounded Linear Functional",
+  isPredicate: true,
+  isExtension: true,
+  hypotheses: ([$X$ 是#nvs], [$T: X arrow bb(R)$ 是线性映射]),
+  [$T$ 是*有界线性泛函*],
+)[
+  $T$ 是#有界线性算子.
+]
 
 #注[
-  等价地, #有界线性算子 $T$ 将单位闭球映到 $Y$ 中的半径不超过 $C$ 的单位闭球中.
+  等价地, #有界线性算子 $T$ 将单位闭球映到像空间中的半径不超过 $C$ 的单位闭球中.
 ]
 
 #定义(
@@ -263,7 +289,7 @@
     [$||T_n-T|| arrow 0$],
   ),
 )[
-  $forall x: X T_n x arrow T x$
+  $forall x: X, T_n x arrow T x$
 ]
 
 #定理(
@@ -390,4 +416,114 @@
   设 $X$ 是#compact;度量空间, $Cont(X, bb(R))$ 定义为所有在 $X$ 上连续的实值函数, 配备上确界范数 $||f||_infinity = sup_(x : X) |f(x)|$. 则 $(Cont(X, bb(R)), ||dot||_infinity)$ 是 Banach 代数, 其乘法定义为函数的逐点乘积: $(f dot g)(x) = f(x) g(x)$.
 
   这是一个交换的 Banach 代数.
+]
+
+== 有界线性算子的谱理论
+
+#定义(
+  uuid: "Spectrum",
+  "谱",
+  "Spectrum",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#nvs], [$T: Blo(X, X)$ 是有界线性算子]),
+  notation: [$Spec(T)$],
+  [$T$ 的谱],
+)[
+  ${lambda in bb(C) : T - lambda I "不是可逆的"}$.
+]
+
+#定义(
+  "特征值",
+  "Eigenvalue",
+  hypotheses: ([$X$ 是#nvs], [$T: Blo(X, X)$ 是有界线性算子]),
+  [$T$ 的特征值],
+)[
+  $lambda in bb(C)$ 满足 $exists x eq.not 0$ 使得 $T x = lambda x$.
+]
+#定义(
+  "特征向量",
+  "Eigenvector",
+  hypotheses: ([$X$ 是#nvs], [$T: Blo(X, X)$ 是有界线性算子]),
+  isPredicate: true,
+  isExtension: true,
+  [$T$ 的特征向量],
+)[
+  $x:X$ such that $T x = lambda x$.
+]
+
+#注[
+  "逆映射不存在" 其实包括两种情形:
+  1. 不是单射: 存在 $x eq.not 0$ 使得 $(T - lambda I)x = 0$.
+  2. 不是满射: $T - lambda I$ 的像不是整个空间 $X$, 即 $exists y in X$ 使得 $forall x in X$, $(T - lambda I)x eq.not y$.
+]
+
+#注[
+  这与我们在线性代数中定义的特征值有区别, 在无限维空间中, 可能存在没有特征值但仍然有谱的情况. 例如, 左移算子 $L$ 在 $ell^p$ 上没有特征值, 但其谱是单位闭盘 ${lambda in bb(C) : |lambda| <= 1}$.
+]
+
+#定理(
+  "有界线性算子的谱是非空的紧集",
+  "The spectrum of a bounded linear operator is non-empty",
+  hypotheses: ([$X$ 是#nvs], [$T: Blo(X, X)$ 是有界线性算子]),
+)[
+  $sigma(T) eq.not emptyset$, 且 $sigma(T)$ 在 $bb(C)$ 中#compact.
+]
+
+== 有限维空间的特殊性质
+
+#定义(
+  uuid: "DualSpace",
+  "对偶空间",
+  "Dual Space",
+  isPredicate: false,
+  hypotheses: ([$X$ 是#nvs],),
+  notation: [$X^*$],
+  [$X$ 的对偶空间],
+)[
+  $X^* = Blo(X, bb(R))$.
+]
+
+#注[
+  这里的对偶空间是指 Banach 空间的对偶空间, 不是线性代数中的对偶空间. 线性代数中的对偶空间是指所有线性泛函的集合, 而 Banach 空间的对偶空间是指所有#有界线性泛函;的集合. 只有当 $X$ 是有限维空间时, 两者才相同. 这是因为有限维的线性泛函一定是有界的, 但无限维的线性泛函不一定是有界的.
+]
+
+#定理(
+  uuid: "FiniteDimensionalDualIsomorphism",
+  "有限维空间的对偶空间同构于原空间",
+  "The dual space of a finite-dimensional space is isomorphic to the original space",
+  hypotheses: ([$V$ 是#nvs, $dim (V) < infinity$],),
+)[
+  $V^* tilde.equiv V$.
+]
+
+#定理(
+  uuid: "FiniteDimensionalIsomorphism",
+  "有限维空间同构定理",
+  "Isomorphism theorem for finite-dimensional spaces",
+  hypotheses: ([$V$ 是#nvs, $dim (V) < infinity$],),
+)[
+  $V tilde.equiv bb(R)^(dim (V))$.
+]
+
+#注[
+  这里的同构是作为#nvs;的同构.
+]
+
+#定义(
+  uuid: "EquivalentNorms",
+  "范数的等价",
+  "Equivalent Norms",
+  isPredicate: true,
+  hypotheses: ([$(V, ||dot||_1)$ 是#nvs], [$(V,||dot||_2)$ 是#nvs]),
+  [$||dot||_1$ 和 $||dot||_2$ 是*等价的*],
+)[
+  $exists C_1, C_2 >= 0$: $forall x : V, C_1 ||x||_1 <= ||x||_2 <= C_2 ||x||_1$.
+]
+
+#定理(
+  "有限维空间上的任意两个范数都是等价的",
+  "Any two norms on a finite-dimensional space are equivalent",
+  hypotheses: ([$V$ 是#nvs], [$dim (V) < infinity$], [$||dot||_1$ 和 $||dot||_2$ 是 $V$ 上的范数]),
+)[
+  $||dot||_1$ 和 $||dot||_2$ 是等价的.
 ]
