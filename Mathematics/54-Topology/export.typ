@@ -77,6 +77,12 @@
   [连续],
 )
 
+#let Lipschitz = optionLink(
+  "LipschitzContinuity",
+  [Lipschitz 连续],
+)
+
+
 // instance:
 #let 平凡拓扑 = optionLink(
   "TrivialTopology",
@@ -105,6 +111,26 @@
   #optionLink("Closure", $op("Cl")$)#h(0.1em) (#body)
 ]
 
-#let Cont = (sour, targ) => [
-  #optionLink("MapContinuity", $op("C")$)#h(0.1fr) (#sour, #targ)
-]
+#let Cont = (sour, targ) => (
+  if targ == none {
+    [
+      #optionLink("ContinuousFunctionSpace", $op("C")$)#h(0.1fr) (#sour)
+    ]
+  } else {
+    [
+      #optionLink("ContinuousFunctionSpace", $op("C")$)#h(0.1fr) (#sour, #targ)
+    ]
+  }
+)
+
+#let Lip = (sour, targ) => (
+  if targ == none {
+    [
+      #optionLink("LipschitzContinuity", $op("Lip")$)#h(0.1fr) (#sour)
+    ]
+  } else {
+    [
+      #optionLink("LipschitzContinuity", $op("Lip")$)#h(0.1fr) (#sour, #targ)
+    ]
+  }
+)

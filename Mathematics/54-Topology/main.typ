@@ -164,7 +164,7 @@
 #性质(
   "集合是闭集当且仅当其闭包是自身",
   "A set is closed if and only if its closure is itself",
-  bstyle: "display",
+  cstyle: "display",
 )[
   $ A "是闭集" arrow.l.r.double A = Closure(A) $
 ]
@@ -549,7 +549,7 @@
 )[
   考虑 Tychonoff 空间
   $ product_(i in I) X_i $
-  $I$ 是索引集. 其中每个 $X_i$ 是#compact;的, 则其积空间是紧致的. 但当 $I$ 是不可数集时, 它不是#序列紧;的.
+  $I$ 是某不可数的索引集. 其中每个 $X_i$ 是#compact;的, 承认选择公理, 则其积空间是紧致的. 但它不是#序列紧;的.
 ]
 
 #例(
@@ -697,7 +697,7 @@
   "Heine 归结原理",
   "Heine's Reduction Principle",
   hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$], [$y: Y$]),
-  bstyle: "display",
+  cstyle: "display",
 )[
   $f$ 在点 $x$ 处的极限是 $y$ 当且仅当对于任意序列 $x_n$ 收敛于 $x$, 序列 $f(x_n)$ 收敛于 $y$.
   $
@@ -742,7 +742,7 @@
   "连续性的邻域定义",
   "Neighborhood Definition of Continuity",
   hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$f: X arrow Y$], [$x: X$]),
-  bstyle: "display",
+  cstyle: "display",
 )[
   $f$ 在 $x$ 处#continuity;当且仅当对于任意 $f(x)$ 的邻域 $V$, 都存在 $x$ 的一个邻域 $U$, 使得 $f(U) subset.eq V$. 即:
   $forall V in Nbr(f(x)), exists U in Nbr(x), f(U) subset.eq V$.
@@ -759,7 +759,7 @@
     [$f: E arrow Y$],
     [$x: E$],
   ),
-  bstyle: "display",
+  cstyle: "display",
 )[
   $f in Cont(E, Y)$ 当且仅当 $f(E)$ 的任意#开集;的原像都是 $E$ 中的一个开集, 即
   $ forall V in tau_Y and V subset.eq f(E), f^(-1)(V) subset.eq E and f^(-1)(V) in tau_X $.
@@ -795,6 +795,17 @@
   hypotheses: ([$(X,tau_X)$ 是一个#拓扑空间], [$(Y,tau_Y)$ 是一个#拓扑空间], [$E subset.eq X$], [$f: Cont(E, Y)$]),
 )[
   $f(E)$ 在 $Y$ 中#compact.
+]
+
+#定义(
+  uuid: "LipschitzContinuity",
+  "Lipschitz 连续性",
+  "Lipschitz Continuity",
+  hypotheses: ([$(X,d_X)$ 是一个度量空间], [$(Y,d_Y)$ 是一个度量空间], [$f: X arrow Y$]),
+  notation: [$f in Lip(X, Y)$],
+  [映射 $f$ 是一个 Lipschitz 连续映射],
+)[
+  $exists L > 0$, $forall x_1, x_2 : X$, $d_Y (f(x_1), f(x_2)) <= L dot d_X (x_1, x_2)$.
 ]
 
 == 同胚映射

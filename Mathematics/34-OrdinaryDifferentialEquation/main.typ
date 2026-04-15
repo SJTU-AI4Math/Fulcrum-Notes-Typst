@@ -356,6 +356,7 @@
 ]
 
 #性质(
+  uuid: "IntegratingFactorForFirstorderLinearODE",
   "一阶线性微分方程的积分因子",
   "Integrating Factor for First-order Linear ODE",
   hypotheses: ([$star: y' + p(x)y = q(x)$ 是#FLODE],),
@@ -640,4 +641,235 @@
 
 #注[
   一般的参数法对于参数的选取有很高的要求. 如果没有什么观察, 很难选出合适的参数来将隐式方程转化为显式方程.
+]
+
+= 常微分方程的解的存在性与唯一性
+
+== Picard-Lindelöf 定理
+
+#定理(
+  "Gronwall 不等式",
+  "Gronwall's Inequality",
+  hypotheses: (
+    [$f: Cont([a,b], bb(R))$, $g: Cont([a,b], bb(R))$],
+    [$g(x)>=0$],
+    [$c: bb(R)$],
+    [$f(x) <= c + integral_a^x g(t)f(t) dif t$],
+  ),
+)[
+  $f(x) <= c exp integral_a^x g(t) dif t$
+]
+
+#注[
+  证明思路如下: 令 $H(x) = c + integral_a^x g(t)f(t) dif t$, 则
+  $ H'(x) = g(x)f(x) <= g(x) (c + integral_a^x g(t)f(t) dif t) = g(x) (c+ H(x)) $
+  这就得到了一个一阶线性微分不等式
+  $ H'(x) <= g(x) (c+ H(x)) $
+  使用积分因子
+  $ mu(x) = exp(- integral_a^x g(t) dif t) $
+  即可.
+]
+
+#定理(
+  "参数化的 Gronwall 不等式",
+  "Parametrized Gronwall's Inequality",
+  hypotheses: (
+    [$f: Cont([a,b], bb(R))$, $g: Cont([a,b], bb(R))$],
+    [$h: Cont([a,b], bb(R))$],
+    [$g(x)>=0$],
+    [$f(x) <= h(x) + integral_a^x g(t)f(t) dif t$],
+  ),
+)[
+  $f(x) <= h(x) + exp integral_a^x g(s) dif s + integral_a^x g(t)h(t) exp (integral_t^x g(s) dif s) dif t$
+]
+
+#注[
+  `tactic: "leftAsExercise"`
+]
+
+#定理(
+  "一元 Picard-Lindelöf 定理 / 一元 Cauchy-Lipschitz 定理",
+  "One-dimensional Picard-Lindelöf Theorem / One-dimensional Cauchy-Lipschitz Theorem",
+  hypotheses: (
+    [$star: dv(x, t)=f(t,x)$ 是常微分方程],
+    [$t_0 : bb(R)$],
+    [$x_0: bb(R)$],
+    [$A: bb(R)$],
+    [$M: bb(R)$],
+    [$D: {(x,t) : |t-t_0|<=A, |x-x_0|<=M}$],
+    [$f: Cont(D, bb(R))$],
+    [
+      $f$ 在 $D$ 上对 $x$ 满足 *Lipschitz 条件*. 即 $exists L: bb(R)$, 使得 $forall (x_1,t):D, (x_2,t):D$, 都有
+      $ |f(t,x_1)-f(t,x_2)| <= L |x_1-x_2| $
+    ],
+    [$star$ 具有初值条件 $x(t_0)=x_0$],
+  ),
+)[
+  $star$ 在区域 $|t-t_0|<=H$ 上存在唯一的解, 其中 $H=min {A, frac(M, max {|f(t,x)| : (x,t) in D})}$.
+]
+
+#定理(
+  "Picard-Lindelöf 定理 / Cauchy-Lipschitz 定理",
+  "Picard-Lindelöf Theorem / Cauchy-Lipschitz Theorem",
+  hypotheses: (
+    [$n: bb(N)^*$],
+    [$star: dv(bold(x), t)=bold(f) (t,bold(x))$ 是常微分方程],
+    [$t_0 : bb(R)$],
+    [$bold(x)_0: bb(R)^n$],
+    [$A: bb(R)$],
+    [$B: bb(R)$],
+    [$D: {(bold(x),t) : |t-t_0|<=A, ||bold(x)-bold(x)_0||<=B}$],
+    [$f: Cont(D, bb(R))$],
+    [$M: bb(R) = max_((t,x) in D) ||f(t, x)||$],
+    [
+      $f$ 在 $D$ 上对 $bold(x)$ 满足 *Lipschitz 条件*. 即 $exists L: bb(R)$, 使得 $forall ((bold(x))_1,t):D, (bold(x)_2,t):D$, 都有
+      $ |f(t,bold(x)_1)-f(t,bold(x)_2)| <= L |bold(x)_1-bold(x)_2| $
+    ],
+    [$star$ 具有初值条件 $bold(x)(t_0)=bold(x)_0$],
+  ),
+)[
+  $star$ 在区域 $|t-t_0|<=H$ 上存在唯一的解, 其中 $H=min {A, frac(B, M)}$.
+]
+
+#定理(
+  "具有连续偏导数的常微分方程的解存在且唯一",
+  "Existence and Uniqueness of Solution to ODE with Continuous Partial Derivatives",
+  hypotheses: (
+    [$n: bb(N)^*$],
+    [$star: dv(bold(x), t)=bold(f) (t,bold(x))$ 是常微分方程],
+    [$t_0 : bb(R)$],
+    [$bold(x)_0: bb(R)^n$],
+    [$A: bb(R)$],
+    [$B: bb(R)$],
+    [$D: {(bold(x),t) : |t-t_0|<=A, ||bold(x)-bold(x)_0||<=B}$],
+    [$f: Cont(D, bb(R))$],
+    [$M: bb(R) = max_((t,x) in D) ||f(t, x)||$],
+    [
+      $f$ 在 $D$ 上对 $bold(x)$ 具有连续偏导数,
+    ],
+    [$star$ 具有初值条件 $bold(x)(t_0)=bold(x)_0$],
+  ),
+)[
+  $star$ 在区域 $|t-t_0|<=H$ 上存在唯一的解, 其中 $H=min {A, frac(B, M)}$.
+]
+
+
+#定义(
+  "Picard 算子",
+  "Picard Operator",
+  hypotheses: ([$I subset.eq bb(R)$ 是闭区间], [$t_0 in I$], [$t in I$], [$bold(x)_0: bb(R)^n$]),
+  [Picard 算子],
+)[
+  $ T: Cont(I, bb(R)^n) arrow Cont(I, bb(R)^n) $
+  $ T(bold(x)) = bold(x)_0 + integral_(t_0)^t bold(f)(s, bold(x) (s)) dif s $
+]
+#定义(
+  "Picard 序列",
+  "Picard Sequence",
+  isExtension: true,
+  hypotheses: [$T$ 是 *Picard 算子*],
+  [Picard 序列],
+)[
+  $ {bold(x)_0, T(bold(x)_0), T(T(bold(x)_0)), ...} $
+  其中 $bold(x)_0$ 是常函数 $bold(x)_0 (t) = bold(x)_0$, $bold(x)_(n+1) = T(bold(x)_n)$.
+]
+
+#注[
+  证明思路如下:
+  #linebreak()
+  先转化问题为求解积分方程
+  $ bold(x)(t) = bold(x)_0 + integral_t_0^t bold(f)(s, bold(x) (s)) dif s $
+  令常函数 $bold(x)_0 (t) = bold(x)_0$ 是一个可能解. 定义序列 ${bold(x)_0, bold(x)_1, bold(x)_2, ...}$ 是 Picard 序列. 注意到
+  $
+    ||bold(x)_1 - bold(x)_0 || = norm(integral_(t_0)^t bold(f)(s, bold(x)_0) dif s) <= max_((t,x) in D) ||f(t, x)|| dot |t-t_0| = M|t-t_0|
+  $
+  和
+  $
+    ||bold(x)_2 - bold(x)_1 || = norm(integral_(t_0)^t (bold(f)(s, bold(x)_1) - bold(f)(s, bold(x)_0)) dif s) <= L abs(integral_(t_0)^t norm(bold(x)_1 - bold(x)_0) dif s) <= frac(M L |t-t_0|^(2), 2!)
+  $
+  利用数学归纳法可以证明
+  $ ||bold(x)_n - bold(x)_(n-1) || <= frac(M L^(n-1) |t-t_0|^(n), n!) $
+  所以
+  $
+    bold(x)_n - bold(x)_0 = sum_(k=1)^n (bold(x)_k - bold(x)_(k-1)) <= sum_(k=1)^n frac(M L^(k-1) |t-t_0|^(k), k!) <= M |t-t_0| exp(L |t-t_0|)
+  $
+  根据 Weierstrass 判别法, Picard 序列在 $Cont(I, bb(R)^n)$ 上一致收敛. 代入迭代序列
+  $ bold(x)_n = bold(x)_0 + integral_(t_0)^t bold(f) (s, bold(x)_(n-1) (s)) dif s $
+  令 $n arrow infinity$: 由于一致收敛且 $f$ 连续, 可以交换极限和积分, 得到
+  $ bold(x) = bold(x)_0 + integral_(t_0)^t bold(f) (s, bold(x) (s)) dif s $
+  这说明 $bold(x)_n$ 确实一致收敛到积分方程的解. 这就证明了解的存在性.
+  #linebreak()
+  则根据 Banach 不动点定理, Picard 算子 $T$ 在 $Cont(I, bb(R)^n)$ 上存在唯一的不动点, 即 Picard 序列收敛于 $T$ 的唯一不动点. 又因为 $T$ 的不动点 $bold(x)$ 就是积分方程的解, 这就证明了解的唯一性.
+]
+
+#定理(
+  "Picard 序列逼近误差估计",
+  "Error Estimate for Picard Sequence Approximation",
+  hypotheses: (
+    [$n: bb(N)^*$],
+    [$star: dv(bold(x), t)=bold(f) (t,bold(x))$ 是常微分方程],
+    [$t_0 : bb(R)$],
+    [$bold(x)_0: bb(R)^n$],
+    [$A: bb(R)$],
+    [$B: bb(R)$],
+    [$D: {(bold(x),t) : |t-t_0|<=A, ||bold(x)-bold(x)_0||<=B}$],
+    [${bold(x_n)}_(n=0)^infinity$ 是 $star$ 的 Picard 序列],
+    [$bold(phi)$ 是 $star$ 的解],
+    [$f$ 在 $D$ 上对 $bold(x)$ 满足 Lipschitz 条件, $L$ 是 Lipschitz 常数],
+    [$M: bb(R) = max_((s,x) in D) ||f(s, x)||$],
+  ),
+)[
+  $ ||bold(x)_n (t) - bold(phi) (t)|| <= frac(M L^n |t-t_0|^(n+1), (n+1)!) $
+  其中 $bold(x)_0$ 是常函数 $bold(x)_0 (t) = bold(x)_0$.
+]
+
+#注[
+  利用数学归纳法来证明: 对 $n=0$, 有
+  $ ||bold(x)_0 (t) - bold(phi) (t)|| = norm(integral_(t_0)^t f(s, bold(phi)(s)) dif s) <= M |t-t_0| $
+  成立. 再假设情况对 $n=m$ 成立:
+  $ ||bold(x)_m (t) - bold(phi) (t)|| <= frac(M L^m |t-t_0|^(m+1), (m+1)!) $
+  则对 $n=m+1$, 有
+  $ ||bold(x)_(m+1) (t) - bold(phi) (t)|| = norm(integral_(t_0)^t (f(s, bold(x)_m (s)) - f(s, bold(phi)(s))) dif s) $
+  $
+    <= integral_(t_0)^t L ||bold(x)_m (s) - bold(phi)(s)|| dif s <= integral_(t_0)^t frac(M L^(m+1) |s-t_0|^(m+1), (m+1)!) dif s = frac(M L^(m+1) |t-t_0|^(m+2), (m+2)!)
+  $
+]
+
+#例(
+  "不满足 Lipschitz 条件的常微分方程的解可以不唯一",
+  "",
+)[
+  常微分方程
+  $ dv(x, t) = x^(1/3) $
+  满足初值条件 $x(0)=0$ 的解不唯一. 例如, $x(t)=0$ 和
+  $
+    x(t) = cases(
+      0 "  if" t <= 0,
+      (frac(2, 3))^frac(3, 2) "  if" t>0
+    )
+  $
+  都是这个初值问题的解.
+]
+
+#定理(
+  "Osgood 定理",
+  "Osgood's Theorem",
+  hypotheses: (
+    [$star: dv(x, t)=f(t,x)$ 是常微分方程],
+    [$t_0 : bb(R)$],
+    [$x_0: bb(R)$],
+    [$D subset bb(R)^2$ 是一个区域, 且 $(x_0, t_0) in G$],
+    [$star$ 具有初值条件 $x(t_0)=x_0$],
+    [$f: Cont(D, bb(R))$],
+    [$F: bb(R) arrow bb(R), forall (t,x_1):D, (t,x_2):D, |f(t,x_1)-f(t,x_2)| <= F(|x_1-x_2|)$],
+    [$f$ 满足 Osgood 条件. 即:
+      $ forall R in [0, +infinity], integral_0^R frac(1, F(s)) dif s = +infinity $
+    ],
+  ),
+)[
+  $star$ 在某个包含 $t_0$ 的区间上存在唯一的解.
+]
+
+#注[
+  不满足 Lipschitz 条件的常微分方程也可能有唯一解. Osgood 条件是比 Lipschitz 条件更弱的一个条件, 但它仍然保证了常微分方程解的唯一性.
 ]
