@@ -84,7 +84,7 @@
   [$u$ 是 $S$ 的下界],
   [ $forall (s : S), u <= s$],
   isPredicate: true,
-  extention: true,
+  isExtension: true,
 )
 #定义(
   uuid: "BoundedAbove",
@@ -94,7 +94,7 @@
   [$S$ 有上界],
   [ $exists (u : T), u$ 是 $S$ 的#上界],
   isPredicate: true,
-  extention: true,
+  isExtension: true,
 )
 #定义(
   uuid: "BoundedBelow",
@@ -104,7 +104,7 @@
   [$S$ 有下界],
   [ $exists (u : T), u$ 是 $S$ 的#下界],
   isPredicate: true,
-  extention: true,
+  isExtension: true,
 )
 #定义(
   uuid: "Bounded",
@@ -114,7 +114,7 @@
   [$S$ 有界],
   [ $S$ 有#上界 $and S$ 有#下界],
   isPredicate: true,
-  extention: true,
+  isExtension: true,
 )
 
 #let 滤过序结构 = optionLink(
@@ -246,7 +246,7 @@
   "主滤子是合法滤子","",
   hypotheses: ([ $S : Set(alpha)$],),
   [$PFilter(S)$ 是#滤子],
-  extention: true
+  isExtension: true
 )
 
 #let 单子 = optionLink(
