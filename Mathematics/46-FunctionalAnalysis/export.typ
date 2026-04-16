@@ -30,6 +30,13 @@
   )
 )
 
+#let 半范数 = (
+  optionLink(
+    "Seminorm",
+    [半范数],
+  )
+)
+
 // operator
 
 #let Blo = (sour, targ) => [

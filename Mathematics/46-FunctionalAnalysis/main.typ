@@ -527,3 +527,186 @@
 )[
   $||dot||_1$ 和 $||dot||_2$ 是等价的.
 ]
+
+#定义(
+  uuid: "HeineBorelProperty",
+  "Heine-Borel 性质",
+  "Heine-Borel Property",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#nvs],),
+  [$X$ 满足*Heine-Borel 性质*],
+)[
+  $X$ 中的任意有界#闭集;都是#compact;的.
+]
+
+#定理(
+  "赋范线性空间是有限维的当且仅当它满足 Heine-Borel 性质",
+  "A normed vector space is finite-dimensional iff it satisfies the Heine-Borel property",
+  hypotheses: ([$X$ 是#nvs],),
+)[
+  $X$ 满足 Heine-Borel 性质; $arrow.l.r.double$ $X$ 是有限维的.
+]
+
+#定理(
+  "无限维 Banach 空间中的单位球不是紧的",
+  "The unit ball in an infinite-dimensional Banach space is not compact",
+  hypotheses: ([$X$ 是#bs], [$dim (X) = infinity$]),
+)[
+  $cal(B) = {x : X : ||x|| <= 1}$ 不是#compact;的.
+]
+
+#定义(
+  uuid: "BidualSpace",
+  "双对偶空间",
+  "Bidual Space",
+  isPredicate: false,
+  hypotheses: ([$X$ 是#nvs],),
+  notation: [$X^(**)$],
+  [$X$ 的双对偶空间],
+)[
+  $X^(**) = (X^*)^* = Blo(X^*, bb(R))$.
+]
+
+#性质(
+  "原空间是双对偶空间的子空间",
+  "The original space is a subspace of the bidual space",
+  hypotheses: ([$X$ 是#nvs],),
+)[
+  $exists J: X arrow.r.hook X^(**)$ 使得 $forall x : X, forall f : X^*, J(x)(f) = f(x)$.
+
+  称 $J$ 为 $X$ 的*典范嵌入*.
+]
+
+#定义(
+  uuid: "ReflexiveSpace",
+  "自反空间",
+  "Reflexive Space",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#nvs], [$J$ 是 $X$ 的典范嵌入]),
+  [$X$ 是*自反空间*],
+)[
+  $J$ 是双射.
+]
+
+#注[
+  即使 $X$ 与 $X^(**)$ 同构也不能说明 $X$ 的典范嵌入是同构.
+]
+
+#例(
+  "Lp 空间是自反空间的充要条件",
+  "",
+)[
+  $L^p$ 空间是自反空间当且仅当 $1 < p < infinity$.
+]
+
+= 线性泛函分析基础
+
+== Hahn-Banach 定理
+
+#结构(
+  uuid: "Seminorm",
+  "半范数",
+  "Seminorm",
+  isPredicate: true,
+  [#线性空间 $V$ 上的函数 $p: V arrow bb(R)$ 是 $V$ 上的*半范数函数*],
+  (
+    (
+      name: [非负性],
+      name_en: [Non-negativity],
+      value: [
+        $forall x : V, p(x) >= 0$,
+      ],
+    ),
+    (
+      name: [绝对齐次性],
+      name_en: [Absolute Homogeneity],
+      value: [
+        $forall lambda : bb(R), x : V: p(lambda x) = |lambda| p(x)$,
+      ],
+    ),
+    (
+      name: [次可加性 / 三角不等式],
+      name_en: [Subadditivity / Triangle Inequality],
+      value: [
+        $forall x,y : V, p(x+y) <= p(x) + p(y)$,
+      ],
+    ),
+  ),
+)
+
+#注[
+  #半范数;相较于范数不具有正定性. 可能 $exists x : V, x eq.not 0$ 使得 $p(x) = 0$.
+]
+
+#性质(
+  "半范数的零空间是线性子空间",
+  "The zero set of a seminorm is a linear subspace",
+  hypotheses: ([$V$ 是#线性空间], [$p$ 是 $V$ 上的#半范数]),
+)[
+  $Z := {x : V : p(x) = 0}$ 是 $V$ 的线性子空间.
+]
+
+#性质(
+  "半范数可以诱导范数",
+  "A seminorm can induce a norm",
+  hypotheses: ([$V$ 是#线性空间], [$p$ 是 $V$ 上的#半范数], [$Z$ 是 $p$ 的零空间]),
+)[
+  定义 $||x + Z|| = p(x)$, 则 $||dot||$ 是 $V/Z$ 上的范数, 使得 $V/Z$ 成为一个赋范线性空间.
+]
+
+#定义(
+  "紧致组",
+  "Compact Exhuastion",
+  isPredicate: false,
+  hypotheses: ([$X$ 是#nvs],),
+  [$X$ 的*紧致组*],
+)[
+  一列#compact;集 ${K_n}_(n=1)^infinity$ 满足 $K_n subset.eq K_(n+1)$ 和 $union_(n=1)^infinity K_n = X$.
+]
+
+#定义(
+  "紧致收敛拓扑",
+  "Compact convergence topology",
+  isPredicate: false,
+  hypotheses: ([$X$ 是#nvs], [$T: X arrow Y$ 是线性映射], [${K_n}_(n=1)^infinity$ 是 $X$ 的紧致组]),
+  [$T$ 的*紧致收敛拓扑*],
+)[
+  $ ||f||_i = sup_(x in K_i) |f(x)| $
+
+  则 ${||f||_i}$ 是一族#半范数. 定义
+
+  $ rho(f, g) = sum_(i=1)^infinity 2^(-i) frac(||f-g||_i, 1+||f-g||_i) $
+
+  则 $rho$ 是 $Cont(X, RR)$ 上的一个度量, 称为*紧致收敛度量*, 其诱导的拓扑叫做*紧致收敛拓扑*.
+]
+
+#定义(
+  uuid: "SublinearFunctional",
+  "次线性泛函",
+  "Sublinear Functional",
+  isPredicate: true,
+  hypotheses: ([$V$ 是#线性空间],),
+  [$V$ 上的*次线性泛函*],
+)[
+  $f: V arrow bb(R)$ 满足以下条件:
+  1. *正齐次性 (Positive Homogeneity)*: $forall lambda >= 0, x : V, f(lambda x) = lambda f(x)$.
+  2. *次可加性 (Subadditivity)*: $forall x,y : V, f(x+y) <= f(x) + f(y)$.
+]
+
+#定理(
+  "Hahn-Banach 定理",
+  "Hahn-Banach Theorem",
+  hypotheses: (
+    [$X$ 是一个实向量空间],
+    [$Y$ 是 $X$ 的一个子空间],
+    [$p: X -> RR$ 是一个次线性泛函],
+    [$f: Y -> RR$ 是一个线性函数],
+    [$forall y:Y, f(y) <= p(y)$],
+  ),
+)[
+  $exists F: X -> RR$ 使得 $forall y:Y, F(x) = f(x) and forall x:X, F(x) <= p(x)$
+]
+
+#注[
+  这个定理的意义在于, 在满足某些条件的情况下, 可以将一个定义在子空间上的线性函数(i)扩展到整个空间上, (ii)同时保持被某个次线性函数的控制.
+]
