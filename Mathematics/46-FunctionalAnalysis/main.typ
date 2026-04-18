@@ -700,7 +700,7 @@
     [$X$ 是一个实向量空间],
     [$Y$ 是 $X$ 的一个子空间],
     [$p: X -> RR$ 是一个次线性泛函],
-    [$f: Y -> RR$ 是一个线性函数],
+    [$f: Y -> RR$ 是一个线性泛函],
     [$forall y:Y, f(y) <= p(y)$],
   ),
 )[
@@ -710,3 +710,216 @@
 #注[
   这个定理的意义在于, 在满足某些条件的情况下, 可以将一个定义在子空间上的线性函数(i)扩展到整个空间上, (ii)同时保持被某个次线性函数的控制.
 ]
+
+#注[
+  该定理的证明过程依赖 Zorn 引理. 首先考虑一步的延拓, 然后使用 Zorn 引理来构造一个极大的延拓, 最后证明这个极大的延拓就是我们需要的全局延拓.
+]
+
+#定理(
+  "范数的 Hahn-Banach 定理",
+  "Hahn-Banach Theorem for Norms",
+  hypotheses: (
+    [$(X, ||dot||)$ 是一个赋范线性空间],
+    [$Y$ 是 $X$ 的一个子空间],
+    [$f: Blo(Y, RR)$],
+  ),
+)[
+  $exists F: Blo(X, RR)$ 使得 $forall y:Y, F(y) = f(y) and ||F|| = ||f||$.
+]
+
+#注[
+  Hahn-Banach 定理只适用于对泛函的延拓, 不适用于对任意算子的延拓.
+]
+
+#定义(
+  "赋范泛函",
+  "Norming Functional",
+  hypotheses: [$X$ 是 $RR$ 上的#nvs],
+  isPredicate: true,
+  [$X$ 上的*赋范泛函* $f$],
+)[
+  $forall x eq.not 0$, $exists f in X^*$ s.t. $f(x) = ||x||$ and $||f|| = 1$.
+]
+
+#定理(
+  "每个非零向量都有一个赋范泛函",
+  "Every non-zero vector has a norming functional",
+  hypotheses: ([$X$ 是 $RR$ 上的#nvs], [$x eq.not 0$]),
+)[
+  $exists f in X^*$ s.t. $f(x) = ||x||$ and $||f|| = 1$.
+]
+
+#注[
+  设 $f$ 定义在 $x$ 张成的子空间上, $f(alpha x) = alpha ||x||$ for all $alpha in RR$. 则利用 Hahn-Banach 定理, $f$ 可以被延拓到整个空间上, 且保持范数不变. 这就得到了所需的赋范泛函.
+]
+
+#注[
+  这个定理保证了 $X$ 的对偶空间足够丰富, 以至于每个非零向量都可以通过某个对偶空间中的元素来“测量”其范数. 这在分析中非常重要, 因为它允许我们使用对偶空间中的元素来研究原空间中的向量.
+]
+
+#定理(
+  "范数的等价定义",
+  "Equivalent definitions of the norm",
+  hypotheses: ([$X$ 是 $RR$ 上的#nvs],),
+)[
+  $forall x : X, ||x|| = sup_(||f||=1) |f(x)|$.
+]
+
+#注[
+  先证明 $>=$: $|f(x)| <= ||f|| dot ||x||$ for all $f in X^*$ and $x in X$. 于是 $||x|| <= sup_(||f||=1) |f(x)|$. $=$ 成立是由于有一个赋范泛函, 这就找到了我们想要的 $f$.
+]
+
+== 凸集分离定理
+
+#定理(
+  "线性泛函可以精准地区分向量",
+  "Linear functionals can separate points",
+  hypotheses: ([$X$ 是 #bs],),
+)[
+  $forall x, y : X, x eq.not y => exists f in X^* s.t. f(x) eq.not f(y)$.
+]
+
+#定理(
+  "线性泛函可以区分点和闭子空间",
+  "Linear functionals can separate points and closed subspaces",
+  hypotheses: ([$X$ 是 #bs], [$Y$ 是 $X$ 的一个#闭集;子空间], [$x eq.not Y$]),
+)[
+  $exists f in X^*$ s.t. $||f||=1, f(x) eq.not 0 and forall y in Y, f(y) = 0$.
+]
+
+#定义(
+  uuid: "AbsorbingSet",
+  "吸收集",
+  "Absorbing Set",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#线性空间], [$A subset X$]),
+  [$A$ 是*吸收集*],
+)[
+  $forall x : X, exists lambda > 0$ s.t. $x in lambda A$.
+]
+
+#注[
+  直观地理解, 吸收集是指对于空间中的任意向量, 都存在一个足够大的标量使得该向量被包含在这个标量倍的集合中. 这意味着吸收集可以通过标量缩放覆盖整个空间.
+]
+
+#定义(
+  "Minkowski 泛函",
+  "Minkowski Functional",
+  isPredicate: false,
+  hypotheses: ([$X$ 是#线性空间], [$A subset X$ 是一个#吸收集]),
+  [$A$ 的*Minkowski 泛函*],
+)[
+  $mu_A(x) = inf{lambda > 0 : x in lambda A}$.
+]
+
+#注[
+  #Minkowski 实际上是一个向量至少需要被缩放多少倍才能进入集合 $A$ 的度量. 事实上#绝对凸集;上的#Minkowski;和#半范数;是等价的.
+]
+
+#定义(
+  uuid: "BalancedSet",
+  "均衡集",
+  "Balanced Set",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#线性空间], [$A subset X$]),
+  [$A$ 是*均衡集*],
+)[
+  $forall a : A, forall lambda : bb(R), |lambda| <= 1 => lambda a in A$.
+]
+
+#注[
+  直观地理解, #均衡集;是指对于集合中的任意元素其乘以一个绝对值不超过1的标量时, 结果仍然在集合中. 这意味着均衡集中的点不会因为缩放而离开集合.
+]
+
+#定义(
+  uuid: "ConvexSet",
+  "凸集",
+  "Convex Set",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#线性空间], [$A subset X$]),
+  [$A$ 是*凸集*],
+)[
+  $forall x, y : A, forall lambda in [0,1], lambda x + (1-lambda) y in A$.
+]
+
+#注[
+  直观地理解, #凸集;是指对于集合中的任意两个点, 连接这两点的线段完全包含在集合中.
+]
+
+#定义(
+  uuid: "ABCSet",
+  "绝对凸集",
+  "Absolutely Convex Set",
+  isPredicate: true,
+  hypotheses: ([$X$ 是#线性空间], [$A subset X$]),
+  [$A$ 是*绝对凸集*],
+)[
+  $A$ 同时是#吸收集, #均衡集, #凸集.
+]
+
+#定理(
+  "半范数诱导的单位开球是绝对凸集",
+  "The unit open ball induced by a seminorm is an absolutely convex set",
+  hypotheses: ([$V$ 是#nvs], [$p$ 是 $V$ 上的#半范数]),
+)[
+  $cal(B) = {x : V : p(x) < 1}$ 是 $V$ 中的#绝对凸集. 并且 $p = mu_cal(B)$.
+]
+
+#注[
+  - $cal(B)$ 是#均衡集: $x in cal(B) arrow.double p(x)<1$, $forall t in RR$ with $|t| <= 1$, $p(t x) = |t| p(x) <= p(x) < 1$, so $t x in cal(B)$.
+
+  - $cal(B)$ 是#凸集: $x, y in cal(B)$, $t in (0,1)$, $p(t x + (1-t) y) <= t p(x) + (1-t) p(y) < 1$, so $t x + (1-t) y in cal(B)$.
+
+  - $cal(B)$ 是#吸收集: take $s>p(x)$. $p(frac(x, s))=frac(1, s) p(x) < 1$, so $frac(x, s) in cal(B)$, which means $x in s cal(B)$.
+
+  - $p=mu_cal(B)$: By the previous step, $mu_cal(B)<= p$. Conversely, if $a<=mu_cal(B) (x)$, then $p(frac(x, a))>=1$. $x in.not a cal(B) arrow.double a<= mu_cal(B) (x)$.
+]
+
+#定理(
+  "吸收的凸集诱导的 Minkowski 泛函是次线性泛函",
+  "The Minkowski functional induced by an absorbing convex set is a sublinear functional",
+  hypotheses: ([$V$ 是#线性空间], [$A subset V$ 是一个#吸收集, $A$ 是#凸集]),
+)[
+  $mu_A$ 是 $V$ 上的#次线性泛函.
+]
+
+#注[
+  只考虑三角不等式: $mu_A (x+y) <= mu_A (x) + mu_A (y)$
+
+  设 $a=mu_A (x)+epsilon$, $b=mu_A (y)+epsilon$. 则 $x in a A$, $y in b A$. 于是
+
+  $ frac(x+y, a+b) =frac(x, a)frac(a, a+b) + frac(y, b)frac(b, a+b) in frac(a, a+b) A + frac(b, b+a) A subset.eq A $
+
+  这说明$x+y in (a+b) A$, 所以 $mu_A (x+y) <= a+b = mu_A (x)+mu_A (y)+2 epsilon$. 由于 $epsilon$ 是任意的, $mu_A (x+y) <= mu_A (x)+mu_A (y)$.
+]
+
+#定理(
+  "绝对凸集诱导的 Minkowski 泛函是半范数",
+  "The Minkowski functional induced by an absolutely convex set is a seminorm",
+  hypotheses: ([$V$ 是#线性空间], [$A subset V$ 是一个#绝对凸集]),
+)[
+  $mu_A$ 是 $V$ 上的#半范数.
+]
+
+#定理(
+  "凸集分离定理1",
+  "Convex Separation Theorem 1",
+  hypotheses: ([$X$ 是 $RR$ 上的 #nvs], [$A, B subset X$ 是#凸集], [$A inter B = emptyset$], [$A$ 是#开集;的]),
+)[
+  $exists f in X^*$, $alpha in RR$, s.t. $f(x) < alpha <= f(y)$ for all $x in A$ and $y in B$.
+]
+
+#定理(
+  "凸集分离定理2",
+  "Convex Separation Theorem 2",
+  hypotheses: (
+    [$X$ 是 $RR$ 上的 #nvs],
+    [$A, B subset X$ 是#凸集],
+    [$A inter B = emptyset$],
+    [$A$是#闭集;的],
+    [$B$ 是#compact;的],
+  ),
+)[
+  $exists f in X^*$, $alpha in RR$, s.t. $f(x) < alpha < f(y)$ for all $x in A$ and $y in B$.
+]
+
