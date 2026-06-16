@@ -221,10 +221,132 @@
 
 == 置换群
 
+#约定[
+  - $X : Type$
+]
+
+#定义条目("置换", "Permutation")[
+  // TODO: 集合 $X$ 上的置换, 即 $X -> X$ 的双射。
+]
+
+#定义条目("对称群", "Symmetric Group")[
+  // TODO: $X$ 上全体置换在复合运算下构成的群 $"Sym"(X)$。
+  // 当 $X = {1, ..., n}$ 时记为 $S_n$。
+]
+
+#定义条目("轮换", "Cycle")[
+  // TODO: $r$ 阶轮换 $(a_1, a_2, ..., a_r)$ 的定义。
+]
+
+#定义条目("不交轮换", "Disjoint Cycles")[
+  // TODO: 两个轮换作用的元素集合不相交。
+]
+
+#定理条目("轮换分解定理", "Cycle Decomposition")[
+  // TODO: 任何置换可唯一分解为不交轮换的乘积（不计顺序）。
+]
+
+#定义条目("对换", "Transposition")[
+  // TODO: 2 阶轮换。
+]
+
+#定义条目("奇置换与偶置换", "Even/Odd Permutation")[
+  // TODO: 可表示为偶数（奇数）个对换乘积的置换。
+]
+
+#性质条目("奇偶性不依赖于分解", "")[
+  // TODO: 其同一置换不同的对换分解的長度奇偶性相同。
+]
+
+#定义条目("交错群", "Alternating Group")[
+  // TODO: $S_n$ 中所有偶置换构成的子群 $A_n$。
+]
+
+#定理条目("Cayley 定理", "Cayley")[
+  // TODO: 任何群 $G$ 同构于 $"Sym"(G)$ 的子群。
+]
+
+
 == 群作用
+
+#约定[
+  - $G : Type$
+  - $X : Type$
+  - $(G, dot)$ 是#群
+]
+
+#定义条目("群作用", "Group Action")[
+  // TODO: 运算 $alpha : G -> X -> X$ 满足单位元作用与结合律。
+]
+
+#定义条目("轨道", "Orbit")[
+  // TODO: $x in X$ 的轨道 $G dot x = { g dot x | g in G }$。
+]
+
+#定义条目("稳定子群", "Stabilizer")[
+  // TODO: $"Stab"(x) = { g in G | g dot x = x }$，$G$ 的子群。
+]
+
+#性质条目("轨道是集合的等价类", "")[
+  // TODO: 对 $X$ 定义关系 $x tilde y$ 以 $exists g, g dot x = y$, 为等价关系。
+  // $X$ 以轨道为等价类。
+]
+
+#定理条目("轨道-稳定子定理", "Orbit-Stabilizer")[
+  // TODO: 有限群 $G$ 作用于 $X$, $forall x in X$, $|G dot x| dot |"Stab"(x)| = |G|$。
+]
+
+#定义条目("不动点集", "Fixed Point Set")[
+  // TODO: $X^g = { x in X | g dot x = x }$。
+]
+
+#引理条目("Burnside 计数引理", "Burnside")[
+  // TODO: 有限群 $G$ 作用于有限集 $X$, 轨道数 $|X \/ G| = (1 / |G|) sum_(g in G) |X^g|$。
+]
+
+#定义条目("共轭作用", "Conjugation Action")[
+  // TODO: $G$ 作用于自身: $g dot x = g x g^(-1)$。
+]
+
+#定义条目("共轭类", "Conjugacy Class")[
+  // TODO: 共轭作用下的轨道。
+]
+
+#定义条目("中心化子", "Centralizer")[
+  // TODO: $C_G(x) = { g in G | g x = x g }$，即共轭作用的稳定子群。
+]
+
+#定义条目("中心", "Center")[
+  // TODO: $Z(G) = { g in G | forall x in G, g x = x g }$，$G$ 的交换中心子群。
+]
+
+#定理条目("类方程", "Class Equation")[
+  // TODO: 有限群 $|G| = |Z(G)| + sum_i [G : C_G(x_i)]$，其中求和跨非心共轭类代表。
+]
+
 
 #context if 看不看范畴论.get() [
 
 == 群范畴
+
+#定义条目("群范畴", "Category of Groups")[
+  // TODO: 范畴 $bold("Grp")$, 对象为一切群, 态射为群同态。
+]
+
+#性质条目("群范畴中的同构", "")[
+  // TODO: $bold("Grp")$ 中同构 即 群同构。
+]
+
+#定义条目("群直积", "Direct Product of Groups")[
+  // TODO: $G times H$ 上的逐分量乘法, 为 $bold("Grp")$ 中的积。
+]
+
+#定义条目("群余积", "Coproduct in Group Category")[
+  // TODO: $bold("Grp")$ 中的余积 即 自由积 G * H。
+]
+
+#性质条目("群范畴是完备与余完备的", "")[
+  // TODO: $bold("Grp")$ 有全部小极限与小余极限。
+]
 
 ]
