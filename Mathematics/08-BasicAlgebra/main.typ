@@ -29,7 +29,7 @@
 
 == 基本定义
 
-#结构条目("半群", "Semigroup", uuid: "Semigroup")[
+#定义条目("半群", "Semigroup", uuid: "Semigroup")[
   #结构子句(
     主体: [$(G, dot)$ 是#半群],
     isPredicate: true,
@@ -54,7 +54,7 @@
   )
 ]
 
-#结构条目("幺半群", "Monoid", uuid: "Monoid")[
+#定义条目("幺半群", "Monoid", uuid: "Monoid")[
   #结构子句(
     主体: [$(G, dot)$ 是#幺半群],
     extends: ([#半群],),
@@ -77,7 +77,7 @@
   )
 ]
 
-#结构条目("群", "Group", uuid: "Group")[
+#定义条目("群", "Group", uuid: "Group")[
   #结构子句(
     主体: [$(G, dot)$ 是#群],
     extends: ([#幺半群],),
@@ -99,7 +99,7 @@
   - $f : G -> H$
 ]
 
-#结构条目("群同态", "Group Homomorphism", uuid: "GroupHomomorphism")[
+#定义条目("群同态", "Group Homomorphism", uuid: "GroupHomomorphism")[
   #结构子句(
     主体: [$f$ 是 $G$ 到 $H$ 的#群同态],
     isPredicate: true,
@@ -118,7 +118,7 @@
   )
 ]
 
-#结构条目("群单同态", "Group Monomorphism", uuid: "GroupMonomorphism")[
+#定义条目("群单同态", "Group Monomorphism", uuid: "GroupMonomorphism")[
   #结构子句(
     主体: [$f$ 是 $G$ 到 $H$ 的群单同态],
     extends: ([$f$ 是#群同态],),
@@ -129,7 +129,7 @@
   )
 ]
 
-#结构条目("群满同态", "Group Epimorphism", uuid: "GroupEpimorphism")[
+#定义条目("群满同态", "Group Epimorphism", uuid: "GroupEpimorphism")[
   #结构子句(
     主体: [$f$ 是 $G$ 到 $H$ 的群满同态],
     extends: ([$f$ 是#群同态],),
@@ -140,7 +140,7 @@
   )
 ]
 
-#结构条目("群同构", "Group Isomorphism", uuid: "GroupIsomorphism")[
+#定义条目("群同构", "Group Isomorphism", uuid: "GroupIsomorphism")[
   #结构子句(
     主体: [$G$ 到 $H$ 的群同构],
     条件: ([#link(<GroupMonomorphism>, [同上])],),
