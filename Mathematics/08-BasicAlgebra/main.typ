@@ -29,70 +29,65 @@
 
 == 基本定义
 
-#结构(
-  uuid: "Semigroup",
-  "半群",
-  "Semigroup",
-  [$(G, dot)$ 是#半群],
-  isPredicate: true,
-  (
-    (name: [结合律], name_en: [Associativity], value: [$forall (a, b, c : G), (a dot b) dot c = a dot (b dot c)$]),
-  ),
-)
+#结构条目("半群", "Semigroup", uuid: "Semigroup")[
+  #结构子句(
+    主体: [$(G, dot)$ 是#半群],
+    isPredicate: true,
+    成员: (
+      (name: [结合律], name_en: [Associativity], value: [$forall (a, b, c : G), (a dot b) dot c = a dot (b dot c)$]),
+    ),
+  )
+]
 
-#注[通常书写时省略乘号“$dot$”，即将 $a dot b$ 写作 $a b$。]
+#注条目("", "")[通常书写时省略乘号“$dot$”，即将 $a dot b$ 写作 $a b$。]
 
-#定义(
-  "自然数幂",
-  "NatPower",
-  hypotheses: ([ $(G, dot)$ 是#半群], $a : G$, $n : bb(N)$),
-  [$a$ 的 $n$ 次幂],
-  bstyle: "display",
-  [
+#定义条目("自然数幂", "NatPower")[
+  #定义子句(
+    条件: ([$(G, dot)$ 是#半群], $a : G$, $n : bb(N)$),
+    主体: [$a$ 的 $n$ 次幂],
+    bstyle: "display",
+    内容: [
+      对 $n$ 进行归纳，
+      - 若 $n = 0$，$e$；
+      - 若 $n = m + 1$，$a dot a^m$,
+    ],
+  )
+]
 
-    对 $n$ 进行归纳，
-    - 若 $n = 0$，$e$；
-    - 若 $n = m + 1$，$a dot a^m$,
-  ],
-)
+#结构条目("幺半群", "Monoid", uuid: "Monoid")[
+  #结构子句(
+    主体: [$(G, dot)$ 是#幺半群],
+    extends: ([#半群],),
+    成员: (
+      (name: [单位元], name_en: [Identity], varName: $e$, value: $G$),
+      (name: [单位元左乘不变性], value: [$forall (a : G), e dot a = a$]),
+      (name: [单位元右乘不变性], value: [$forall (a : G), a dot e = a$]),
+    ),
+  )
+]
 
-#结构(
-  uuid: "Monoid",
-  "幺半群",
-  "Monoid",
-  extends: ([#半群],),
-  [$(G, dot)$ 是#幺半群],
-  (
-    (name: [单位元], name_en: [Identity], varName: $e$, value: $G$),
-    (name: [单位元左乘不变性], value: [$forall (a : G), e dot a = a$]),
-    (name: [单位元右乘不变性], value: [$forall (a : G), a dot e = a$]),
-  ),
-)
-
-#注[
+#注条目("", "")[
   - “单位元”又称“幺元”或“恒等元”
 ]
 
-#性质(
-  uuid: "MonoidIdentityUnique",
-  "幺半群中单位元唯一",
-  "",
-  hypotheses: ([ $(G, dot)$ 是#幺半群], $e' : G$, $forall a : G, e'a = a and a e' = a$),
-  [$e' = e$],
-)
+#性质条目("幺半群中单位元唯一", "", uuid: "MonoidIdentityUnique")[
+  #定理子句(
+    条件: ([$(G, dot)$ 是#幺半群], $e' : G$, $forall a : G, e'a = a and a e' = a$),
+    结论: [$e' = e$],
+  )
+]
 
-#结构(
-  uuid: "Group",
-  "群",
-  "Group",
-  extends: ([#幺半群],),
-  [$(G, dot)$ 是#群],
-  (
-    (name: [逆元], name_en: [Inverse], varName: $dot^(-1)$, value: $G -> G$),
-    (name: [逆元左乘律], value: [$forall (a : G), a^(-1) dot a = e$]),
-    (name: [逆元右乘律], value: [$forall (a : G), a dot a^(-1) = e$]),
-  ),
-)
+#结构条目("群", "Group", uuid: "Group")[
+  #结构子句(
+    主体: [$(G, dot)$ 是#群],
+    extends: ([#幺半群],),
+    成员: (
+      (name: [逆元], name_en: [Inverse], varName: $dot^(-1)$, value: $G -> G$),
+      (name: [逆元左乘律], value: [$forall (a : G), a^(-1) dot a = e$]),
+      (name: [逆元右乘律], value: [$forall (a : G), a dot a^(-1) = e$]),
+    ),
+  )
+]
 
 == 同态
 
@@ -104,73 +99,66 @@
   - $f : G -> H$
 ]
 
-#结构(
-  uuid: "GroupHomomorphism",
-  "群同态",
-  "Group Homomorphism",
-  [$f$ 是 $G$ 到 $H$ 的#群同态],
-  isPredicate: true,
-  (
-    (name: [保持恒等元], value: [$f(e_G) = e_H$]),
-    (name: [保持乘法], value: [$forall (a, b : G), f(a dot_G b) = f(a) dot_H f(b)$]),
-  ),
-  notation: [$GHom(G, H)$],
-)
+#结构条目("群同态", "Group Homomorphism", uuid: "GroupHomomorphism")[
+  #结构子句(
+    主体: [$f$ 是 $G$ 到 $H$ 的#群同态],
+    isPredicate: true,
+    成员: (
+      (name: [保持恒等元], value: [$f(e_G) = e_H$]),
+      (name: [保持乘法], value: [$forall (a, b : G), f(a dot_G b) = f(a) dot_H f(b)$]),
+    ),
+    记号: [$GHom(G, H)$],
+  )
+]
 
-#性质(
-  uuid: "GroupHomomorphismIff",
-  "群同态等价定义",
-  "",
-  hypotheses: ([ $forall a,b : G, $],),
-  [$GHom(G, H)$]
-)
+#性质条目("群同态等价定义", "", uuid: "GroupHomomorphismIff")[
+  #定理子句(
+    条件: ([$forall a,b : G,$],),
+    结论: [$GHom(G, H)$],
+  )
+]
 
-#结构(
-  uuid: "GroupMonomorphism",
-  "群单同态",
-  "Group Monomorphism",
-  extends: ([ $f$ 是#群同态],),
-  [$f$ 是 $G$ 到 $H$ 的群单同态],
-  (
-    (name: [单射], value: [$f$ 是单射]),
-  ),
-  notation: [$G GMono H$],
-)
+#结构条目("群单同态", "Group Monomorphism", uuid: "GroupMonomorphism")[
+  #结构子句(
+    主体: [$f$ 是 $G$ 到 $H$ 的群单同态],
+    extends: ([$f$ 是#群同态],),
+    成员: (
+      (name: [单射], value: [$f$ 是单射]),
+    ),
+    记号: [$G GMono H$],
+  )
+]
 
-#结构(
-  uuid: "GroupEpimorphism",
-  "群满同态",
-  "Group Epimorphism",
-  extends: ([ $f$ 是#群同态],),
-  [$f$ 是 $G$ 到 $H$ 的群满同态],
-  (
-    (name: [满射], value: [$f$ 是满射]),
-  ),
-  notation: [$G GEpi H$],
-  extention: true
-)
+#结构条目("群满同态", "Group Epimorphism", uuid: "GroupEpimorphism")[
+  #结构子句(
+    主体: [$f$ 是 $G$ 到 $H$ 的群满同态],
+    extends: ([$f$ 是#群同态],),
+    成员: (
+      (name: [满射], value: [$f$ 是满射]),
+    ),
+    记号: [$G GEpi H$],
+  )
+]
 
-#结构(
-  uuid: "GroupIsomorphism",
-  "群同构",
-  "Group Isomorphism",
-  hypotheses: ([#link(<GroupMonomorphism>, [同上])],),
-  extends: ([#群同态],),
-  [$G$ 到 $H$ 的群同构],
-  (
-    (name: [同态], varName: [$f,g$], value: [$GHom(G,H)$]),
-    (name: [互逆], value: [$f compose g = g compose f = 1$])
-  ),
-  notation: [$G GIso H$],
-)
+#结构条目("群同构", "Group Isomorphism", uuid: "GroupIsomorphism")[
+  #结构子句(
+    主体: [$G$ 到 $H$ 的群同构],
+    条件: ([#link(<GroupMonomorphism>, [同上])],),
+    extends: ([#群同态],),
+    成员: (
+      (name: [同态], varName: [$f,g$], value: [$GHom(G,H)$]),
+      (name: [互逆], value: [$f compose g = g compose f = 1$]),
+    ),
+    记号: [$G GIso H$],
+  )
+]
 
-#性质(
-  uuid: "GroupBijectionIsomorphism",
-  "群双射是同构",
-  "",
-  hypotheses: ([ $f : GHom(G, H)$, $f$ 是双射],),
-  [$G GIso H$],
-)
+#性质条目("群双射是同构", "", uuid: "GroupBijectionIsomorphism")[
+  #定理子句(
+    条件: ([$f : GHom(G, H)$, $f$ 是双射],),
+    结论: [$G GIso H$],
+  )
+]
 
 == 子群
 
@@ -183,40 +171,35 @@
 #let SubG = $#optionLink("Subgroup", $<=$)$
 #let PSubG = $#optionLink("ProperSubgroup", $<$)$
 
-#定义(
-  uuid: "Subgroup",
-  "子群",
-  "Subgroup",
-  hypotheses: ([ $H : Set(G)$],),
-  [$H$ 是 $G$ 的子群],
-  isPredicate: true,
-  [ $(H, dot_G)$ 是#群],
-  notation: [$H SubG G$],
-)
+#定义条目("子群", "Subgroup", uuid: "Subgroup")[
+  #定义子句(
+    条件: ([$H : Set(G)$],),
+    主体: [$H$ 是 $G$ 的子群],
+    isPredicate: true,
+    内容: [$(H, dot_G)$ 是#群],
+    记号: [$H SubG G$],
+  )
+]
 
-#定义(
-  uuid: "ProperSubgroup",
-  "真子群",
-  "Proper Subgroup",
-  hypotheses: (link(<Subgroup>, [同上]),),
-  [$H$ 是 $G$ 的真子群],
-  isPredicate: true,
-  isExtension: true,
-  [ $H SubG G and H != G$],
-  notation: [$H PSubG G$],
-)
+#定义条目("真子群", "Proper Subgroup", uuid: "ProperSubgroup")[
+  #定义子句(
+    条件: (link(<Subgroup>, [同上]),),
+    主体: [$H$ 是 $G$ 的真子群],
+    isPredicate: true,
+    内容: [$H SubG G and H != G$],
+    记号: [$H PSubG G$],
+  )
+]
 
-#性质(
-  uuid: "TrivialSubgroup",
-  [平凡子群],
-  [Trivial Subgroup],
-  cstyle: "display",
-  $ #structProp(
-    (name: "1 子群", value: $(1, dot) SubG G$),
-    (name: "全子群", value: $(G, dot) SubG G$)
-  ) $,
-)
-
+#性质条目([平凡子群], [Trivial Subgroup], uuid: "TrivialSubgroup")[
+  #定理子句(
+    结论: $ #structProp(
+      (name: "1 子群", value: $(1, dot) SubG G$),
+      (name: "全子群", value: $(G, dot) SubG G$)
+    ) $,
+    cstyle: "display",
+  )
+]
 
 
 == 置换群
