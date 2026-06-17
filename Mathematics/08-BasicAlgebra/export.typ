@@ -80,6 +80,11 @@
   [群同构]
 )
 
+#let 群同态的核 = optionLink("GroupHomKernel", [核])
+#let 群同态的像 = optionLink("GroupHomImage", [像])
+#let GKer = (f) => $#optionLink("GroupHomKernel", $op("ker")$) (#f)$
+#let GIm = (f) => $#optionLink("GroupHomImage", $op("im")$) (#f)$
+
 #let 子群 = optionLink(
   "Subgroup",
   [子群]
@@ -171,6 +176,7 @@
 #let 单位 = optionLink("Unit", [单位])
 #let 可逆元 = optionLink("Unit", [可逆元])
 #let 单位群 = optionLink("UnitGroup", [单位群])
+#let UnitGroupOf = (R) => $#optionLink("UnitGroup", $#R^times$)$
 #let 零因子 = optionLink("ZeroDivisor", [零因子])
 #let 幂零元 = optionLink("Nilpotent", [幂零元])
 #let 幂等元 = optionLink("Idempotent", [幂等元])
@@ -185,10 +191,10 @@
 #let 子环 = optionLink("Subring", [子环])
 #let 左理想 = optionLink("LeftIdeal", [左理想])
 #let 右理想 = optionLink("RightIdeal", [右理想])
-#let 双边理想 = optionLink("TwoSidedIdeal", [双边理想])
 #let 理想 = optionLink("TwoSidedIdeal", [理想])
 #let 真理想 = optionLink("ProperIdeal", [真理想])
 #let 由集合生成的理想 = optionLink("IdealGenerated", [由集合生成的理想])
+#let IdealGen = (S) => $#optionLink("IdealGenerated", $chevron.l$) #S #optionLink("IdealGenerated", $chevron.r$)$
 #let 主理想 = optionLink("PrincipalIdeal", [主理想])
 #let 素理想 = optionLink("PrimeIdeal", [素理想])
 #let 极大理想 = optionLink("MaximalIdeal", [极大理想])
@@ -203,13 +209,15 @@
 
 // 环同态
 #let 环同态 = optionLink("RingHomomorphism", [环同态])
-#let 环同态的核 = optionLink("RingHomKernel", [环同态的核])
-#let 环同态的像 = optionLink("RingHomImage", [环同态的像])
+#let 环同态的核 = optionLink("RingHomKernel", [核])
+#let 环同态的像 = optionLink("RingHomImage", [像])
 #let 环同构 = optionLink("RingIsomorphism", [环同构])
 #let RHom = (R, S) => $#optionLink(
   "RingHomomorphism",
   $op("Hom")$
 ) (#R, #S)$
+#let RKer = (f) => $#optionLink("RingHomKernel", $op("ker")$) (#f)$
+#let RIm = (f) => $#optionLink("RingHomImage", $op("im")$) (#f)$
 
 // 多项式环
 #let 多项式环 = optionLink("PolynomialRing", [多项式环])
@@ -221,6 +229,15 @@
 #let 整除 = optionLink("Divides", [整除])
 #let 素元 = optionLink("PrimeElement", [素元])
 #let 不可约元 = optionLink("IrreducibleElement", [不可约元])
+#let 相伴 = optionLink("Associate", [相伴])
+
+// 二次整环 / Gauss 整环 / 范数
+#let 二次整环 = optionLink("QuadraticIntegerRing", [二次整环])
+#let Gauss整环 = optionLink("GaussianIntegers", [Gauss 整环])
+#let Eisenstein整环 = optionLink("EisensteinIntegers", [Eisenstein 整环])
+#let 范数 = optionLink("RingNorm", [范数])
+#let 乘性范数 = optionLink("MultiplicativeNorm", [乘性范数])
+#let GaussN = (z) => $#optionLink("RingNorm", $N$) (#z)$
 
 // 分式域
 #let 分式域 = optionLink("FieldOfFractions", [分式域])
