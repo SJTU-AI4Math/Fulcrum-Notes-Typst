@@ -224,7 +224,7 @@
     类别: [#群],
     记号: $Sym(X)$,
     成员: (
-      (name: [底集], value: [$\{ sigma : X -> X \ |\ sigma$ 是 $X$ 上的 #置换 $\}$]),
+      (name: [底集], value: [${ sigma : X -> X | sigma$ 是 $X$ 上的 #置换 $}$]),
       (name: [乘法], value: [函数复合 $compose$]),
       (name: [#单位元], value: [恒等映射 $op("id")_X$]),
       (name: [#逆元], value: [双射的逆映射]),
@@ -233,7 +233,7 @@
 ]
 
 #注条目("", "")[
-  当 $X = \{ 1, 2, ..., n \}$ 时，记其 #对称群 为 $SymmGroup(n)$，称为 $n$ 元 #对称群。
+  当 $X = { 1, 2, ..., n }$ 时，记其 #对称群 为 $SymmGroup(n)$，称为 $n$ 元 #对称群。
 ]
 
 #定义条目("轮换", "Cycle", uuid: "Cycle")[
@@ -301,7 +301,7 @@
     类别: [#群],
     记号: $A_n$,
     成员: (
-      (name: [底集], value: [$\{ sigma : SymmGroup(n) \ |\ sigma$ 是 #偶置换 $\}$]),
+      (name: [底集], value: [${ sigma : SymmGroup(n) | sigma$ 是 #偶置换 $}$]),
       (name: [群结构], value: [继承自 $SymmGroup(n)$]),
     ),
   )
@@ -346,7 +346,7 @@
   #定义子句(
     条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], $x : X$),
     主体: [$x$ 在 $alpha$ 下的 #轨道],
-    内容: [$\{ g dot x \ |\ g : G \}$],
+    内容: [${ g dot x | g : G }$],
     记号: $Orb(x)$,
   )
 ]
@@ -358,7 +358,7 @@
     类别: [$G$ 的 #子群],
     记号: $Stab(x)$,
     成员: (
-      (name: [底集], value: [$\{ g : G \ |\ g dot x = x \}$]),
+      (name: [底集], value: [${ g : G | g dot x = x }$]),
       (name: [群结构], value: [继承自 $G$]),
     ),
   )
@@ -382,7 +382,7 @@
   #定义子句(
     条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], $g : G$),
     主体: [$g$ 在 $X$ 上的 #不动点集],
-    内容: [$\{ x : X \ |\ g dot x = x \}$],
+    内容: [${ x : X | g dot x = x }$],
     记号: $X^g$,
   )
 ]
@@ -391,8 +391,8 @@
   #定理子句(
     条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], [$G$ 是有限 #群], [$X$ 是有限类型]),
     结论: [
-      $ |X \/ G| = (1 / |G|) sum_(g in G) |X^g| $
-      其中 $X \/ G$ 表 #轨道 之集
+      $ |X slash G| = (1 / |G|) sum_(g in G) |X^g| $
+      其中 $X slash G$ 表 #轨道 之集
     ],
     cstyle: "display",
   )
@@ -413,7 +413,7 @@
   #定义子句(
     条件: ([~$(G, dot)$ 是 #群], $x : G$),
     主体: [$x$ 的 #共轭类],
-    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #轨道，即 $\{ g x g^(-1) \ |\ g : G \}$],
+    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #轨道，即 ${ g x g^(-1) | g : G }$],
   )
 ]
 
@@ -421,7 +421,7 @@
   #定义子句(
     条件: ([~$(G, dot)$ 是 #群], $x : G$),
     主体: [$x$ 在 $G$ 中的 #中心化子],
-    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #稳定子群，即 $\{ g : G \ |\ g x = x g \}$],
+    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #稳定子群，即 ${ g : G | g x = x g }$],
     记号: $Centralizer(x)$,
   )
 ]
@@ -433,7 +433,7 @@
     类别: [$G$ 的 #子群],
     记号: $Center(G)$,
     成员: (
-      (name: [底集], value: [$\{ g : G \ |\ forall x : G, g x = x g \}$]),
+      (name: [底集], value: [${ g : G | forall x : G, g x = x g }$]),
       (name: [群结构], value: [继承自 $G$]),
     ),
   )
@@ -605,7 +605,7 @@
     类别: [#群],
     记号: $R^times$,
     成员: (
-      (name: [底集], value: [$\{ u : R \ |\ u $ 是 #单位 $\}$]),
+      (name: [底集], value: [${ u : R | u $ 是 #单位 $}$]),
       (name: [乘法], value: [继承 $R$ 中的乘法 $dot$]),
       (name: [#单位元], value: [$R$ 的乘法 #单位元 $1$]),
       (name: [#逆元], value: [每个 $u : R^times$ 取其在 $R$ 中的乘法 #逆元]),
@@ -755,7 +755,7 @@
     条件: ([~$(R, +, dot)$ 是 #交换幺环], [$I$ 是 $R$ 的 #理想]),
     主体: [$I$ 是 #主理想],
     isPredicate: true,
-    内容: [$exists a : R, I = (a) := \{ r dot a \ |\ r : R \}$],
+    内容: [$exists a : R, I = (a) := { r dot a | r : R }$],
   )
 ]
 
@@ -793,7 +793,7 @@
   #定义子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I, J$ 是 $R$ 的 #双边理想]),
     主体: [#理想的和 $I + J$],
-    内容: [$\{ a + b \ |\ a in I, b in J \}$，仍为 $R$ 的 #双边理想],
+    内容: [${ a + b | a in I, b in J }$，仍为 $R$ 的 #双边理想],
   )
 ]
 
@@ -801,7 +801,7 @@
   #定义子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I, J$ 是 $R$ 的 #双边理想]),
     主体: [#理想的积 $I dot J$],
-    内容: [由集合 $\{ a dot b \ |\ a in I, b in J \}$ 生成的 #双边理想],
+    内容: [由集合 ${ a dot b | a in I, b in J }$ 生成的 #双边理想],
   )
 ]
 
@@ -809,7 +809,7 @@
   #定义子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I, J$ 是 $R$ 的 #双边理想]),
     主体: [#理想的交 $I inter J$],
-    内容: [集合交 $\{ x \ |\ x in I and x in J \}$，仍为 $R$ 的 #双边理想],
+    内容: [集合交 ${ x | x in I and x in J }$，仍为 $R$ 的 #双边理想],
   )
 ]
 
@@ -823,39 +823,33 @@
 
 == 商环
 
-#构造条目("商环的构造", "Quotient Ring Construction", uuid: "QuotientRingConstruction")[
-  #定义子句(
-    条件: ([~$(R, +, dot)$ 是 #环], [$I$ 是 $R$ 的 #双边理想]),
-    主体: [陪集环 $R \/ I$],
-    bstyle: "display",
-    内容: [
-      - 底集：$R \/ I := \{ a + I \ |\ a : R \}$，其中 $a + I := \{ a + x \ |\ x : I \}$。
-      - 加法：$(a + I) + (b + I) := (a + b) + I$。
-      - 乘法：$(a + I) dot (b + I) := (a dot b) + I$。
-      - $I$ 是 #双边理想 保证乘法定义不依赖于陪集代表元的选取。
-    ],
-  )
-]
-
 #定义条目("商环", "Quotient Ring", uuid: "QuotientRing")[
   #定义子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I$ 是 $R$ 的 #双边理想]),
-    主体: [#环 $R$ 对 #理想 $I$ 的 #商环 $R \/ I$],
-    内容: [上述构造给出的 #环；在 $R$ 为 #幺环 时 $R\/I$ 仍为 #幺环，其单位元为 $1 + I$],
+    主体: [#环 $R$ 对 #理想 $I$ 的 #商环],
+    bstyle: "display",
+    内容: [
+      - 底集：${ a + I | a : R }$，其中 $a + I := { a + x | x : I }$。
+      - 加法：$(a + I) + (b + I) := (a + b) + I$。
+      - 乘法：$(a + I) dot (b + I) := (a dot b) + I$。
+      - $I$ 是 #双边理想 保证乘法定义不依赖于陪集代表元的选取。
+      - 在 $R$ 为 #幺环 时 #商环 仍为 #幺环，其单位元为 $1 + I$。
+    ],
+    记号: $R slash I$,
   )
 ]
 
 #性质条目("商环是域当且仅当理想极大", "")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是 #交换幺环], [$M$ 是 $R$ 的 #理想]),
-    结论: [$R \/ M$ 是 #域 #iff $M$ 是 #极大理想],
+    结论: [$R slash M$ 是 #域 #iff $M$ 是 #极大理想],
   )
 ]
 
 #性质条目("商环是整环当且仅当理想素", "")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是 #交换幺环], [$P$ 是 $R$ 的 #理想]),
-    结论: [$R \/ P$ 是 #整环 #iff $P$ 是 #素理想],
+    结论: [$R slash P$ 是 #整环 #iff $P$ 是 #素理想],
   )
 ]
 
@@ -880,7 +874,7 @@
   #定义子句(
     条件: ([~$f : R -> S$ 是 #环同态]),
     主体: [$f$ 的 #环同态的核 $ker(f)$],
-    内容: [$\{ a : R \ |\ f(a) = 0_S \}$，为 $R$ 的 #双边理想],
+    内容: [${ a : R | f(a) = 0_S }$，为 $R$ 的 #双边理想],
   )
 ]
 
@@ -888,7 +882,7 @@
   #定义子句(
     条件: ([~$f : R -> S$ 是 #环同态]),
     主体: [$f$ 的 #环同态的像 $"im"(f)$],
-    内容: [$\{ f(a) \ |\ a : R \}$，为 $S$ 的 #子环],
+    内容: [${ f(a) | a : R }$，为 $S$ 的 #子环],
   )
 ]
 
@@ -904,28 +898,28 @@
 #定理条目("环第一同构定理", "First Isomorphism Theorem")[
   #定理子句(
     条件: ([~$f : R -> S$ 是 #环同态]),
-    结论: [$R \/ ker(f) tilde.equiv "im"(f)$ 作为 #环],
+    结论: [$R slash ker(f) tilde.equiv "im"(f)$ 作为 #环],
   )
 ]
 
 #定理条目("环第二同构定理", "Second Isomorphism Theorem")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$S$ 是 $R$ 的 #子环], [$I$ 是 $R$ 的 #双边理想]),
-    结论: [$(S + I) \/ I tilde.equiv S \/ (S inter I)$],
+    结论: [$(S + I) slash I tilde.equiv S slash (S inter I)$],
   )
 ]
 
 #定理条目("环第三同构定理", "Third Isomorphism Theorem")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I, J$ 是 $R$ 的 #双边理想], $I subset.eq J$),
-    结论: [$(R \/ I) \/ (J \/ I) tilde.equiv R \/ J$],
+    结论: [$(R slash I) slash (J slash I) tilde.equiv R slash J$],
   )
 ]
 
 #定理条目("理想对应定理", "Correspondence Theorem")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是 #环], [$I$ 是 $R$ 的 #双边理想]),
-    结论: [商映射 $pi : R -> R \/ I$ 在含 $I$ 的 $R$ 的 #双边理想 与 $R \/ I$ 的 #双边理想 之间建立保包含的双射],
+    结论: [商映射 $pi : R -> R slash I$ 在含 $I$ 的 $R$ 的 #双边理想 与 $R slash I$ 的 #双边理想 之间建立保包含的双射],
   )
 ]
 
@@ -938,7 +932,7 @@
     主体: [$R$ 上以 $x$ 为不定元的 #多项式环 $R[x]$],
     bstyle: "display",
     内容: [
-      - 底集：$R[x] := \{ (a_0, a_1, dots, a_n) \ |\ n : bb(N), a_i : R \}$，记为 $a_0 + a_1 x + dots.c + a_n x^n$。
+      - 底集：$R[x] := { (a_0, a_1, dots, a_n) | n : bb(N), a_i : R }$，记为 $a_0 + a_1 x + dots.c + a_n x^n$。
       - 加法：逐项相加。
       - 乘法：$(sum_i a_i x^i) dot (sum_j b_j x^j) := sum_k (sum_(i + j = k) a_i dot b_j) x^k$。
       - 在 $R$ 为 #交换幺环 时，$R[x]$ 仍为 #交换幺环，其单位元为常项 $1_R$。
@@ -1026,8 +1020,8 @@
     extends: ([$(R, +, dot)$ 是 #整环],),
     isPredicate: true,
     成员: (
-      (name: [欧几里得范数], name_en: [Euclidean Norm], varName: $delta$, value: $R \\ \{0\} -> bb(N)$),
-      (name: [带余除法], value: [$forall (a : R) (b : R \\ \{0\}), exists q, r : R, a = b dot q + r and (r = 0 or delta(r) < delta(b))$]),
+      (name: [欧几里得范数], name_en: [Euclidean Norm], varName: $delta$, value: $R without {0} -> bb(N)$),
+      (name: [带余除法], value: [$forall (a : R) (b : R without {0}), exists q, r : R, a = b dot q + r and (r = 0 or delta(r) < delta(b))$]),
     ),
   )
 ]
@@ -1071,26 +1065,20 @@
 
 == 分式域
 
-#构造条目("整环的分式域", "Field of Fractions Construction", uuid: "FieldOfFractionsConstruction")[
-  #定义子句(
-    条件: ([~$R$ 是 #整环]),
-    主体: [$R$ 的 #分式域 $"Frac"(R)$],
-    bstyle: "display",
-    内容: [
-      - 在 $R times (R \\ \{0\})$ 上定义等价关系 $(a, b) tilde (c, d) iff a dot d = b dot c$。
-      - 底集 $"Frac"(R) := (R times (R \\ \{0\})) \/ tilde$，记等价类 $[(a, b)]$ 为 $a / b$。
-      - 加法：$a/b + c/d := (a dot d + b dot c) / (b dot d)$。
-      - 乘法：$a/b dot c/d := (a dot c) / (b dot d)$。
-      - 该三元组构成 #域。
-    ],
-  )
-]
-
 #定义条目("分式域", "Field of Fractions", uuid: "FieldOfFractions")[
   #定义子句(
     条件: ([~$R$ 是 #整环]),
-    主体: [$R$ 的 #分式域 $"Frac"(R)$],
-    内容: [上述构造给出的 #域，伴随嵌入 $iota : R arrow.hook "Frac"(R), iota(a) = a / 1$],
+    主体: [$R$ 的 #分式域],
+    bstyle: "display",
+    内容: [
+      - 在 $R times (R without {0})$ 上定义等价关系 $(a, b) tilde (c, d) iff a dot d = b dot c$；
+      - 底集：$(R times (R without {0})) slash tilde$，等价类 $[(a, b)]$ 记作 $a / b$；
+      - 加法：$a/b + c/d := (a dot d + b dot c) / (b dot d)$；
+      - 乘法：$a/b dot c/d := (a dot c) / (b dot d)$；
+      - 配以加法 #单位元 $0 / 1$、乘法 #单位元 $1 / 1$ 构成 #域；
+      - 伴随嵌入 $iota : R arrow.hook "Frac"(R), iota(a) = a / 1$。
+    ],
+    记号: $"Frac"(R)$,
   )
 ]
 
@@ -1147,7 +1135,7 @@
 #例条目("零环", "Zero Ring", uuid: "ZeroRing")[
   #定义子句(
     主体: [零环],
-    内容: [只含一个元素的 #幺环 $\{0\}$，其中 $0 = 1$],
+    内容: [只含一个元素的 #幺环 ${0}$，其中 $0 = 1$],
   )
 ]
 
@@ -1161,6 +1149,6 @@
 #例条目("偶整数环", "Even Integer Ring", uuid: "EvenIntegerRing", isExtension: true)[
   #定义子句(
     主体: [偶整数 $2 bb(Z)$],
-    内容: [$\{ 2 k \ |\ k : bb(Z) \}$，配以继承自 $bb(Z)$ 的加法与乘法，构成 #交换环 但不构成 #幺环（无单位元 $1$）],
+    内容: [${ 2 k | k : bb(Z) }$，配以继承自 $bb(Z)$ 的加法与乘法，构成 #交换环 但不构成 #幺环（无单位元 $1$）],
   )
 ]
