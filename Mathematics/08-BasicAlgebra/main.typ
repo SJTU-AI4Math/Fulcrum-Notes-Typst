@@ -349,7 +349,16 @@
 == 基本定义
 
 #定义条目("环", "Ring", uuid: "Ring")[
-  // TODO: $(R, +, dot)$, 其中 $(R, +)$ 是阿贝尔群, $(R, dot)$ 是半群 (不要求单位元), 且乘法对加法满足左右分配律。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#环],
+    isPredicate: true,
+    成员: (
+      (name: [加法交换群], value: [$(R, +)$ 是阿贝尔群]),
+      (name: [乘法半群], value: [$(R, dot)$ 是#半群]),
+      (name: [左分配律], value: [$forall (a, b, c : R), a dot (b + c) = a dot b + a dot c$]),
+      (name: [右分配律], value: [$forall (a, b, c : R), (a + b) dot c = a dot c + b dot c$]),
+    ),
+  )
 ]
 
 #注条目("", "")[
@@ -358,269 +367,560 @@
 ]
 
 #定义条目("交换环", "Commutative Ring", uuid: "CommutativeRing")[
-  // TODO: 乘法满足交换律的环。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#交换环],
+    extends: ([#环],),
+    isPredicate: true,
+    成员: (
+      (name: [乘法交换律], value: [$forall (a, b : R), a dot b = b dot a$]),
+    ),
+  )
 ]
 
 #定义条目("幺环", "Unital Ring", uuid: "UnitalRing")[
-  // TODO: 乘法上存在单位元 $1 in R$ 的环; 等价于 $(R, dot)$ 是幺半群。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#幺环],
+    extends: ([#环],),
+    isPredicate: true,
+    成员: (
+      (name: [乘法单位元], name_en: [Multiplicative Identity], varName: $1$, value: $R$),
+      (name: [单位元左乘不变性], value: [$forall (a : R), 1 dot a = a$]),
+      (name: [单位元右乘不变性], value: [$forall (a : R), a dot 1 = a$]),
+    ),
+  )
 ]
 
 #定义条目("交换幺环", "Commutative Unital Ring", uuid: "CommutativeUnitalRing")[
-  // TODO: 同时为交换环与幺环。
+  #定义子句(
+    主体: [#交换幺环],
+    内容: [同时为 #交换环 与 #幺环 的 #环],
+  )
 ]
 
 #定义条目("零环", "Zero Ring", uuid: "ZeroRing")[
-  // TODO: 只含一个元素的幺环 $\{0\}$, 其中 $0 = 1$。
+  #定义子句(
+    主体: [零环],
+    内容: [只含一个元素的#幺环 $\{0\}$, 其中 $0 = 1$],
+  )
 ]
 
 #性质条目("环中乘法零元吸收律", "")[
-  // TODO: $forall a in R$, $0 dot a = a dot 0 = 0$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], $a : R$),
+    结论: [$0 dot a = a dot 0 = 0$],
+  )
 ]
 
 #性质条目("环中加法逆元与乘法相容", "")[
-  // TODO: $forall a, b in R$, $(-a) dot b = a dot (-b) = -(a dot b)$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$a, b : R$]),
+    结论: [$(-a) dot b = a dot (-b) = -(a dot b)$],
+  )
 ]
 
 
 == 特殊元素
 
 #定义条目("单位 / 可逆元", "Unit", uuid: "Unit")[
-  // TODO: 设 $R$ 是幺环。 $u in R$ 称为单位, 当且仅当存在 $v in R$ 使 $u v = v u = 1$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], $u : R$),
+    主体: [$u$ 是#单位],
+    isPredicate: true,
+    内容: [$exists v : R, u dot v = v dot u = 1$],
+  )
 ]
 
 #定义条目("单位群", "Group of Units", uuid: "UnitGroup")[
-  // TODO: 幺环 $R$ 中全体单位构成的乘法群, 记作 $R^times$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环]),
+    主体: [#单位群 $R^times$],
+    内容: [$R$ 中全体 #单位 在乘法下构成的 #群],
+  )
 ]
 
 #定义条目("零因子", "Zero Divisor", uuid: "ZeroDivisor")[
-  // TODO: 非零元 $a in R$ 称为左(右)零因子, 若存在非零 $b in R$ 使 $a b = 0$ ($b a = 0$)。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], $a : R$, $a != 0$),
+    主体: [$a$ 是#零因子],
+    isPredicate: true,
+    内容: [$exists b : R, b != 0 and (a dot b = 0 or b dot a = 0)$],
+  )
 ]
 
 #定义条目("幂零元", "Nilpotent", uuid: "Nilpotent")[
-  // TODO: $a in R$ 称为幂零, 若存在 $n in NN$ 使 $a^n = 0$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], $a : R$),
+    主体: [$a$ 是#幂零元],
+    isPredicate: true,
+    内容: [$exists n : bb(N), a^n = 0$],
+  )
 ]
 
 #定义条目("幂等元", "Idempotent", uuid: "Idempotent")[
-  // TODO: $a in R$ 称为幂等, 若 $a^2 = a$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], $a : R$),
+    主体: [$a$ 是#幂等元],
+    isPredicate: true,
+    内容: [$a^2 = a$],
+  )
 ]
 
 
 == 整环 / 体 / 域
 
 #定义条目("整环", "Integral Domain", uuid: "IntegralDomain")[
-  // TODO: 无零因子的非零交换幺环。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#整环],
+    extends: ([#交换幺环],),
+    isPredicate: true,
+    成员: (
+      (name: [非平凡], value: [$1 != 0$]),
+      (name: [无零因子], value: [$forall (a, b : R), a dot b = 0 ==> a = 0 or b = 0$]),
+    ),
+  )
 ]
 
 #定义条目("除环 / 体", "Division Ring", uuid: "DivisionRing")[
-  // TODO: 非零元全可逆的幺环 (不要求交换)。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#除环],
+    extends: ([#幺环],),
+    isPredicate: true,
+    成员: (
+      (name: [非平凡], value: [$1 != 0$]),
+      (name: [非零元均可逆], value: [$forall (a : R), a != 0 ==> exists b : R, a dot b = b dot a = 1$]),
+    ),
+  )
 ]
 
 #定义条目("域", "Field", uuid: "Field")[
-  // TODO: 交换的除环。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#域],
+    extends: ([#除环],),
+    isPredicate: true,
+    成员: (
+      (name: [乘法交换律], value: [$forall (a, b : R), a dot b = b dot a$]),
+    ),
+  )
 ]
 
 #定义条目("环的特征", "Characteristic", uuid: "RingCharacteristic")[
-  // TODO: 在幺环 $R$ 中, 满足 $n dot 1 = 0$ 的最小正整数 $n$; 若不存在则规定 $"char"(R) = 0$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环]),
+    主体: [$R$ 的 #环的特征 $"char"(R)$],
+    内容: [满足 $n dot 1 = 0$ 的最小正整数 $n$; 若不存在此类 $n$, 则规定 $"char"(R) = 0$],
+  )
 ]
 
 #性质条目("整环的特征是 0 或素数", "")[
-  // TODO: $R$ 是整环 $==> "char"(R) in \{0\} union {素数}$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#整环]),
+    结论: [$"char"(R) = 0$ 或 $"char"(R)$ 为素数],
+  )
 ]
 
 
 == 子环与理想
 
 #定义条目("子环", "Subring", uuid: "Subring")[
-  // TODO: $S subset.eq R$ 在加法与乘法下封闭; 在幺环情形还要求 $1 in S$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$S subset.eq R$]),
+    主体: [$S$ 是 $R$ 的 #子环],
+    isPredicate: true,
+    内容: [$S$ 在加法、乘法与加法逆下均封闭; 在 $R$ 为 #幺环 时还要求 $1 in S$],
+  )
 ]
 
 #定义条目("左理想", "Left Ideal", uuid: "LeftIdeal")[
-  // TODO: $I subset.eq R$ 是加法子群, 且 $R I subset.eq I$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I subset.eq R$]),
+    主体: [$I$ 是 $R$ 的 #左理想],
+    isPredicate: true,
+    内容: [$I$ 是 $(R, +)$ 的加法子群, 且 $forall (r : R) (x : I), r dot x in I$],
+  )
 ]
 
 #定义条目("右理想", "Right Ideal", uuid: "RightIdeal", isExtension: true)[
-  // TODO: $I subset.eq R$ 是加法子群, 且 $I R subset.eq I$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I subset.eq R$]),
+    主体: [$I$ 是 $R$ 的 #右理想],
+    isPredicate: true,
+    内容: [$I$ 是 $(R, +)$ 的加法子群, 且 $forall (x : I) (r : R), x dot r in I$],
+  )
 ]
 
 #定义条目("双边理想 / 理想", "Two-sided Ideal", uuid: "TwoSidedIdeal", isExtension: true)[
-  // TODO: 同时为左、右理想; 在交换环中三者等同, 简称理想。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I subset.eq R$]),
+    主体: [$I$ 是 $R$ 的 #双边理想],
+    isPredicate: true,
+    内容: [$I$ 同时是 $R$ 的 #左理想 与 #右理想 。在 #交换环 中三者重合, 简称 #理想],
+  )
 ]
 
 #定义条目("真理想", "Proper Ideal", uuid: "ProperIdeal")[
-  // TODO: 不等于整个 $R$ 的理想。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I$ 是 $R$ 的 #理想]),
+    主体: [$I$ 是 $R$ 的 #真理想],
+    isPredicate: true,
+    内容: [$I != R$],
+  )
 ]
 
 #定义条目("由集合生成的理想", "Ideal Generated by a Set", uuid: "IdealGenerated")[
-  // TODO: 包含给定子集 $S subset.eq R$ 的最小理想, 记作 $angle.l S angle.r$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$S subset.eq R$]),
+    主体: [由 $S$ 生成的 #理想 $angle.l S angle.r$],
+    内容: [包含 $S$ 的一切 #理想 之交],
+  )
 ]
 
 #定义条目("主理想", "Principal Ideal", uuid: "PrincipalIdeal")[
-  // TODO: 由单个元素生成的理想 $(a) = R a$ (交换环情形)。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$I$ 是 $R$ 的 #理想]),
+    主体: [$I$ 是 #主理想],
+    isPredicate: true,
+    内容: [$exists a : R, I = (a) := \{ r dot a | r : R \}$],
+  )
 ]
 
 #定义条目("素理想", "Prime Ideal", uuid: "PrimeIdeal")[
-  // TODO: 真理想 $P$, 满足 $a b in P ==> a in P or b in P$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$P$ 是 $R$ 的 #理想]),
+    主体: [$P$ 是 #素理想],
+    isPredicate: true,
+    内容: [$P$ 是 #真理想, 且 $forall (a, b : R), a dot b in P ==> a in P or b in P$],
+  )
 ]
 
 #定义条目("极大理想", "Maximal Ideal", uuid: "MaximalIdeal")[
-  // TODO: 真理想 $M$, 不被任何真理想真包含。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], [$M$ 是 $R$ 的 #理想]),
+    主体: [$M$ 是 #极大理想],
+    isPredicate: true,
+    内容: [$M$ 是 #真理想, 且不存在 $R$ 的 #理想 $J$ 满足 $M subset.neq J subset.neq R$],
+  )
 ]
 
 #性质条目("极大理想是素理想", "")[
-  // TODO: 在交换幺环中, $M$ 极大 $==> M$ 素。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$M$ 是 $R$ 的 #极大理想]),
+    结论: [$M$ 是 #素理想],
+  )
 ]
 
 
 == 理想运算
 
 #定义条目("理想的和", "Sum of Ideals", uuid: "IdealSum")[
-  // TODO: $I + J = \{ a + b | a in I, b in J \}$, 仍是理想。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I, J$ 是 $R$ 的 #双边理想]),
+    主体: [#理想的和 $I + J$],
+    内容: [$\{ a + b | a in I, b in J \}$, 仍为 $R$ 的 #双边理想],
+  )
 ]
 
 #定义条目("理想的积", "Product of Ideals", uuid: "IdealProduct")[
-  // TODO: $I J = angle.l \{ a b | a in I, b in J \} angle.r$, 仍是理想。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I, J$ 是 $R$ 的 #双边理想]),
+    主体: [#理想的积 $I dot J$],
+    内容: [由集合 $\{ a dot b | a in I, b in J \}$ 生成的 #双边理想],
+  )
 ]
 
 #定义条目("理想的交", "Intersection of Ideals", uuid: "IdealIntersection")[
-  // TODO: $I sect J$ 是理想。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I, J$ 是 $R$ 的 #双边理想]),
+    主体: [#理想的交 $I sect J$],
+    内容: [集合交 $\{ x | x in I and x in J \}$, 仍为 $R$ 的 #双边理想],
+  )
 ]
 
 #性质条目("理想运算的包含关系", "")[
-  // TODO: $I J subset.eq I sect J subset.eq I + J$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I, J$ 是 $R$ 的 #双边理想]),
+    结论: [$I dot J subset.eq I sect J subset.eq I + J$],
+  )
 ]
 
 
 == 商环
 
 #构造条目("商环的构造", "Quotient Ring Construction", uuid: "QuotientRingConstruction")[
-  // TODO: 给定理想 $I$, 在 $R$ 上定义等价关系 $a tilde b iff a - b in I$, 得商集 $R \/ I$, 以陪集运算 $(a + I) + (b + I) = (a + b) + I$, $(a + I)(b + I) = (a b) + I$ 配成环。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I$ 是 $R$ 的 #双边理想]),
+    主体: [陪集环 $R \/ I$],
+    bstyle: "display",
+    内容: [
+      - 底集: $R \/ I := \{ a + I | a : R \}$, 其中 $a + I := \{ a + x | x : I \}$。
+      - 加法: $(a + I) + (b + I) := (a + b) + I$。
+      - 乘法: $(a + I) dot (b + I) := (a dot b) + I$。
+      - $I$ 是 #双边理想 保证乘法定义不依赖于陪集代表元的选取。
+    ],
+  )
 ]
 
 #定义条目("商环", "Quotient Ring", uuid: "QuotientRing")[
-  // TODO: 由理想 $I$ 决定的商环 $R \/ I$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I$ 是 $R$ 的 #双边理想]),
+    主体: [环 $R$ 对 #理想 $I$ 的 #商环 $R \/ I$],
+    内容: [上述构造给出的环; 在 $R$ 为 #幺环 时 $R\/I$ 仍为 #幺环, 其单位元为 $1 + I$],
+  )
 ]
 
 #性质条目("商环是域当且仅当理想极大", "")[
-  // TODO: $R$ 交换幺环, $M lt.tri R$: $R\/M$ 是域 $iff M$ 极大。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$M$ 是 $R$ 的 #理想]),
+    结论: [$R \/ M$ 是 #域 $iff M$ 是 #极大理想],
+  )
 ]
 
 #性质条目("商环是整环当且仅当理想素", "")[
-  // TODO: $R$ 交换幺环, $P lt.tri R$: $R\/P$ 是整环 $iff P$ 素。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$P$ 是 $R$ 的 #理想]),
+    结论: [$R \/ P$ 是 #整环 $iff P$ 是 #素理想],
+  )
 ]
 
 
 == 环同态
 
 #定义条目("环同态", "Ring Homomorphism", uuid: "RingHomomorphism")[
-  // TODO: $f : R -> S$ 保加法、保乘法; 在幺环之间还要求 $f(1_R) = 1_S$。
+  #结构子句(
+    条件: ([~$(R, +_R, dot_R)$ 与 $(S, +_S, dot_S)$ 是#环], [$f : R -> S$]),
+    主体: [$f$ 是 $R$ 到 $S$ 的 #环同态],
+    isPredicate: true,
+    成员: (
+      (name: [保加法], value: [$forall (a, b : R), f(a +_R b) = f(a) +_S f(b)$]),
+      (name: [保乘法], value: [$forall (a, b : R), f(a dot_R b) = f(a) dot_S f(b)$]),
+      (name: [在幺环之间额外保单位元], value: [当 $R, S$ 均为 #幺环 时, $f(1_R) = 1_S$]),
+    ),
+    记号: [$RHom(R, S)$],
+  )
 ]
 
 #定义条目("环同态的核", "Kernel", uuid: "RingHomKernel")[
-  // TODO: $ker(f) = \{ a in R | f(a) = 0 \}$, 是 $R$ 的双边理想。
+  #定义子句(
+    条件: ([~$f : R -> S$ 是#环同态]),
+    主体: [$f$ 的 #环同态的核 $ker(f)$],
+    内容: [$\{ a : R | f(a) = 0_S \}$, 为 $R$ 的 #双边理想],
+  )
 ]
 
 #定义条目("环同态的像", "Image", uuid: "RingHomImage", isExtension: true)[
-  // TODO: $"im"(f) = \{ f(a) | a in R \}$, 是 $S$ 的子环。
+  #定义子句(
+    条件: ([~$f : R -> S$ 是#环同态]),
+    主体: [$f$ 的 #环同态的像 $"im"(f)$],
+    内容: [$\{ f(a) | a : R \}$, 为 $S$ 的 #子环],
+  )
 ]
 
 #定义条目("环同构", "Ring Isomorphism", uuid: "RingIsomorphism")[
-  // TODO: 双射环同态。
+  #定义子句(
+    条件: ([~$f : R -> S$ 是#环同态]),
+    主体: [$f$ 是 #环同构],
+    isPredicate: true,
+    内容: [$f$ 是双射],
+  )
 ]
 
 #定理条目("环第一同构定理", "First Isomorphism Theorem")[
-  // TODO: $f : R -> S$ 环同态 $==> R \/ ker(f) tilde.equiv "im"(f)$。
+  #定理子句(
+    条件: ([~$f : R -> S$ 是#环同态]),
+    结论: [$R \/ ker(f) tilde.equiv "im"(f)$ 作为 #环],
+  )
 ]
 
 #定理条目("环第二同构定理", "Second Isomorphism Theorem")[
-  // TODO: $S$ 子环, $I$ 理想 $==> (S + I) \/ I tilde.equiv S \/ (S sect I)$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$S$ 是 $R$ 的 #子环], [$I$ 是 $R$ 的 #双边理想]),
+    结论: [$(S + I) \/ I tilde.equiv S \/ (S sect I)$],
+  )
 ]
 
 #定理条目("环第三同构定理", "Third Isomorphism Theorem")[
-  // TODO: $I subset.eq J$ 均为理想 $==> (R \/ I) \/ (J \/ I) tilde.equiv R \/ J$。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I, J$ 是 $R$ 的 #双边理想], $I subset.eq J$),
+    结论: [$(R \/ I) \/ (J \/ I) tilde.equiv R \/ J$],
+  )
 ]
 
 #定理条目("理想对应定理", "Correspondence Theorem")[
-  // TODO: 商映射 $pi : R -> R\/I$ 在含 $I$ 的理想与 $R\/I$ 的理想之间建立保包含的双射。
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环], [$I$ 是 $R$ 的 #双边理想]),
+    结论: [商映射 $pi : R -> R \/ I$ 在含 $I$ 的 $R$ 的 #双边理想 与 $R \/ I$ 的 #双边理想 之间建立保包含的双射],
+  )
 ]
+
 
 
 == 多项式环
 
 #定义条目("多项式环", "Polynomial Ring", uuid: "PolynomialRing")[
-  // TODO: 在交换幺环 $R$ 上, $R[x]$ 以 $x$ 为不定元的形式多项式集合, 配以多项式加法与乘法。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环]),
+    主体: [$R$ 上以 $x$ 为不定元的 #多项式环 $R[x]$],
+    bstyle: "display",
+    内容: [
+      - 底集: $R[x] := \{ (a_0, a_1, dots, a_n) | n : bb(N), a_i : R \}$, 记为 $a_0 + a_1 x + dots.c + a_n x^n$。
+      - 加法: 逐项相加。
+      - 乘法: $(sum_i a_i x^i) dot (sum_j b_j x^j) := sum_k (sum_(i + j = k) a_i dot b_j) x^k$。
+      - 在 $R$ 为 #交换幺环 时, $R[x]$ 仍为 #交换幺环, 其单位元为常项 $1_R$。
+    ],
+  )
 ]
 
 #定义条目("多项式的次数", "Degree of a Polynomial", uuid: "PolynomialDegree")[
-  // TODO: $deg(f)$ 为最高非零项的指数; 规定 $deg(0) = -infinity$。
+  #定义子句(
+    条件: ([~$R$ 是#交换幺环], [$f : R[x]$]),
+    主体: [$f$ 的 #多项式的次数 $deg(f)$],
+    内容: [最高非零项的指数; 当 $f = 0$ 时规定 $deg(0) = -infinity$],
+  )
 ]
 
 #定义条目("首一多项式", "Monic Polynomial", uuid: "MonicPolynomial")[
-  // TODO: 最高次项系数为 $1$ 的多项式。
+  #定义子句(
+    条件: ([~$R$ 是#交换幺环], [$f : R[x]$], $f != 0$),
+    主体: [$f$ 是 #首一多项式],
+    isPredicate: true,
+    内容: [$f$ 的 $deg(f)$ 次项系数为 $1_R$],
+  )
 ]
 
 #性质条目("整环上多项式次数加法律", "")[
-  // TODO: $R$ 整环 $==> deg(f g) = deg(f) + deg(g)$, 且 $R[x]$ 也是整环。
+  #定理子句(
+    条件: ([~$R$ 是#整环], [$f, g : R[x]$], [$f, g != 0$]),
+    结论: [$deg(f dot g) = deg(f) + deg(g)$ 且 $R[x]$ 仍为 #整环],
+  )
 ]
 
 #定义条目("不可约多项式", "Irreducible Polynomial", uuid: "IrreduciblePolynomial")[
-  // TODO: $R$ 整环, $f in R[x]$ 非零非单位, 且不能分解为两非单位之积。
+  #定义子句(
+    条件: ([~$R$ 是#整环], [$f : R[x]$]),
+    主体: [$f$ 是 #不可约多项式],
+    isPredicate: true,
+    内容: [$f$ 非零、非 #单位, 且 $forall (g, h : R[x]), f = g dot h ==> g$ 或 $h$ 是 #单位],
+  )
 ]
 
 
 == 整除与素元
 
 #定义条目("整除", "Divides", uuid: "Divides")[
-  // TODO: 设 $R$ 是幺环。 $a | b iff exists c in R, b = a c$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$a, b : R$]),
+    主体: [$a$ #整除 $b$, 记作 $a divides b$],
+    isPredicate: true,
+    内容: [$exists c : R, b = a dot c$],
+  )
 ]
 
 #定义条目("素元", "Prime Element", uuid: "PrimeElement")[
-  // TODO: $p$ 非零非单位, 且 $p | a b ==> p | a or p | b$。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$p : R$]),
+    主体: [$p$ 是 #素元],
+    isPredicate: true,
+    内容: [$p != 0$, $p$ 非 #单位, 且 $forall (a, b : R), p divides (a dot b) ==> p divides a or p divides b$],
+  )
 ]
 
 #定义条目("不可约元", "Irreducible Element", uuid: "IrreducibleElement")[
-  // TODO: $p$ 非零非单位, 且 $p = a b ==> a$ 或 $b$ 是单位。
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$p : R$]),
+    主体: [$p$ 是 #不可约元],
+    isPredicate: true,
+    内容: [$p != 0$, $p$ 非 #单位, 且 $forall (a, b : R), p = a dot b ==> a$ 或 $b$ 是 #单位],
+  )
 ]
 
 #性质条目("整环中素元是不可约元", "")[
-  // TODO: $R$ 整环: $p$ 素 $==> p$ 不可约。
+  #定理子句(
+    条件: ([~$R$ 是#整环], [$p : R$ 是 $R$ 的 #素元]),
+    结论: [$p$ 是 $R$ 的 #不可约元],
+  )
 ]
 
 
 == 主理想整环 / 唯一分解整环 / 欧几里得整环
 
 #定义条目("欧几里得整环", "Euclidean Domain", uuid: "EuclideanDomain")[
-  // TODO: 整环 $R$ 配以欧几里得范数 $delta : R \\ \{0\} -> NN$, 满足带余除法。
+  #结构子句(
+    主体: [$(R, +, dot, delta)$ 是#欧几里得整环],
+    extends: ([#整环],),
+    isPredicate: true,
+    成员: (
+      (name: [欧几里得范数], name_en: [Euclidean Norm], varName: $delta$, value: $R \\ \{0\} -> bb(N)$),
+      (name: [带余除法], value: [$forall (a : R) (b : R \\ \{0\}), exists q, r : R, a = b dot q + r and (r = 0 or delta(r) < delta(b))$]),
+    ),
+  )
 ]
 
 #定义条目("主理想整环", "Principal Ideal Domain", uuid: "PrincipalIdealDomain")[
-  // TODO: 整环, 其每个理想都是主理想。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#主理想整环],
+    extends: ([#整环],),
+    isPredicate: true,
+    成员: (
+      (name: [理想均为主理想], value: [$forall I subset.eq R, I$ 是 $R$ 的 #理想 $==> I$ 是 $R$ 的 #主理想]),
+    ),
+  )
 ]
 
 #定义条目("唯一分解整环", "Unique Factorization Domain", uuid: "UniqueFactorizationDomain")[
-  // TODO: 整环, 每非零非单位元素都可唯一(在相伴与顺序意义下)分解为不可约元的乘积。
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#唯一分解整环],
+    extends: ([#整环],),
+    isPredicate: true,
+    成员: (
+      (name: [存在分解], value: [任一非零、非 #单位 元素可写为有限多个 #不可约元 乘积]),
+      (name: [唯一性], value: [该分解在相伴与置换顺序下唯一]),
+    ),
+  )
 ]
 
-#性质条目("ED ==> PID ==> UFD", "")[
-  // TODO: 欧几里得整环 $==>$ 主理想整环 $==>$ 唯一分解整环 (反向均不成立)。
+#性质条目("ED 蕴含 PID 蕴含 UFD", "")[
+  #定理子句(
+    结论: [任一 #欧几里得整环 是 #主理想整环 ；任一 #主理想整环 是 #唯一分解整环 ；反向均不成立],
+  )
 ]
 
 #性质条目("UFD 中不可约元等价于素元", "")[
-  // TODO: $R$ 是 UFD: $p$ 不可约 $iff p$ 素。
+  #定理子句(
+    条件: ([~$R$ 是#唯一分解整环], [$p : R$]),
+    结论: [$p$ 是 $R$ 的 #不可约元 $iff p$ 是 $R$ 的 #素元],
+  )
 ]
 
 
 == 分式域
 
 #构造条目("整环的分式域", "Field of Fractions Construction", uuid: "FieldOfFractionsConstruction")[
-  // TODO: 在 $R times (R \\ \{0\})$ 上定义等价关系 $(a, b) tilde (c, d) iff a d = b c$, 商集配以分数加乘构造为域。
+  #定义子句(
+    条件: ([~$R$ 是#整环]),
+    主体: [$R$ 的 #分式域 $"Frac"(R)$],
+    bstyle: "display",
+    内容: [
+      - 在 $R times (R \\ \{0\})$ 上定义等价关系 $(a, b) tilde (c, d) iff a dot d = b dot c$。
+      - 底集 $"Frac"(R) := (R times (R \\ \{0\})) \/ tilde$, 记等价类 $[(a, b)]$ 为 $a / b$。
+      - 加法: $a/b + c/d := (a dot d + b dot c) / (b dot d)$。
+      - 乘法: $a/b dot c/d := (a dot c) / (b dot d)$。
+      - 该三元组构成 #域。
+    ],
+  )
 ]
 
 #定义条目("分式域", "Field of Fractions", uuid: "FieldOfFractions")[
-  // TODO: 整环 $R$ 的分式域 $"Frac"(R)$。
+  #定义子句(
+    条件: ([~$R$ 是#整环]),
+    主体: [$R$ 的 #分式域 $"Frac"(R)$],
+    内容: [上述构造给出的 #域, 伴随嵌入 $iota : R arrow.hook "Frac"(R), iota(a) = a / 1$],
+  )
 ]
 
 #性质条目("分式域是包含 R 的最小域", "")[
-  // TODO: 对任意 $R hook.r K$ ($K$ 域) 存在唯一环同态 $"Frac"(R) -> K$ 延拓 $R hook.r K$。
+  #定理子句(
+    条件: ([~$R$ 是#整环], [$K$ 是 #域], [$phi : R -> K$ 是嵌入型 #环同态]),
+    结论: [$exists !$ #环同态 $tilde(phi) : "Frac"(R) -> K$ 使 $tilde(phi) compose iota = phi$],
+  )
 ]
 
 
@@ -629,19 +929,36 @@
 == 环范畴
 
 #定义条目("环范畴", "Category of Rings", uuid: "CategoryOfRings")[
-  // TODO: 范畴 $bold("Ring")$, 对象为幺环, 态射为幺环同态。
+  #结构子句(
+    主体: [#环范畴 $bold("Ring")$],
+    成员: (
+      (name: [对象], value: [全体 #幺环]),
+      (name: [态射], value: [幺环之间的 #环同态]),
+      (name: [复合], value: [函数复合]),
+      (name: [恒态], value: [恒映射 $"id"_R$]),
+    ),
+  )
 ]
 
 #性质条目("环范畴中的同构", "")[
-  // TODO: $bold("Ring")$ 中同构 即 环同构。
+  #定理子句(
+    条件: ([~$f : R -> S$ 是 $bold("Ring")$ 中的态射]),
+    结论: [$f$ 是 $bold("Ring")$ 中的同构 $iff f$ 是 #环同构],
+  )
 ]
 
 #定义条目("环直积", "Direct Product of Rings", uuid: "RingDirectProduct")[
-  // TODO: $R times S$ 上逐分量加乘, 为 $bold("Ring")$ 中的积。
+  #定义子句(
+    条件: ([~$R, S$ 是#幺环]),
+    主体: [$R$ 与 $S$ 的 #环直积 $R times S$],
+    内容: [逐分量加法与乘法赋予 $R times S$ 以 #幺环 结构, 是 $bold("Ring")$ 中 $R$ 与 $S$ 的积],
+  )
 ]
 
 #性质条目("环范畴有积无余积 (交换情形不同)", "")[
-  // TODO: $bold("Ring")$ 有全部小积; 余积非平凡 (交换幺环情形为张量积 $R times.circle_ZZ S$)。
+  #定理子句(
+    结论: [$bold("Ring")$ 有全部小积; 余积在 #交换幺环 范畴 $bold("CRing")$ 中为张量积 $R times.circle_(bb(Z)) S$, 在 $bold("Ring")$ 中则非平凡],
+  )
 ]
 
 ]
