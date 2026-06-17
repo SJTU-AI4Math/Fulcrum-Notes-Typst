@@ -233,8 +233,11 @@
   // TODO: 2 阶轮换。
 ]
 
-#定义条目("奇置换与偶置换", "Even/Odd Permutation")[
-  // TODO: 可表示为偶数（奇数）个对换乘积的置换。
+#定义条目("奇置换", "Odd Permutation")[
+  // TODO: 可表示为奇数个对换乘积的置换。
+]
+#定义条目("偶置换", "Even Permutation", isExtension: true)[
+  // TODO: 可表示为偶数个对换乘积的置换。
 ]
 
 #性质条目("奇偶性不依赖于分解", "")[
