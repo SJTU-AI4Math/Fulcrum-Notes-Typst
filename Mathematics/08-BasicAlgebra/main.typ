@@ -171,9 +171,6 @@
   - $(G, dot_G)$ 是#群
 ]
 
-#let SubG = $#optionLink("Subgroup", $<=$)$
-#let PSubG = $#optionLink("ProperSubgroup", $<$)$
-
 #定义条目("子群", "Subgroup", uuid: "Subgroup")[
   #定义子句(
     条件: ([$H : Set(G)$],),
@@ -211,48 +208,110 @@
   - $X : Type$
 ]
 
-#定义条目("置换", "Permutation")[
-  // TODO: 集合 $X$ 上的置换, 即 $X -> X$ 的双射。
+#定义条目("置换", "Permutation", uuid: "Permutation")[
+  #定义子句(
+    条件: ([~$X : Type$], $sigma : X -> X$),
+    主体: [$sigma$ 是 $X$ 上的 #置换],
+    isPredicate: true,
+    内容: [$sigma$ 是双射],
+  )
 ]
 
-#定义条目("对称群", "Symmetric Group")[
-  // TODO: $X$ 上全体置换在复合运算下构成的群 $"Sym"(X)$。
-  // 当 $X = {1, ..., n}$ 时记为 $S_n$。
+#定义条目("对称群", "Symmetric Group", uuid: "SymmetricGroup")[
+  #结构实例子句(
+    条件: ([~$X : Type$]),
+    主体: [$X$ 上的 #对称群],
+    类别: [#群],
+    记号: $Sym(X)$,
+    成员: (
+      (name: [底集], value: [$\{ sigma : X -> X \ |\ sigma$ 是 $X$ 上的 #置换 $\}$]),
+      (name: [乘法], value: [函数复合 $compose$]),
+      (name: [#单位元], value: [恒等映射 $op("id")_X$]),
+      (name: [#逆元], value: [双射的逆映射]),
+    ),
+  )
 ]
 
-#定义条目("轮换", "Cycle")[
-  // TODO: $r$ 阶轮换 $(a_1, a_2, ..., a_r)$ 的定义。
+#注条目("", "")[
+  当 $X = \{ 1, 2, ..., n \}$ 时，记其 #对称群 为 $SymmGroup(n)$，称为 $n$ 元 #对称群。
 ]
 
-#定义条目("不交轮换", "Disjoint Cycles")[
-  // TODO: 两个轮换作用的元素集合不相交。
+#定义条目("轮换", "Cycle", uuid: "Cycle")[
+  #定义子句(
+    条件: ([~$X : Type$], $r : bb(N)$, $r >= 2$, [$a_1, a_2, ..., a_r : X$ 两两不同]),
+    主体: [由 $a_1, a_2, ..., a_r$ 决定的 $r$ 阶 #轮换],
+    内容: [将 $a_i$ 映为 $a_(i+1)$（$i < r$）、$a_r$ 映为 $a_1$、其余元素保持不动的 #置换],
+    记号: $(a_1 thin a_2 thin ... thin a_r)$,
+  )
 ]
 
-#定理条目("轮换分解定理", "Cycle Decomposition")[
-  // TODO: 任何置换可唯一分解为不交轮换的乘积（不计顺序）。
+#定义条目("不交轮换", "Disjoint Cycles", uuid: "DisjointCycles")[
+  #定义子句(
+    条件: ([~$X : Type$], [$sigma_1, sigma_2$ 是 $X$ 上的 #轮换]),
+    主体: [$sigma_1, sigma_2$ 是 #不交轮换],
+    isPredicate: true,
+    内容: [$sigma_1, sigma_2$ 各自所对应的 $a_i$ 元素集合 #不交],
+  )
 ]
 
-#定义条目("对换", "Transposition")[
-  // TODO: 2 阶轮换。
+#定理条目("轮换分解定理", "Cycle Decomposition Theorem", uuid: "CycleDecomposition")[
+  #定理子句(
+    条件: ([~$X : Type$], [$X$ 是有限类型], $sigma : Sym(X)$),
+    结论: [$sigma$ 可唯一地（不计因子顺序）分解为有限多个两两 #不交 的 #轮换 之乘积],
+  )
 ]
 
-#定义条目("奇置换", "Odd Permutation")[
-  // TODO: 可表示为奇数个对换乘积的置换。
-]
-#定义条目("偶置换", "Even Permutation", isExtension: true)[
-  // TODO: 可表示为偶数个对换乘积的置换。
-]
-
-#性质条目("奇偶性不依赖于分解", "")[
-  // TODO: 其同一置换不同的对换分解的長度奇偶性相同。
+#定义条目("对换", "Transposition", uuid: "Transposition")[
+  #定义子句(
+    条件: ([~$X : Type$], $sigma : Sym(X)$),
+    主体: [$sigma$ 是 #对换],
+    isPredicate: true,
+    内容: [$sigma$ 是 $2$ 阶 #轮换],
+  )
 ]
 
-#定义条目("交错群", "Alternating Group")[
-  // TODO: $S_n$ 中所有偶置换构成的子群 $A_n$。
+#定义条目("奇置换", "Odd Permutation", uuid: "OddPermutation")[
+  #定义子句(
+    条件: ([~$X : Type$], [$X$ 是有限类型], $sigma : Sym(X)$),
+    主体: [$sigma$ 是 #奇置换],
+    isPredicate: true,
+    内容: [$sigma$ 可表为奇数个 #对换 的乘积],
+  )
+]
+#定义条目("偶置换", "Even Permutation", uuid: "EvenPermutation", isExtension: true)[
+  #定义子句(
+    条件: ([~$X : Type$], [$X$ 是有限类型], $sigma : Sym(X)$),
+    主体: [$sigma$ 是 #偶置换],
+    isPredicate: true,
+    内容: [$sigma$ 可表为偶数个 #对换 的乘积],
+  )
 ]
 
-#定理条目("Cayley 定理", "Cayley")[
-  // TODO: 任何群 $G$ 同构于 $"Sym"(G)$ 的子群。
+#性质条目("奇偶性不依赖于分解", "", uuid: "PermutationParityWellDefined")[
+  #定理子句(
+    条件: ([~$X : Type$], [$X$ 是有限类型], $sigma : Sym(X)$),
+    结论: [$sigma$ 的任意两个 #对换 分解的因子个数同奇偶；从而 #奇置换 与 #偶置换 互斥且穷尽 $Sym(X)$ 中所有元素],
+  )
+]
+
+#定义条目("交错群", "Alternating Group", uuid: "AlternatingGroup")[
+  #结构实例子句(
+    条件: ([~$n : bb(N)$]),
+    主体: [$n$ 元 #交错群],
+    类别: [#群],
+    记号: $A_n$,
+    成员: (
+      (name: [底集], value: [$\{ sigma : SymmGroup(n) \ |\ sigma$ 是 #偶置换 $\}$]),
+      (name: [群结构], value: [继承自 $SymmGroup(n)$]),
+    ),
+  )
+]
+
+#定理条目("Cayley 定理", "Cayley's Theorem", uuid: "CayleyTheorem")[
+  #定理子句(
+    条件: ([~$(G, dot)$ 是 #群]),
+    结论: [存在 #群单同态 $G arrow.hook Sym(G)$；即任意 #群 同构于其底集上某 #对称群 的 #子群],
+  )
 ]
 
 
@@ -264,53 +323,134 @@
   - $(G, dot)$ 是#群
 ]
 
-#定义条目("群作用", "Group Action")[
-  // TODO: 运算 $alpha : G -> X -> X$ 满足单位元作用与结合律。
+#定义条目("群作用", "Group Action", uuid: "GroupAction")[
+  #结构子句(
+    主体: [$alpha$ 是 $G$ 在 $X$ 上的 #群作用],
+    isPredicate: true,
+    成员: (
+      (name: [作用映射], varName: $alpha$, value: $G -> X -> X$),
+      (name: [#单位元 作用平凡], value: [$forall x : X, alpha(e)(x) = x$]),
+      (name: [结合律], value: [$forall (g, h : G) (x : X), alpha(g dot h)(x) = alpha(g)(alpha(h)(x))$]),
+    ),
+    记号: [$g dot x := alpha(g)(x)$],
+  )
 ]
 
-#定义条目("轨道", "Orbit")[
-  // TODO: $x in X$ 的轨道 $G dot x = { g dot x | g in G }$。
+#注条目("", "")[
+  在固定 #群作用 $alpha$ 的语境下，本节后续 *约定*：
+  - 用记号 $g dot x$ 表示 $alpha(g)(x)$；
+  - 凡出现 $X$ 时均默认带有该 #群作用。
 ]
 
-#定义条目("稳定子群", "Stabilizer")[
-  // TODO: $"Stab"(x) = { g in G | g dot x = x }$，$G$ 的子群。
+#定义条目("轨道", "Orbit", uuid: "Orbit")[
+  #定义子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], $x : X$),
+    主体: [$x$ 在 $alpha$ 下的 #轨道],
+    内容: [$\{ g dot x \ |\ g : G \}$],
+    记号: $Orb(x)$,
+  )
 ]
 
-#性质条目("轨道是集合的等价类", "")[
-  // TODO: 对 $X$ 定义关系 $x tilde y$ 以 $exists g, g dot x = y$, 为等价关系。
-  // $X$ 以轨道为等价类。
+#定义条目("稳定子群", "Stabilizer", uuid: "Stabilizer")[
+  #结构实例子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], $x : X$),
+    主体: [$x$ 的 #稳定子群],
+    类别: [$G$ 的 #子群],
+    记号: $Stab(x)$,
+    成员: (
+      (name: [底集], value: [$\{ g : G \ |\ g dot x = x \}$]),
+      (name: [群结构], value: [继承自 $G$]),
+    ),
+  )
 ]
 
-#定理条目("轨道-稳定子定理", "Orbit-Stabilizer")[
-  // TODO: 有限群 $G$ 作用于 $X$, $forall x in X$, $|G dot x| dot |"Stab"(x)| = |G|$。
+#性质条目("轨道是集合的等价类", "", uuid: "OrbitsAsEquivalenceClasses")[
+  #定理子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用]),
+    结论: [关系 $x tilde y$ 定义为 $exists g : G, g dot x = y$ 是 $X$ 上的等价关系；其等价类恰为各个 #轨道],
+  )
 ]
 
-#定义条目("不动点集", "Fixed Point Set")[
-  // TODO: $X^g = { x in X | g dot x = x }$。
+#定理条目("轨道-稳定子定理", "Orbit-Stabilizer Theorem", uuid: "OrbitStabilizerTheorem")[
+  #定理子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], [$G$ 是有限 #群], $x : X$),
+    结论: [$|Orb(x)| dot |Stab(x)| = |G|$],
+  )
 ]
 
-#引理条目("Burnside 计数引理", "Burnside")[
-  // TODO: 有限群 $G$ 作用于有限集 $X$, 轨道数 $|X \/ G| = (1 / |G|) sum_(g in G) |X^g|$。
+#定义条目("不动点集", "Fixed Point Set", uuid: "FixedPointSet")[
+  #定义子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], $g : G$),
+    主体: [$g$ 在 $X$ 上的 #不动点集],
+    内容: [$\{ x : X \ |\ g dot x = x \}$],
+    记号: $X^g$,
+  )
 ]
 
-#定义条目("共轭作用", "Conjugation Action")[
-  // TODO: $G$ 作用于自身: $g dot x = g x g^(-1)$。
+#引理条目("Burnside 计数引理", "Burnside's Lemma", uuid: "BurnsideLemma")[
+  #定理子句(
+    条件: ([~$alpha$ 是 $G$ 在 $X$ 上的 #群作用], [$G$ 是有限 #群], [$X$ 是有限类型]),
+    结论: [
+      $ |X \/ G| = (1 / |G|) sum_(g in G) |X^g| $
+      其中 $X \/ G$ 表 #轨道 之集
+    ],
+    cstyle: "display",
+  )
 ]
 
-#定义条目("共轭类", "Conjugacy Class")[
-  // TODO: 共轭作用下的轨道。
+#定义条目("共轭作用", "Conjugation Action", uuid: "ConjugationAction")[
+  #结构实例子句(
+    条件: ([~$(G, dot)$ 是 #群]),
+    主体: [$G$ 在自身上的 #共轭作用],
+    类别: [$G$ 在 $G$ 上的 #群作用],
+    成员: (
+      (name: [作用映射], value: [$g dot x := g x g^(-1)$]),
+    ),
+  )
 ]
 
-#定义条目("中心化子", "Centralizer")[
-  // TODO: $C_G(x) = { g in G | g x = x g }$，即共轭作用的稳定子群。
+#定义条目("共轭类", "Conjugacy Class", uuid: "ConjugacyClass")[
+  #定义子句(
+    条件: ([~$(G, dot)$ 是 #群], $x : G$),
+    主体: [$x$ 的 #共轭类],
+    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #轨道，即 $\{ g x g^(-1) \ |\ g : G \}$],
+  )
 ]
 
-#定义条目("中心", "Center")[
-  // TODO: $Z(G) = { g in G | forall x in G, g x = x g }$，$G$ 的交换中心子群。
+#定义条目("中心化子", "Centralizer", uuid: "Centralizer")[
+  #定义子句(
+    条件: ([~$(G, dot)$ 是 #群], $x : G$),
+    主体: [$x$ 在 $G$ 中的 #中心化子],
+    内容: [$x$ 在 $G$ 的 #共轭作用 下的 #稳定子群，即 $\{ g : G \ |\ g x = x g \}$],
+    记号: $Centralizer(x)$,
+  )
 ]
 
-#定理条目("类方程", "Class Equation")[
-  // TODO: 有限群 $|G| = |Z(G)| + sum_i [G : C_G(x_i)]$，其中求和跨非心共轭类代表。
+#定义条目("中心", "Center", uuid: "Center")[
+  #结构实例子句(
+    条件: ([~$(G, dot)$ 是 #群]),
+    主体: [$G$ 的 #中心],
+    类别: [$G$ 的 #子群],
+    记号: $Center(G)$,
+    成员: (
+      (name: [底集], value: [$\{ g : G \ |\ forall x : G, g x = x g \}$]),
+      (name: [群结构], value: [继承自 $G$]),
+    ),
+  )
+]
+
+#注条目("", "")[
+  $G$ 的 #中心 是各个元素的 #中心化子 之交：$Center(G) = inter.big_(x : G) Centralizer(x)$；并且 $Center(G)$ 是 $G$ 的 #Abel群 #子群。
+]
+
+#定理条目("类方程", "Class Equation", uuid: "ClassEquation")[
+  #定理子句(
+    条件: ([~$(G, dot)$ 是有限 #群], [$x_1, ..., x_k$ 是 $G$ 中各非中心 #共轭类 的代表元]),
+    结论: [
+      $ |G| = |Center(G)| + sum_(i = 1)^k [G : Centralizer(x_i)] $
+    ],
+    cstyle: "display",
+  )
 ]
 
 
@@ -318,24 +458,57 @@
 
 == 群范畴
 
-#定义条目("群范畴", "Category of Groups")[
-  // TODO: 范畴 $bold("Grp")$, 对象为一切群, 态射为群同态。
+#定义条目("群范畴", "Category of Groups", uuid: "CategoryOfGroups")[
+  #结构实例子句(
+    主体: [#群范畴],
+    类别: [范畴],
+    记号: $bold("Grp")$,
+    成员: (
+      (name: [对象], value: [一切 #群]),
+      (name: [态射], value: [#群同态]),
+      (name: [复合], value: [函数复合]),
+      (name: [恒等态射], value: [恒等映射]),
+    ),
+  )
 ]
 
-#性质条目("群范畴中的同构", "")[
-  // TODO: $bold("Grp")$ 中同构 即 群同构。
+#性质条目("群范畴中的同构", "", uuid: "GroupCategoryIsomorphism")[
+  #定理子句(
+    条件: ([~$G, H$ 是 #群], $f : GHom(G, H)$),
+    结论: [$f$ 在 #群范畴 $bold("Grp")$ 中为同构 #iff $f$ 是 #群同态 中的 #群同构（即 $G GIso H$）],
+  )
 ]
 
-#定义条目("群直积", "Direct Product of Groups")[
-  // TODO: $G times H$ 上的逐分量乘法, 为 $bold("Grp")$ 中的积。
+#定义条目("群直积", "Direct Product of Groups", uuid: "DirectProductOfGroups")[
+  #结构实例子句(
+    条件: ([~$(G, dot_G), (H, dot_H)$ 是 #群]),
+    主体: [$G$ 与 $H$ 的 #群直积],
+    类别: [#群],
+    记号: $G times H$,
+    成员: (
+      (name: [底集], value: [积类型 $G times H$]),
+      (name: [乘法], value: [$(g_1, h_1) dot (g_2, h_2) := (g_1 dot_G g_2, thin h_1 dot_H h_2)$]),
+      (name: [#单位元], value: [$(e_G, e_H)$]),
+      (name: [#逆元], value: [$(g, h)^(-1) := (g^(-1), h^(-1))$]),
+    ),
+  )
 ]
 
-#定义条目("群余积", "Coproduct in Group Category")[
-  // TODO: $bold("Grp")$ 中的余积 即 自由积 G * H。
+#注条目("", "")[#群直积 是 #群范畴 $bold("Grp")$ 中的积；分量投影 $pi_G : G times H -> G$ 与 $pi_H : G times H -> H$ 给出对应的泛性质。]
+
+#定义条目("群余积", "Coproduct of Groups", uuid: "CoproductOfGroups")[
+  #定义子句(
+    条件: ([~$(G, dot_G), (H, dot_H)$ 是 #群]),
+    主体: [$G$ 与 $H$ 的 #群余积],
+    内容: [$G$ 与 $H$ 在 #群范畴 $bold("Grp")$ 中的余积，即两群的 #自由积],
+    记号: $G * H$,
+  )
 ]
 
-#性质条目("群范畴是完备与余完备的", "")[
-  // TODO: $bold("Grp")$ 有全部小极限与小余极限。
+#性质条目("群范畴是完备与余完备的", "", uuid: "GroupCategoryBicomplete")[
+  #定理子句(
+    结论: [#群范畴 $bold("Grp")$ 拥有全部小极限与小余极限],
+  )
 ]
 
 ]

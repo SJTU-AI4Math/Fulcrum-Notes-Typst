@@ -65,6 +65,34 @@
   url: "https://zh.wikipedia.org/wiki/%E7%BE%A4%E5%90%8C%E6%85%8B"
 )
 
+#let 群单同态 = optionLink(
+  "GroupMonomorphism",
+  [群单同态]
+)
+
+#let 群满同态 = optionLink(
+  "GroupEpimorphism",
+  [群满同态]
+)
+
+#let 群同构 = optionLink(
+  "GroupIsomorphism",
+  [群同构]
+)
+
+#let 子群 = optionLink(
+  "Subgroup",
+  [子群]
+)
+
+#let 真子群 = optionLink(
+  "ProperSubgroup",
+  [真子群]
+)
+
+#let SubG = $#optionLink("Subgroup", $<=$)$
+#let PSubG = $#optionLink("ProperSubgroup", $<$)$
+
 #let GMono = optionLink(
   "GroupMonomorphism",
   [$arrow.hook$]
@@ -84,6 +112,43 @@
   "Field",
   [域]
 )
+
+// ============================================================
+// 置换群 / 群作用 / 群范畴 — 术语注册
+// ============================================================
+
+// 置换群
+#let 置换 = optionLink("Permutation", [置换], url: "https://zh.wikipedia.org/wiki/%E7%BD%AE%E6%8D%A2")
+#let 对称群 = optionLink("SymmetricGroup", [对称群], url: "https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%A7%B0%E7%BE%A4_(n%E6%AC%A1%E5%AF%B9%E7%A7%B0%E7%BE%A4)")
+#let 轮换 = optionLink("Cycle", [轮换], url: "https://zh.wikipedia.org/wiki/%E8%BD%AE%E6%8D%A2_(%E7%BE%A4%E8%AE%BA)")
+#let 不交轮换 = optionLink("DisjointCycles", [不交轮换])
+#let 对换 = optionLink("Transposition", [对换], url: "https://zh.wikipedia.org/wiki/%E5%AF%B9%E6%8D%A2")
+#let 奇置换 = optionLink("OddPermutation", [奇置换])
+#let 偶置换 = optionLink("EvenPermutation", [偶置换])
+#let 交错群 = optionLink("AlternatingGroup", [交错群], url: "https://zh.wikipedia.org/wiki/%E4%BA%A4%E9%94%99%E7%BE%A4")
+
+// 群作用
+#let 群作用 = optionLink("GroupAction", [群作用], url: "https://zh.wikipedia.org/wiki/%E7%BE%A4%E4%BD%9C%E7%94%A8")
+#let 轨道 = optionLink("Orbit", [轨道])
+#let 稳定子群 = optionLink("Stabilizer", [稳定子群])
+#let 稳定子 = optionLink("Stabilizer", [稳定子])
+#let 不动点集 = optionLink("FixedPointSet", [不动点集])
+#let 共轭作用 = optionLink("ConjugationAction", [共轭作用])
+#let 共轭类 = optionLink("ConjugacyClass", [共轭类])
+#let 中心化子 = optionLink("Centralizer", [中心化子])
+#let 中心 = optionLink("Center", [中心])
+
+// notation: Stab(x), Orb(x), C_G(x), Z(G)
+#let Stab = (x) => $#optionLink("Stabilizer", $op("Stab")$) (#x)$
+#let Orb = (x) => $#optionLink("Orbit", $op("Orb")$) (#x)$
+#let Centralizer = (x) => $#optionLink("Centralizer", $C$);_G (#x)$
+#let Center = (G) => $#optionLink("Center", $Z$);(#G)$
+
+// 群范畴
+#let 群范畴 = optionLink("CategoryOfGroups", [群范畴])
+#let 群直积 = optionLink("DirectProductOfGroups", [群直积], url: "https://zh.wikipedia.org/wiki/%E7%9B%B4%E7%A7%AF")
+#let 群余积 = optionLink("CoproductOfGroups", [群余积])
+#let 自由积 = optionLink("FreeProduct", [自由积], url: "https://zh.wikipedia.org/wiki/%E8%87%AA%E7%94%B1%E7%A7%AF")
 
 // ============================================================
 // 环论 — 术语注册 (与 main.typ 中环论 entry 的 uuid 一一对应)
