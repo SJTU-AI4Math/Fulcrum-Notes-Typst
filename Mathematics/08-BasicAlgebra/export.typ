@@ -37,6 +37,22 @@
   [群]
 )
 
+#let Abel群 = optionLink(
+  "AbelianGroup",
+  [Abel 群],
+  url: "https://zh.wikipedia.org/wiki/%E9%98%BF%E8%B4%9D%E5%B0%94%E7%BE%A4"
+)
+
+#let 单位元 = optionLink(
+  "Identity",
+  [单位元]
+)
+
+#let 逆元 = optionLink(
+  "Inverse",
+  [逆元]
+)
+
 #let GHom = (G, H) => $#optionLink(
   "GroupHomomorphism",
   $op("Hom")$,
@@ -96,6 +112,9 @@
 
 // 环的特征
 #let 环的特征 = optionLink("RingCharacteristic", [环的特征])
+
+// notation: char(R)
+#let char = (R) => $#optionLink("RingCharacteristic", $op("char")$) (#R)$
 
 // 子结构与理想
 #let 子环 = optionLink("Subring", [子环])
