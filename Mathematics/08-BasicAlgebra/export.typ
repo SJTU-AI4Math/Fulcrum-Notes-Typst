@@ -214,12 +214,17 @@
 
 // 环同态
 #let 环同态 = optionLink("RingHomomorphism", [环同态])
+#let 幺环同态 = optionLink("UnitalRingHomomorphism", [幺环同态])
 #let 环同态的核 = optionLink("RingHomKernel", [核])
 #let 环同态的像 = optionLink("RingHomImage", [像])
 #let 环同构 = optionLink("RingIsomorphism", [环同构])
 #let RHom = (R, S) => $#optionLink(
   "RingHomomorphism",
   $op("Hom")$
+) (#R, #S)$
+#let URHom = (R, S) => $#optionLink(
+  "UnitalRingHomomorphism",
+  $op("Hom")_1$
 ) (#R, #S)$
 #let RKer = (f) => $#optionLink("RingHomKernel", $op("ker")$) (#f)$
 #let RIm = (f) => $#optionLink("RingHomImage", $op("im")$) (#f)$

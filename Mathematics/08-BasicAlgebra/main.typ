@@ -695,9 +695,21 @@
     成员: (
       (name: [保加法], value: [$forall (a, b : R), f(a +_R b) = f(a) +_S f(b)$]),
       (name: [保乘法], value: [$forall (a, b : R), f(a dot_R b) = f(a) dot_S f(b)$]),
-      (name: [幺环间保单位元], value: [当 $R, S$ 均为#幺环;时，$f(1_R) = 1_S$]),
     ),
     记号: RHom($R$, $S$),
+  )
+]
+
+#定义条目("幺环同态", "Unital Ring Homomorphism", uuid: "UnitalRingHomomorphism")[
+  #结构子句(
+    条件: ([~$(R, +_R, dot_R, 1_R), (S, +_S, dot_S, 1_S)$ 是#幺环], $f : R -> S$),
+    主体: [$f$ 是 $R$ 到 $S$ 的#幺环同态],
+    isPredicate: true,
+    extends: ([$f$ 是 $R$ 到 $S$ 的#环同态],),
+    成员: (
+      (name: [保单位元], value: [$f(1_R) = 1_S$]),
+    ),
+    记号: URHom($R$, $S$),
   )
 ]
 
