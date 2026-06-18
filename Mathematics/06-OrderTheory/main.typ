@@ -44,11 +44,12 @@
   uuid: "PartialOrder",
   "偏序结构",
   "Partial Order",
-  extends: ([#预序结构],),
+  extends: ([$(T, <=)$ 是#预序结构],),
   [$(T, <=)$ 是#偏序结构],
   (
     (name: [反对称性], name_en: [Antisymmetry], value: [$forall (x, y : T), (x <= y and y <= x) implies x = y$]),
   ),
+  isPredicate: true,
 )
 
 #注[#预序结构;中可能会出现一系列相互小于等于的元素，又它们关于传递性封闭，所以会产生一个序意义下的等价类，#偏序结构;的反对称性保证了所有这样等价类中的元素唯一。]
@@ -132,11 +133,12 @@
   "滤过序结构",
   "Filtered Order",
   hypotheses: ([ $T$ #非空],),
-  extends: ([#偏序结构],),
+  extends: ([$(T, <=)$ 是#偏序结构],),
   [$(T, <=)$ 是#滤过序结构],
   (
-    (name: [滤过性], value: [$forall (x, y : T), {x,y}$ 有上界]),
+    (name: [滤过性], name_en: [Filtration], value: [$forall (x, y : T), {x,y}$ 有上界]),
   ),
+  isPredicate: true,
 )
 
 #注[
@@ -147,11 +149,12 @@
   uuid: "TotalOrder",
   "全序结构 / 线序结构",
   "Total Order / Linear Order",
-  extends: ([ $T$ 上有#偏序结构],),
-  [$T$ 上的全序结构],
+  extends: ([$(T, <=)$ 是#偏序结构],),
+  [$(T, <=)$ 是#全序结构],
   (
-    (name: [全序性], value: [$forall (x, y : T), (x <= y) or (y <= x)$]),
+    (name: [全序性], name_en: [Totality], value: [$forall (x, y : T), (x <= y) or (y <= x)$]),
   ),
+  isPredicate: true,
 )
 
 #注[
@@ -167,11 +170,12 @@
   uuid: "WellOrder",
   "良序结构",
   "Well Order",
-  extends: ([ $T$ 上有#全序结构],),
-  [$T$ 上的#良序结构],
+  extends: ([$(T, <=)$ 是#全序结构],),
+  [$(T, <=)$ 是#良序结构],
   (
-    (name: [良序性], value: [$forall S : Set(T), S != emptyset implies S$ 有极小值]),
+    (name: [良序性], name_en: [Well-Foundedness], value: [$forall S : Set(T), S != emptyset implies S$ 有极小值]),
   ),
+  isPredicate: true,
 )
 
 == 序范畴

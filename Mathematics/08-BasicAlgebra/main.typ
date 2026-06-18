@@ -60,7 +60,8 @@
 #定义条目("幺半群", "Monoid", uuid: "Monoid")[
   #结构子句(
     主体: [$(G, dot)$ 是#幺半群],
-    extends: ([#半群],),
+    isPredicate: true,
+    extends: ([$(G, dot)$ 是#半群],),
     成员: (
       (name: [单位元], name_en: [Identity], varName: $e$, value: $G$),
       (name: [单位元左乘不变性], value: [$forall (a : G), e dot a = a$]),
@@ -83,9 +84,10 @@
 #定义条目("群", "Group", uuid: "Group")[
   #结构子句(
     主体: [$(G, dot)$ 是#群],
-    extends: ([#幺半群],),
+    isPredicate: true,
+    extends: ([$(G, dot)$ 是#幺半群],),
     成员: (
-      (name: [逆元], name_en: [Inverse], varName: $dot^(-1)$, value: $G -> G$),
+      (name: [取逆函数], name_en: [Inverse], varName: $dot^(-1)$, value: $G -> G$),
       (name: [逆元左乘律], value: [$forall (a : G), a^(-1) dot a = e$]),
       (name: [逆元右乘律], value: [$forall (a : G), a dot a^(-1) = e$]),
     ),
@@ -123,10 +125,11 @@
 
 #定义条目("群单同态", "Group Monomorphism", uuid: "GroupMonomorphism")[
   #结构子句(
-    主体: [$f$ 是 $G$ 到 $H$ 的群单同态],
-    extends: ([$f$ 是#群同态],),
+    主体: [$f$ 是 $G$ 到 $H$ 的#群单同态],
+    isPredicate: true,
+    extends: ([$f$ 是 $G$ 到 $H$ 的#群同态],),
     成员: (
-      (name: [单射], value: [$f$ 是单射]),
+      (name: [单射性], name_en: [Injectivity], value: [$f$ 是单射]),
     ),
     记号: [$G GMono H$],
   )
@@ -134,10 +137,11 @@
 
 #定义条目("群满同态", "Group Epimorphism", uuid: "GroupEpimorphism")[
   #结构子句(
-    主体: [$f$ 是 $G$ 到 $H$ 的群满同态],
-    extends: ([$f$ 是#群同态],),
+    主体: [$f$ 是 $G$ 到 $H$ 的#群满同态],
+    isPredicate: true,
+    extends: ([$f$ 是 $G$ 到 $H$ 的#群同态],),
     成员: (
-      (name: [满射], value: [$f$ 是满射]),
+      (name: [满射性], name_en: [Surjectivity], value: [$f$ 是满射]),
     ),
     记号: [$G GEpi H$],
   )
@@ -145,12 +149,12 @@
 
 #定义条目("群同构", "Group Isomorphism", uuid: "GroupIsomorphism")[
   #结构子句(
-    主体: [$G$ 到 $H$ 的群同构],
-    条件: ([#link(<GroupMonomorphism>, [同上])],),
-    extends: ([#群同态],),
+    主体: [$f$ 是 $G$ 到 $H$ 的#群同构],
+    isPredicate: true,
+    extends: ([$f$ 是 $G$ 到 $H$ 的#群同态],),
     成员: (
-      (name: [同态], varName: [$f,g$], value: [$GHom(G,H)$]),
-      (name: [互逆], value: [$f compose g = g compose f = 1$]),
+      (name: [逆同态], name_en: [Inverse Homomorphism], varName: $g$, value: $GHom(H, G)$),
+      (name: [互逆性], name_en: [Two-sided Inverse], value: [$f compose g = id_H and g compose f = id_G$]),
     ),
     记号: [$G GIso H$],
   )
@@ -584,9 +588,11 @@
 ]
 
 #定义条目("交换幺环", "Commutative Unital Ring", uuid: "CommutativeUnitalRing")[
-  #同义子句(
-    主体: [#交换幺环],
-    含义: ([#交换环], [#幺环]),
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#交换幺环],
+    isPredicate: true,
+    extends: ([$(R, +, dot)$ 是#交换环], [$(R, +, dot)$ 是#幺环]),
+    成员: (),
   )
 ]
 
