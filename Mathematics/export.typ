@@ -6,6 +6,7 @@
 #import "06-OrderTheory/export.typ": *
 #import "08-BasicAlgebra/export.typ": *
 #import "11-NumberTheory/export.typ": *
+#import "12-FieldTheory/export.typ": *
 #import "15-LinearAlgebra/export.typ": *
 #import "15-RepresentationTheory/export.typ": *
 #import "26-BasicAnalysis/export.typ": *
@@ -19,6 +20,7 @@
   show: TypeStyle
   show: SetStyle
   show: AlgebraStyle
+  show: FieldTheoryStyle
   show: LinearAlgebraStyle
   show: BasicAnalysisStyle
   show: MeasureTheoryStyle
