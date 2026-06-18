@@ -1255,9 +1255,30 @@
 
 #性质条目("欧几里得整环蕴含主理想整环蕴含唯一分解整环", "ED implies PID implies UFD")[
   #定理子句(
-    结论: [任一#欧几里得整环;是#主理想整环；任一#主理想整环;是#唯一分解整环；反向均不成立],
+    结论: [任一#欧几里得整环;是#主理想整环；任一#主理想整环;是#唯一分解整环],
   )
 ]
+
+#反例条目("主理想整环不一定是欧几里得整环", "PID Not Necessarily Euclidean", uuid: "PIDNotEuclidean")[
+  $exists R, R$ 是#主理想整环;且 $R$ 不是#欧几里得整环。
+]
+
+#构造条目("PID 不是 ED 的反例：$bb(Z)[(1 + sqrt(-19)) slash 2]$", "Construction: $bb(Z)[(1 + sqrt(-19)) slash 2]$", uuid: "PIDNotEuclideanConstruction")[
+  取 $R := bb(Z)[(1 + sqrt(-19)) slash 2] subset bb(C)$（即 $bb(Q)(sqrt(-19))$ 的代数整数环）。则：
+  - $R$ 是#主理想整环（可由其类数 $h(-19) = 1$ 与 Minkowski 界论证得到）；
+  - $R$ 不存在任何欧几里得范数 $delta : R without {0} -> bb(N)$。理由：若 $R$ 是#欧几里得整环，则其单位群 $R^times = {plus.minus 1}$ 与"$delta$-极小非单位非零元 $u$"应满足任一 $a in R$ 模 $u$ 的余数属于 $R^times union {0} = {0, plus.minus 1}$，于是 $R slash (u)$ 至多 3 元；列举 $|R slash (u)|$ 在 $R$ 的所有非零元上的可能值，无 ≤ 3 的解，矛盾（Motzkin 1949 / Wilson 1973）。
+]
+
+#反例条目("唯一分解整环不一定是主理想整环", "UFD Not Necessarily PID", uuid: "UFDNotPID")[
+  $exists R, R$ 是#唯一分解整环;且 $R$ 不是#主理想整环。
+]
+
+#构造条目("UFD 不是 PID 的反例：$bb(Z)[x]$", "Construction: $bb(Z)[x]$", uuid: "UFDNotPIDConstruction")[
+  取 $R := bb(Z)[x]$（整数系数#多项式环）。则：
+  - $R$ 是#唯一分解整环（Gauss 引理：若 $D$ 是#唯一分解整环，则 $D[x]$ 仍是#唯一分解整环；将 $D = bb(Z)$ 代入即得）；
+  - $R$ 不是#主理想整环。反例理想：取 $I := (2, x) subset bb(Z)[x]$。若 $I = (f)$ 为#主理想，则 $f divides 2$ 与 $f divides x$，由 $bb(Z)[x]$ 中 $2$ 的因子只有 $plus.minus 1, plus.minus 2$ 知 $f in {plus.minus 1, plus.minus 2}$；但 $1, -1 in.not I$（因 $I$ 中元素常数项必偶），$plus.minus 2$ 不整除 $x$，矛盾。
+]
+
 
 #性质条目("唯一分解整环中不可约元素等价于素元素", "Irreducible iff Prime in UFD")[
   #定理子句(
