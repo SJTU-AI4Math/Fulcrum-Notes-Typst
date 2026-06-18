@@ -1181,6 +1181,61 @@
   )
 ]
 
+#定义条目("相伴", "Associate", uuid: "Associate")[
+  #定义子句(
+    主体: [$a$ 与 $b$ #相伴],
+    isPredicate: true,
+    内容: [$exists u : UnitGroupOf(R), b = u dot a$],
+    记号: $a tilde b$,
+  )
+]
+
+#定义条目("公因子", "Common Divisor", uuid: "CommonDivisor")[
+  #定义子句(
+    主体: [$d$ 是 $a$ 与 $b$ 的#公因子],
+    isPredicate: true,
+    内容: [$d divides a$ 且 $d divides b$],
+  )
+]
+
+#定义条目("公倍数", "Common Multiple", uuid: "CommonMultiple")[
+  #定义子句(
+    主体: [$m$ 是 $a$ 与 $b$ 的#公倍数],
+    isPredicate: true,
+    内容: [$a divides m$ 且 $b divides m$],
+  )
+]
+
+#定义条目("最大公因子", "Greatest Common Divisor", uuid: "GCD")[
+  #定义子句(
+    主体: [$d$ 是 $a$ 与 $b$ 的#最大公因子],
+    isPredicate: true,
+    内容: [$d$ 是 $a$ 与 $b$ 的#公因子，且 $forall d' : R, d'$ 是 $a$ 与 $b$ 的#公因子 $==> d' divides d$],
+    记号: $gcd(a, b)$,
+  )
+]
+
+#定义条目("最小公倍数", "Least Common Multiple", uuid: "LCM")[
+  #定义子句(
+    主体: [$m$ 是 $a$ 与 $b$ 的#最小公倍数],
+    isPredicate: true,
+    内容: [$m$ 是 $a$ 与 $b$ 的#公倍数，且 $forall m' : R, m'$ 是 $a$ 与 $b$ 的#公倍数 $==> m divides m'$],
+    记号: $"lcm"(a, b)$,
+  )
+]
+
+#注条目("", "")[
+  $a, b$ 的#最大公因子;与#最小公倍数;不一定存在；当其存在时，在#相伴 意义下唯一。记号 $gcd(a, b)$ 与 $"lcm"(a, b)$ 表示在#相伴 等价类下选取的代表元。
+]
+
+#定义条目("互素", "Coprime", uuid: "Coprime")[
+  #定义子句(
+    主体: [$a$ 与 $b$ #互素],
+    isPredicate: true,
+    内容: [$forall d : R, d$ 是 $a$ 与 $b$ 的#公因子 $==> d in UnitGroupOf(R)$],
+  )
+]
+
 #定义条目("素", "Prime", uuid: "PrimeElement")[
   #定义子句(
     主体: [$p$ #素],
@@ -1194,15 +1249,6 @@
     主体: [$p$ #不可约],
     isPredicate: true,
     内容: [$p != 0$，$p in.not UnitGroupOf(R)$，且 $forall (a, b : R), p = a dot b ==> a in UnitGroupOf(R) or b in UnitGroupOf(R)$],
-  )
-]
-
-#定义条目("相伴", "Associate", uuid: "Associate")[
-  #定义子句(
-    主体: [$a$ 与 $b$ #相伴],
-    isPredicate: true,
-    内容: [$exists u : UnitGroupOf(R), b = u dot a$],
-    记号: $a tilde b$,
   )
 ]
 
@@ -1234,8 +1280,9 @@
     extends: ([$(R, +, dot)$ 是#整环],),
     isPredicate: true,
     成员: (
-      (name: [欧几里得范数], name_en: [Euclidean Norm], varName: $delta$, value: $R without {0} -> bb(N)$),
-      (name: [带余除法], name_en: [Division with Remainder], value: [$forall (a : R) (b : R without {0}), exists q, r : R, a = b dot q + r and (r = 0 or delta(r) < delta(b))$]),
+      (name: [欧几里得范数], name_en: [Euclidean Norm], varName: $delta$, value: $R -> bb(N)$),
+      (name: [范数零定], name_en: [Norm Zero Iff], value: [$forall x : R, delta(x) = 0 #iff;x = 0$]),
+      (name: [带余除法], name_en: [Division with Remainder], value: [$forall (a : R) (b : R), b != 0 ==> exists q, r : R, a = b dot q + r and delta(r) < delta(b)$]),
     ),
   )
 ]

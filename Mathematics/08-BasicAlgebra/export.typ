@@ -259,6 +259,11 @@
 #let 素 = optionLink("PrimeElement", [素])
 #let 不可约 = optionLink("IrreducibleElement", [不可约])
 #let 相伴 = optionLink("Associate", [相伴])
+#let 公因子 = optionLink("CommonDivisor", [公因子])
+#let 公倍数 = optionLink("CommonMultiple", [公倍数])
+#let 最大公因子 = optionLink("GCD", [最大公因子])
+#let 最小公倍数 = optionLink("LCM", [最小公倍数])
+#let 互素 = optionLink("Coprime", [互素])
 
 // 二次整环 / Gauss 整环 / 范数
 #let 二次整环 = optionLink("QuadraticIntegerRing", [二次整环])
