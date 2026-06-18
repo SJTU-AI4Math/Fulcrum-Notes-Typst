@@ -1206,6 +1206,20 @@
   )
 ]
 
+#性质条目("素元的等价刻画", "Equivalent Characterization of Prime Element")[
+  #定理子句(
+    条件: ([$p : R$],),
+    结论: [$p$ #素 #iff;$(p)$ 是 $R$ 的#素理想 且 $(p) != (0)$],
+  )
+]
+
+#性质条目("不可约元的等价刻画", "Equivalent Characterization of Irreducible Element")[
+  #定理子句(
+    条件: ([$p : R$],),
+    结论: [$p$ #不可约 #iff;$(p)$ 是 $R$ 中全体真#主理想 关于包含序的极大元，等价地：$(p) != R$，且 $forall a : R, (p) subset.eq (a) subset.neq R ==> (p) = (a)$],
+  )
+]
+
 #性质条目("整环中素的元是不可约的", "")[
   #定理子句(
     条件: ([~$R$ 是#整环], [$p : R$], [$p$ #素]),
