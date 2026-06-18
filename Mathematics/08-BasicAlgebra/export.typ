@@ -178,8 +178,13 @@
 #let 单位群 = optionLink("UnitGroup", [单位群])
 #let UnitGroupOf = (R) => $#optionLink("UnitGroup", $#R^times$)$
 #let 零因子 = optionLink("ZeroDivisor", [零因子])
+#let 左零因子 = optionLink("LeftZeroDivisor", [左零因子])
+#let 右零因子 = optionLink("RightZeroDivisor", [右零因子])
 #let 幂零元 = optionLink("Nilpotent", [幂零元])
 #let 幂等元 = optionLink("Idempotent", [幂等元])
+
+// 整数数乘
+#let 整数数乘 = optionLink("RingIntegerScalar", [整数数乘])
 
 // 环的特征
 #let 环的特征 = optionLink("RingCharacteristic", [环的特征])
