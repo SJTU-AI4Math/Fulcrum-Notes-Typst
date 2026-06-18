@@ -82,8 +82,8 @@
 
 #let 群同态的核 = optionLink("GroupHomKernel", [核])
 #let 群同态的像 = optionLink("GroupHomImage", [像])
-#let GKer = (f) => $#optionLink("GroupHomKernel", $op("ker")$) (#f)$
-#let GIm = (f) => $#optionLink("GroupHomImage", $op("im")$) (#f)$
+#let GKer = (f) => $#optionLink("GroupHomKernel", $op("Ker")$) (#f)$
+#let GIm = (f) => $#optionLink("GroupHomImage", $op("Im")$) (#f)$
 
 #let 子群 = optionLink(
   "Subgroup",
@@ -112,6 +112,11 @@
   "GroupIsomorphism",
   [$tilde.equiv$]
 )
+
+#let 群自同态 = optionLink("GroupEndomorphism", [群自同态])
+#let 群自同构 = optionLink("GroupAutomorphism", [群自同构])
+#let GEnd = (G) => $#optionLink("GroupEndomorphism", $op("End")$) (#G)$
+#let GAut = (G) => $#optionLink("GroupAutomorphism", $op("Aut")$) (#G)$
 
 #let 域 = optionLink(
   "Field",
@@ -218,6 +223,10 @@
 #let 环同态的核 = optionLink("RingHomKernel", [核])
 #let 环同态的像 = optionLink("RingHomImage", [像])
 #let 环同构 = optionLink("RingIsomorphism", [环同构])
+#let 环单同态 = optionLink("RingMonomorphism", [环单同态])
+#let 环满同态 = optionLink("RingEpimorphism", [环满同态])
+#let 环自同态 = optionLink("RingEndomorphism", [环自同态])
+#let 环自同构 = optionLink("RingAutomorphism", [环自同构])
 #let RHom = (R, S) => $#optionLink(
   "RingHomomorphism",
   $op("Hom")$
@@ -226,8 +235,13 @@
   "UnitalRingHomomorphism",
   $op("Hom")_1$
 ) (#R, #S)$
-#let RKer = (f) => $#optionLink("RingHomKernel", $op("ker")$) (#f)$
-#let RIm = (f) => $#optionLink("RingHomImage", $op("im")$) (#f)$
+#let RMono = optionLink("RingMonomorphism", [$arrow.hook$])
+#let REpi = optionLink("RingEpimorphism", [$arrow.twohead$])
+#let RIso = optionLink("RingIsomorphism", [$tilde.equiv$])
+#let REnd = (R) => $#optionLink("RingEndomorphism", $op("End")$) (#R)$
+#let RAut = (R) => $#optionLink("RingAutomorphism", $op("Aut")$) (#R)$
+#let RKer = (f) => $#optionLink("RingHomKernel", $op("Ker")$) (#f)$
+#let RIm = (f) => $#optionLink("RingHomImage", $op("Im")$) (#f)$
 
 // 多项式环
 #let 多项式环 = optionLink("PolynomialRing", [多项式环])

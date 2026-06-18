@@ -167,11 +167,29 @@
   )
 ]
 
+#定义条目("群自同态", "Group Endomorphism", uuid: "GroupEndomorphism")[
+  #定义子句(
+    条件: ([~$(G, dot)$ 是#群]),
+    主体: [$G$ 上的#群自同态],
+    内容: [$G$ 到自身的#群同态],
+    记号: $GEnd(G)$,
+  )
+]
+
+#定义条目("群自同构", "Group Automorphism", uuid: "GroupAutomorphism")[
+  #定义子句(
+    条件: ([~$(G, dot)$ 是#群]),
+    主体: [$G$ 上的#群自同构],
+    内容: [$G$ 到自身的#群同构;全体在复合下构成的群],
+    记号: $GAut(G)$,
+  )
+]
+
 #定义条目("群同态的核", "Kernel", uuid: "GroupHomKernel")[
   #定义子句(
     条件: ([~$f : G -> H$ 是#群同态]),
     主体: [$f$ 的#群同态的核],
-    内容: [${ a : G | f(a) = e_H }$，为 $G$ 的#子群],
+    内容: [#setOf($a$, type: $G$, $f(a) = e_H$)，为 $G$ 的#子群],
     记号: $GKer(f)$,
   )
 ]
@@ -180,7 +198,7 @@
   #定义子句(
     条件: ([~$f : G -> H$ 是#群同态]),
     主体: [$f$ 的#群同态的像],
-    内容: [${ f(a) | a : G }$，为 $H$ 的#子群],
+    内容: [#setOf($f(a)$, $a : G$)，为 $H$ 的#子群],
     记号: $GIm(f)$,
   )
 ]
@@ -246,7 +264,7 @@
     类别: [#群],
     记号: $Sym(X)$,
     成员: (
-      (name: [底集], value: [${ sigma : X -> X | sigma$ 是 $X$ 上的#置换 $}$]),
+      (name: [底集], value: [#setOf($sigma$, type: $X -> X$, [$sigma$ 是 $X$ 上的#置换])]),
       (name: [乘法], value: [函数复合 $compose$]),
       (name: [#单位元], value: [恒等映射 $op("id")_X$]),
       (name: [#逆元], value: [双射的逆映射]),
@@ -323,7 +341,7 @@
     类别: [#群],
     记号: $A_n$,
     成员: (
-      (name: [底集], value: [${ sigma : SymmGroup(n) | sigma$ 是#偶置换 $}$]),
+      (name: [底集], value: [#setOf($sigma$, type: $SymmGroup(n)$, [$sigma$ 是#偶置换])]),
       (name: [群结构], value: [继承自 $SymmGroup(n)$]),
     ),
   )
@@ -368,7 +386,7 @@
   #定义子句(
     条件: ([~$alpha$ 是 $G$ 在 $X$ 上的#群作用], $x : X$),
     主体: [$x$ 在 $alpha$ 下的#轨道],
-    内容: [${ g dot x | g : G }$],
+    内容: [#setOf($g dot x$, $g : G$)],
     记号: $Orb(x)$,
   )
 ]
@@ -380,7 +398,7 @@
     类别: [$G$ 的#子群],
     记号: $Stab(x)$,
     成员: (
-      (name: [底集], value: [${ g : G | g dot x = x }$]),
+      (name: [底集], value: [#setOf($g$, type: $G$, $g dot x = x$)]),
       (name: [群结构], value: [继承自 $G$]),
     ),
   )
@@ -404,7 +422,7 @@
   #定义子句(
     条件: ([~$alpha$ 是 $G$ 在 $X$ 上的#群作用], $g : G$),
     主体: [$g$ 在 $X$ 上的#不动点集],
-    内容: [${ x : X | g dot x = x }$],
+    内容: [#setOf($x$, type: $X$, $g dot x = x$)],
     记号: $X^g$,
   )
 ]
@@ -435,7 +453,7 @@
   #定义子句(
     条件: ([~$(G, dot)$ 是#群], $x : G$),
     主体: [$x$ 的#共轭类],
-    内容: [$x$ 在 $G$ 的#共轭作用;下的#轨道，即 ${ g x g^(-1) | g : G }$],
+    内容: [$x$ 在 $G$ 的#共轭作用;下的#轨道，即#setOf($g x g^(-1)$, $g : G$)],
   )
 ]
 
@@ -443,7 +461,7 @@
   #定义子句(
     条件: ([~$(G, dot)$ 是#群], $x : G$),
     主体: [$x$ 在 $G$ 中的#中心化子],
-    内容: [$x$ 在 $G$ 的#共轭作用;下的#稳定子群，即 ${ g : G | g x = x g }$],
+    内容: [$x$ 在 $G$ 的#共轭作用;下的#稳定子群，即#setOf($g$, type: $G$, $g x = x g$)],
     记号: $Centralizer(x)$,
   )
 ]
@@ -455,7 +473,7 @@
     类别: [$G$ 的#子群],
     记号: $Center(G)$,
     成员: (
-      (name: [底集], value: [${ g : G | forall x : G, g x = x g }$]),
+      (name: [底集], value: [#setOf($g$, type: $G$, $forall x : G, g x = x g$)]),
       (name: [群结构], value: [继承自 $G$]),
     ),
   )
@@ -717,7 +735,7 @@
   #定义子句(
     条件: ([~$f$ 是#环同态]),
     主体: [$f$ 的#环同态的核],
-    内容: [${ a : R | f(a) = 0_S }$，为 $R$ 的#理想],
+    内容: [#setOf($a$, type: $R$, $f(a) = 0_S$)，为 $R$ 的#理想],
     记号: $RKer(f)$,
   )
 ]
@@ -726,17 +744,63 @@
   #定义子句(
     条件: ([~$f$ 是#环同态]),
     主体: [$f$ 的#环同态的像],
-    内容: [${ f(a) | a : R }$，为 $S$ 的#子环],
+    内容: [#setOf($f(a)$, $a : R$)，为 $S$ 的#子环],
     记号: $RIm(f)$,
   )
 ]
 
 #定义条目("环同构", "Ring Isomorphism", uuid: "RingIsomorphism")[
-  #定义子句(
-    条件: ([~$f : R -> S$ 是#环同态]),
-    主体: [$f$ 是#环同构],
+  #结构子句(
+    主体: [$f$ 是 $R$ 到 $S$ 的#环同构],
     isPredicate: true,
-    内容: [$f$ 是双射],
+    extends: ([$f$ 是 $R$ 到 $S$ 的#环同态],),
+    成员: (
+      (name: [逆同态], name_en: [Inverse Homomorphism], varName: $g$, value: $RHom(S, R)$),
+      (name: [互逆性], name_en: [Two-sided Inverse], value: [$f compose g = id_S and g compose f = id_R$]),
+    ),
+    记号: [$R RIso S$],
+  )
+]
+
+#定义条目("环单同态", "Ring Monomorphism", uuid: "RingMonomorphism")[
+  #结构子句(
+    主体: [$f$ 是 $R$ 到 $S$ 的#环单同态],
+    isPredicate: true,
+    extends: ([$f$ 是 $R$ 到 $S$ 的#环同态],),
+    成员: (
+      (name: [单射性], name_en: [Injectivity], value: [$f$ 是单射]),
+    ),
+    记号: [$R RMono S$],
+  )
+]
+
+#定义条目("环满同态", "Ring Epimorphism", uuid: "RingEpimorphism")[
+  #结构子句(
+    主体: [$f$ 是 $R$ 到 $S$ 的#环满同态],
+    isPredicate: true,
+    extends: ([$f$ 是 $R$ 到 $S$ 的#环同态],),
+    成员: (
+      (name: [满射性], name_en: [Surjectivity], value: [$f$ 是满射]),
+    ),
+    记号: [$R REpi S$],
+  )
+]
+
+#定义条目("环自同态", "Ring Endomorphism", uuid: "RingEndomorphism")[
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环]),
+    主体: [$R$ 上的#环自同态],
+    内容: [$R$ 到自身的#环同态],
+    记号: $REnd(R)$,
+  )
+]
+
+#定义条目("环自同构", "Ring Automorphism", uuid: "RingAutomorphism")[
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#环]),
+    主体: [$R$ 上的#环自同构],
+    内容: [$R$ 到自身的#环同构;全体在复合下构成的群],
+    记号: $RAut(R)$,
   )
 ]
 
@@ -834,7 +898,7 @@
     条件: ([~$(R, +, dot)$ 是#交换幺环], [$I$ 是 $R$ 的#理想]),
     主体: [$I$ 是#主理想],
     isPredicate: true,
-    内容: [$exists a : R, I = (a) := { r dot a | r : R }$],
+    内容: [$exists a : R, I = (a) :=$ #setOf($r dot a$, $r : R$)],
   )
 ]
 
@@ -876,21 +940,21 @@
 #定义条目("理想的和", "Sum of Ideals", uuid: "IdealSum")[
   #定义子句(
     主体: [#理想的和 $I + J$],
-    内容: [${ a + b | a in I, b in J }$，仍为 $R$ 的#理想],
+    内容: [#setOf($a + b$, $a in I, b in J$)，仍为 $R$ 的#理想],
   )
 ]
 
 #定义条目("理想的积", "Product of Ideals", uuid: "IdealProduct")[
   #定义子句(
     主体: [#理想的积 $I dot J$],
-    内容: [由集合 ${ a dot b | a in I, b in J }$ 生成的#理想],
+    内容: [由集合#setOf($a dot b$, $a in I, b in J$) 生成的#理想],
   )
 ]
 
 #定义条目("理想的交", "Intersection of Ideals", uuid: "IdealIntersection")[
   #定义子句(
     主体: [#理想的交 $I inter J$],
-    内容: [集合交 ${ x | x in I and x in J }$，仍为 $R$ 的#理想],
+    内容: [集合交#setOf($x$, $x in I and x in J$)，仍为 $R$ 的#理想],
   )
 ]
 
@@ -913,7 +977,7 @@
     主体: [#环 $R$ 对#理想 $I$ 的#商环],
     bstyle: "display",
     内容: [
-      - 底集：${ a + I | a : R }$，其中 $a + I := { a + x | x : I }$。
+      - 底集：#setOf($a + I$, $a : R$)，其中 $a + I :=$ #setOf($a + x$, $x : I$)。
       - 加法：$(a + I) + (b + I) := (a + b) + I$。
       - 乘法：$(a + I) dot (b + I) := (a dot b) + I$。
       - $I$ 是#理想;保证乘法定义不依赖于陪集代表元的选取。
@@ -949,7 +1013,7 @@
     主体: [$R$ 上以 $x$ 为不定元的#多项式环 $R[x]$],
     bstyle: "display",
     内容: [
-      - 底集：$R[x] := { (a_0, a_1, dots, a_n) | n : bb(N), a_i : R }$，记为 $a_0 + a_1 x + dots.c + a_n x^n$。
+      - 底集：$R[x] :=$ #setOf($(a_0, a_1, dots, a_n)$, $n : bb(N), a_i : R$)，记为 $a_0 + a_1 x + dots.c + a_n x^n$。
       - 加法：逐项相加。
       - 乘法：$(sum_i a_i x^i) dot (sum_j b_j x^j) := sum_k (sum_(i + j = k) a_i dot b_j) x^k$。
       - 在 $R$ 为#交换幺环;时，$R[x]$ 仍为#交换幺环，其单位元为常项 $1_R$。
@@ -1153,7 +1217,7 @@
     类别: [#交换幺环],
     记号: $bb(Z)[sqrt(d)]$,
     成员: (
-      (name: [底集], value: [${ a + b sqrt(d) | a, b : bb(Z) }$，作为 $bb(C)$ 的子集]),
+      (name: [底集], value: [#setOf($a + b sqrt(d)$, $a, b : bb(Z)$)，作为 $bb(C)$ 的子集]),
       (name: [加法], value: [继承自 $bb(C)$，逐分量相加]),
       (name: [乘法], value: [$(a_1 + b_1 sqrt(d))(a_2 + b_2 sqrt(d)) := (a_1 a_2 + d b_1 b_2) + (a_1 b_2 + a_2 b_1) sqrt(d)$]),
       (name: [乘法#单位元], value: [$1 = 1 + 0 sqrt(d)$]),
@@ -1270,7 +1334,7 @@
     类别: [#群],
     记号: $R^times$,
     成员: (
-      (name: [底集], value: [${ u : R | u $ 是#单位 $}$]),
+      (name: [底集], value: [#setOf($u$, type: $R$, [$u$ 是#单位])]),
       (name: [乘法], value: [继承 $R$ 中的乘法 $dot$]),
       (name: [#单位元], value: [$R$ 的乘法#单位元 $1$]),
       (name: [#逆元], value: [每个 $u : R^times$ 取其在 $R$ 中的乘法#逆元]),
@@ -1379,6 +1443,6 @@
 #例条目("偶整数环", "Even Integer Ring", uuid: "EvenIntegerRing", isExtension: true)[
   #定义子句(
     主体: [偶整数 $2 bb(Z)$],
-    内容: [${ 2 k | k : bb(Z) }$，配以继承自 $bb(Z)$ 的加法与乘法，构成#交换环;但不构成#幺环（无单位元 $1$）],
+    内容: [#setOf($2 k$, $k : bb(Z)$)，配以继承自 $bb(Z)$ 的加法与乘法，构成#交换环;但不构成#幺环（无单位元 $1$）],
   )
 ]
