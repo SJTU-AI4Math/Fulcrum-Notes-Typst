@@ -208,6 +208,7 @@
 #let 主理想 = optionLink("PrincipalIdeal", [主理想])
 #let 素理想 = optionLink("PrimeIdeal", [素理想])
 #let 极大理想 = optionLink("MaximalIdeal", [极大理想])
+#let 单环 = optionLink("SimpleRing", [单环])
 
 // 理想运算
 #let 理想的和 = optionLink("IdealSum", [理想的和])
@@ -216,6 +217,11 @@
 
 // 商环
 #let 商环 = optionLink("QuotientRing", [商环])
+
+// 直和与中国剩余定理
+#let 环的直积 = optionLink("RingDirectProduct", [环的直积])
+#let 理想互素 = optionLink("CoprimeIdeals", [理想互素])
+#let 中国剩余定理 = optionLink("ChineseRemainderTheorem", [中国剩余定理])
 
 // 环同态
 #let 环同态 = optionLink("RingHomomorphism", [环同态])

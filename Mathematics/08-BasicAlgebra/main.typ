@@ -936,6 +936,17 @@
   )
 ]
 
+#定义条目("单环", "Simple Ring", uuid: "SimpleRing")[
+  #结构子句(
+    主体: [$(R, +, dot)$ 是#单环],
+    extends: ([$(R, +, dot)$ 是#环], [$R != 0$]),
+    isPredicate: true,
+    成员: (
+      (name: [无非平凡双边理想], name_en: [No Nontrivial Two-sided Ideal], value: [$forall I, (I$ 是 $R$ 的#理想$) ==> I = 0 or I = R$]),
+    ),
+  )
+]
+
 
 == 理想运算
 
@@ -1012,6 +1023,53 @@
     条件: ([~$(R, +, dot)$ 是#交换幺环], [$P$ 是 $R$ 的#理想]),
     结论: [$R slash P$ 是#整环#iff;$P$ 是#素理想],
   )
+]
+
+
+== 直和与中国剩余定理
+
+#约定[
+  - $(R, +, dot)$ 是#环
+]
+
+#定义条目("环的直积", "Direct Product of Rings", uuid: "RingDirectProduct")[
+  #定义子句(
+    条件: ([~$(R_1, +_1, dot_1), dots, (R_n, +_n, dot_n)$ 是#环]),
+    主体: [$R_1, dots, R_n$ 的#环的直积],
+    bstyle: "display",
+    内容: [
+      - 底集：笛卡儿积 $R_1 times dots.c times R_n$。
+      - 加法：$(a_1, dots, a_n) + (b_1, dots, b_n) := (a_1 +_1 b_1, dots, a_n +_n b_n)$。
+      - 乘法：$(a_1, dots, a_n) dot (b_1, dots, b_n) := (a_1 dot_1 b_1, dots, a_n dot_n b_n)$。
+    ],
+    记号: $product_(i=1)^n R_i$,
+  )
+]
+
+#注条目("", "", uuid: "RingDirectProductRemark")[
+  - 若每个 $R_i$ 是#幺环，则 $product_i R_i$ 是#幺环，单位元为 $(1_1, dots, 1_n)$。
+  - 在#交换环 / #幺环 / #交换幺环;等子范畴内有限直积均封闭。
+  - 有限直积同构于环的外直和（记号 $plus.o$）；无限情形二者分歧（积取所有分量，和取仅有限多分量非零）。
+]
+
+#定义条目("理想互素", "Coprime Ideals", uuid: "CoprimeIdeals")[
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], [$I, J$ 是 $R$ 的#理想]),
+    主体: [$I$ 与 $J$ #理想互素],
+    isPredicate: true,
+    内容: [$I + J = R$],
+  )
+]
+
+#定理条目("中国剩余定理", "Chinese Remainder Theorem", uuid: "ChineseRemainderTheorem")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$I_1, dots, I_n$ 是 $R$ 的#理想], [$forall i != j, I_i$ 与 $I_j$ #理想互素]),
+    结论: [自然映射 $R slash (I_1 inter dots inter I_n) -> product_(k=1)^n R slash I_k$，$a + (I_1 inter dots inter I_n) |-> (a + I_1, dots, a + I_n)$ 是#环同构],
+  )
+]
+
+#注条目("", "", uuid: "CRTConsequenceRemark")[
+  CRT 的经典例子是 $bb(Z) slash m n bb(Z) tilde.equiv bb(Z) slash m bb(Z) times bb(Z) slash n bb(Z)$，当 $gcd(m, n) = 1$。一般地，对正整数 $m = p_1^(e_1) dots p_k^(e_k)$ 的素因子分解，$bb(Z) slash m bb(Z) tilde.equiv product_i bb(Z) slash p_i^(e_i) bb(Z)$。
 ]
 
 
@@ -1358,6 +1416,13 @@
   )
 ]
 
+#性质条目("除环是单环", "Division Ring is Simple")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#除环]),
+    结论: [$(R, +, dot)$ 是#单环],
+  )
+]
+
 #定义条目("域", "Field", uuid: "Field")[
   #结构子句(
     主体: [$(R, +, dot)$ 是#域],
@@ -1366,6 +1431,13 @@
     成员: (
       (name: [乘法交换律], name_en: [Commutativity of Multiplication], value: [$forall (a, b : R), a dot b = b dot a$]),
     ),
+  )
+]
+
+#性质条目("域是单环", "Field is Simple")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#域]),
+    结论: [$(R, +, dot)$ 是#单环],
   )
 ]
 
