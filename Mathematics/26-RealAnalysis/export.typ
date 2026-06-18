@@ -34,6 +34,7 @@
 #let 非负可测函数积分 = optionLink("NonnegativeMeasurableIntegral", [非负可测函数积分])
 #let Lebesgue可积 = optionLink("LebesgueIntegrable", [Lebesgue 可积])
 #let Lebesgue积分 = optionLink("LebesgueIntegral", [Lebesgue 积分])
+#let Lebesgue测度 = optionLink("LebesgueMeasure", [Lebesgue 测度])
 #let 函数有界 = optionLink("BoundedFunction", [有界])
 #let 一致可积 = optionLink("UniformlyIntegrable", [一致可积])
 
