@@ -247,12 +247,11 @@
 #let 多项式环 = optionLink("PolynomialRing", [多项式环])
 #let 多项式的次数 = optionLink("PolynomialDegree", [多项式的次数])
 #let 首一多项式 = optionLink("MonicPolynomial", [首一多项式])
-#let 不可约多项式 = optionLink("IrreduciblePolynomial", [不可约多项式])
 
 // 整除与素元
 #let 整除 = optionLink("Divides", [整除])
-#let 素元 = optionLink("PrimeElement", [素元])
-#let 不可约元 = optionLink("IrreducibleElement", [不可约元])
+#let 素 = optionLink("PrimeElement", [素])
+#let 不可约 = optionLink("IrreducibleElement", [不可约])
 #let 相伴 = optionLink("Associate", [相伴])
 
 // 二次整环 / Gauss 整环 / 范数

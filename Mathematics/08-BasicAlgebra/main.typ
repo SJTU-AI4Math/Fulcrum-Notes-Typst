@@ -844,7 +844,14 @@
   #定义子句(
     主体: [$S$ 是 $R$ 的#子环],
     isPredicate: true,
-    内容: [$(S, +|_S, dot|_S)$ 是#环；在 $R$ 为#幺环;时还要求 $1 in S$],
+    内容: [$(S, +|_S, dot|_S)$ 是#环],
+  )
+]
+
+#性质条目("幺环子环含单位元", "Subring of Unital Ring Contains Unit", uuid: "SubringOfUnitalRing")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], [$S$ 是 $R$ 的#子环]),
+    结论: [$S$ 也是#幺环;当且仅当 $1_R in S$],
   )
 ]
 
@@ -981,9 +988,15 @@
       - 加法：$(a + I) + (b + I) := (a + b) + I$。
       - 乘法：$(a + I) dot (b + I) := (a dot b) + I$。
       - $I$ 是#理想;保证乘法定义不依赖于陪集代表元的选取。
-      - 在 $R$ 为#幺环;时#商环;仍为#幺环，其单位元为 $1 + I$。
     ],
     记号: $R slash I$,
+  )
+]
+
+#性质条目("幺环的商环仍为幺环", "Quotient of Unital Ring is Unital", uuid: "QuotientOfUnitalRing")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#幺环], [$I$ 是 $R$ 的#理想]),
+    结论: [#商环 $R slash I$ 仍为#幺环，其单位元为 $1_R + I$],
   )
 ]
 
@@ -1016,7 +1029,6 @@
       - 底集：$R[x] :=$ #setOf($(a_0, a_1, dots, a_n)$, $n : bb(N), a_i : R$)，记为 $a_0 + a_1 x + dots.c + a_n x^n$。
       - 加法：逐项相加。
       - 乘法：$(sum_i a_i x^i) dot (sum_j b_j x^j) := sum_k (sum_(i + j = k) a_i dot b_j) x^k$。
-      - 在 $R$ 为#交换幺环;时，$R[x]$ 仍为#交换幺环，其单位元为常项 $1_R$。
     ],
   )
 ]
@@ -1042,15 +1054,6 @@
   #定理子句(
     条件: ([~$R$ 是#整环], $f, g : R[x]$, $f, g != 0$),
     结论: [$deg(f dot g) = deg(f) + deg(g)$ 且 $R[x]$ 仍为#整环],
-  )
-]
-
-#定义条目("不可约多项式", "Irreducible Polynomial", uuid: "IrreduciblePolynomial")[
-  #定义子句(
-    条件: ([~$R$ 是#整环], $f : R[x]$),
-    主体: [$f$ 是#不可约多项式],
-    isPredicate: true,
-    内容: [$f != 0$，$f in.not UnitGroupOf(R[x])$，且 $forall (g, h : R[x]), f = g dot h ==> g in UnitGroupOf(R[x]) or h in UnitGroupOf(R[x])$],
   )
 ]
 
@@ -1120,17 +1123,17 @@
   )
 ]
 
-#定义条目("素元", "Prime Element", uuid: "PrimeElement")[
+#定义条目("素", "Prime", uuid: "PrimeElement")[
   #定义子句(
-    主体: [$p$ 是#素元],
+    主体: [$p$ #素],
     isPredicate: true,
     内容: [$p != 0$，$p in.not UnitGroupOf(R)$，且 $forall (a, b : R), p divides (a dot b) ==> p divides a or p divides b$],
   )
 ]
 
-#定义条目("不可约元", "Irreducible Element", uuid: "IrreducibleElement")[
+#定义条目("不可约", "Irreducible", uuid: "IrreducibleElement")[
   #定义子句(
-    主体: [$p$ 是#不可约元],
+    主体: [$p$ #不可约],
     isPredicate: true,
     内容: [$p != 0$，$p in.not UnitGroupOf(R)$，且 $forall (a, b : R), p = a dot b ==> a in UnitGroupOf(R) or b in UnitGroupOf(R)$],
   )
@@ -1145,10 +1148,10 @@
   )
 ]
 
-#性质条目("整环中素元是不可约元", "")[
+#性质条目("整环中素的元是不可约的", "")[
   #定理子句(
-    条件: ([~$R$ 是#整环], [$p : R$ 是 $R$ 的#素元]),
-    结论: [$p$ 是 $R$ 的#不可约元],
+    条件: ([~$R$ 是#整环], [$p : R$], [$p$ #素]),
+    结论: [$p$ #不可约],
   )
 ]
 
@@ -1182,8 +1185,8 @@
     extends: ([$(R, +, dot)$ 是#整环],),
     isPredicate: true,
     成员: (
-      (name: [存在分解], name_en: [Existence of Factorization], value: [$forall a : R, a != 0 and a in.not UnitGroupOf(R) ==> exists n : bb(N), exists p_1, dots, p_n : R, (forall i, p_i$ 是#不可约元$) and a = p_1 dot p_2 dots p_n$]),
-      (name: [分解唯一], name_en: [Uniqueness of Factorization], value: [若 $a = p_1 dots p_n = q_1 dots q_m$ 是两个#不可约元;分解，则 $n = m$ 且存在 $S_n$ 中置换 $sigma$ 使 $forall i, p_i tilde q_(sigma(i))$（即两两#相伴）]),
+      (name: [存在分解], name_en: [Existence of Factorization], value: [$forall a : R, a != 0 and a in.not UnitGroupOf(R) ==> exists n : bb(N), exists p_1, dots, p_n : R, (forall i, p_i$ #不可约$) and a = p_1 dot p_2 dots p_n$]),
+      (name: [分解唯一], name_en: [Uniqueness of Factorization], value: [若 $a = p_1 dots p_n = q_1 dots q_m$ 是两个不可约元素的分解，则 $n = m$ 且存在 $S_n$ 中置换 $sigma$ 使 $forall i, p_i tilde q_(sigma(i))$（即两两#相伴）]),
     ),
   )
 ]
@@ -1198,10 +1201,10 @@
   )
 ]
 
-#性质条目("唯一分解整环中不可约元等价于素元", "Irreducible iff Prime in UFD")[
+#性质条目("唯一分解整环中不可约元素等价于素元素", "Irreducible iff Prime in UFD")[
   #定理子句(
     条件: ([~$R$ 是#唯一分解整环], $p : R$),
-    结论: [$p$ 是 $R$ 的#不可约元#iff;$p$ 是 $R$ 的#素元],
+    结论: [$p$ #不可约#iff;$p$ #素],
   )
 ]
 
@@ -1287,7 +1290,7 @@
 #注条目("", "")[
   并非所有 $bb(Z)[sqrt(d)]$ 都是#唯一分解整环。例如 $bb(Z)[sqrt(-5)]$ 中
   $6 = 2 dot 3 = (1 + sqrt(-5))(1 - sqrt(-5))$
-  给出 $6$ 的两个本质不同的#不可约元;分解，故它不是#唯一分解整环（更不是#主理想整环;或#欧几里得整环）。
+  给出 $6$ 的两个本质不同的不可约元素的分解，故它不是#唯一分解整环（更不是#主理想整环;或#欧几里得整环）。
 ]
 
 
