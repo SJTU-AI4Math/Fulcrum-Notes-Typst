@@ -1033,23 +1033,25 @@
 ]
 
 #定义条目("环的直积", "Direct Product of Rings", uuid: "RingDirectProduct")[
-  #定义子句(
+  #结构实例子句(
     条件: ([~$(R_1, +_1, dot_1), dots, (R_n, +_n, dot_n)$ 是#环]),
     主体: [$R_1, dots, R_n$ 的#环的直积],
-    bstyle: "display",
-    内容: [
-      - 底集：笛卡儿积 $R_1 times dots.c times R_n$。
-      - 加法：$(a_1, dots, a_n) + (b_1, dots, b_n) := (a_1 +_1 b_1, dots, a_n +_n b_n)$。
-      - 乘法：$(a_1, dots, a_n) dot (b_1, dots, b_n) := (a_1 dot_1 b_1, dots, a_n dot_n b_n)$。
-    ],
+    类别: [#环],
     记号: $product_(i=1)^n R_i$,
+    成员: (
+      (name: [底集], value: [笛卡儿积 $R_1 times dots.c times R_n$]),
+      (name: [加法], value: [$((a_1, dots, a_n), (b_1, dots, b_n)) mapsto (a_1 +_1 b_1, dots, a_n +_n b_n)$]),
+      (name: [乘法], value: [$((a_1, dots, a_n), (b_1, dots, b_n)) mapsto (a_1 dot_1 b_1, dots, a_n dot_n b_n)$]),
+      (name: [加法#单位元], value: [$(0_1, dots, 0_n)$]),
+    ),
   )
 ]
 
 #注条目("", "", uuid: "RingDirectProductRemark")[
-  - 若每个 $R_i$ 是#幺环，则 $product_i R_i$ 是#幺环，单位元为 $(1_1, dots, 1_n)$。
+  - 若每个 $R_i$ 是#幺环，则 $product_i R_i$ 是#幺环，乘法#单位元;为 $(1_1, dots, 1_n)$。
   - 在#交换环 / #幺环 / #交换幺环;等子范畴内有限直积均封闭。
   - 有限直积同构于环的外直和（记号 $plus.o$）；无限情形二者分歧（积取所有分量，和取仅有限多分量非零）。
+  - $product_i R_i$ 是#环范畴 $bold("Ring")$ 中 $R_1, dots, R_n$ 的积；分量投影 $pi_i : product_j R_j -> R_i$ 给出对应的泛性质。
 ]
 
 #定义条目("理想互素", "Coprime Ideals", uuid: "CoprimeIdeals")[
@@ -1349,6 +1351,22 @@
 ]
 
 
+== 扩环与二次整环
+
+#约定[
+  - $(R, +, dot)$ 是#交换幺环
+]
+
+#定义条目("扩环", "Ring Extension", uuid: "RingExtension")[
+  #定义子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$(S, +', dot')$ 是#交换幺环]),
+    主体: [$S$ 是 $R$ 的#扩环],
+    isPredicate: true,
+    内容: [$R$ 是 $S$ 的#子环],
+    记号: $S slash R$,
+  )
+]
+
 #约定[
   - $d : bb(Z)$
   - $d$ 无平方因子 且 $d != 1$
@@ -1369,6 +1387,7 @@
 ]
 
 #注条目("", "")[
+  - $bb(Z)[sqrt(d)]$ 是 $bb(C)$ 的#扩环。
   - 当 $d < 0$ 时取 $sqrt(d) = sqrt(|d|) i$（虚二次整环）；当 $d > 0$ 时取 $sqrt(d)$ 为正实数（实二次整环）。
   - 一般的 *代数整数环* 比 $bb(Z)[sqrt(d)]$ 更大，例如 $d equiv 1 (mod 4)$ 时它是 $bb(Z)[(1 + sqrt(d)) slash 2]$；本节只处理 $bb(Z)[sqrt(d)]$ 形式的子环作为入门。
 ]
@@ -1434,27 +1453,58 @@
 ]
 
 
-#定义条目("分式域", "Field of Fractions", uuid: "FieldOfFractions")[
+== 分式域
+
+#约定[
+  - $R$ 是#整环
+]
+
+#定义条目("分式域等价关系", "Equivalence Relation for Field of Fractions", uuid: "FieldOfFractionsEquiv")[
   #定义子句(
-    条件: ([~$R$ 是#整环]),
-    主体: [$R$ 的#分式域],
-    bstyle: "display",
-    内容: [
-      - 在 $R times (R without {0})$ 上定义等价关系 $(a, b) tilde (c, d) iff a dot d = b dot c$；
-      - 底集：$(R times (R without {0})) slash tilde$，等价类 $[(a, b)]$ 记作 $a / b$；
-      - 加法：$a/b + c/d := (a dot d + b dot c) / (b dot d)$；
-      - 乘法：$a/b dot c/d := (a dot c) / (b dot d)$；
-      - 配以加法#单位元 $0 / 1$、乘法#单位元 $1 / 1$ 构成#域；
-      - 伴随嵌入 $iota : R arrow.hook "Frac"(R), iota(a) = a / 1$。
-    ],
-    记号: $"Frac"(R)$,
+    主体: [$R times (R without {0})$ 上的#分式域等价关系 $tilde_F$],
+    isPredicate: true,
+    内容: [$forall (a, b), (c, d) : R times (R without {0}), (a, b) tilde_F (c, d) #iff;a dot d = b dot c$],
+    记号: $tilde_F$,
   )
 ]
 
-#性质条目("分式域是包含 R 的最小域", "")[
+#性质条目("分式域等价关系是等价关系", "Field of Fractions Equivalence is an Equivalence Relation", uuid: "FieldOfFractionsEquivIsEquiv")[
   #定理子句(
-    条件: ([~$R$ 是#整环], [$K$ 是#域], [$phi : R -> K$ 是嵌入型#环同态]),
-    结论: [$exists !$ #环同态 $tilde(phi) : "Frac"(R) -> K$ 使 $tilde(phi) compose iota = phi$],
+    结论: [#分式域等价关系 $tilde_F$ 是 $R times (R without {0})$ 上的等价关系],
+  )
+]
+
+#定义条目("分式域", "Field of Fractions", uuid: "FieldOfFractions")[
+  #定义子句(
+    主体: [$R$ 的#分式域],
+    bstyle: "display",
+    内容: [
+      - 底集：$(R times (R without {0})) slash tilde_F$；等价类 $[(a, b)]$ 记作 $a / b$；
+      - 加法：$a/b + c/d := (a dot d + b dot c) / (b dot d)$；
+      - 乘法：$a/b dot c/d := (a dot c) / (b dot d)$；
+      - 加法#单位元;为 $0 / 1$；
+      - 乘法#单位元;为 $1 / 1$。
+    ],
+    记号: $Frac(R)$,
+  )
+]
+
+#性质条目("分式域是域", "Field of Fractions is a Field", uuid: "FieldOfFractionsIsField")[
+  #定理子句(
+    结论: [$Frac(R)$ 配以上述加法、乘法、加法#单位元;与乘法#单位元;构成#域],
+  )
+]
+
+#性质条目("整环嵌入到分式域", "Integral Domain Embeds into its Field of Fractions", uuid: "FieldOfFractionsEmbedding")[
+  #定理子句(
+    结论: [$a mapsto a / 1 : R -> Frac(R)$ 是#环单同态],
+  )
+]
+
+#性质条目("分式域的泛性质", "Universal Property of Field of Fractions", uuid: "FieldOfFractionsUniversal")[
+  #定理子句(
+    条件: ([~$K$ 是#域], [$phi : R -> K$ 是#环单同态]),
+    结论: [$exists !$ #环同态 $tilde(phi) : Frac(R) -> K$ 使得 $forall a : R, tilde(phi)(a / 1) = phi(a)$],
   )
 ]
 
@@ -1564,17 +1614,9 @@
   )
 ]
 
-#定义条目("环直积", "Direct Product of Rings", uuid: "RingDirectProduct")[
-  #定义子句(
-    条件: ([~$R, S$ 是#幺环]),
-    主体: [$R$ 与 $S$ 的#环直积 $R times S$],
-    内容: [逐分量加法与乘法赋予 $R times S$ 以#幺环;结构，是 $bold("Ring")$ 中 $R$ 与 $S$ 的积],
-  )
-]
-
 #性质条目("环范畴有积无余积 (交换情形不同)", "")[
   #定理子句(
-    结论: [$bold("Ring")$ 有全部小积；余积在#交换幺环;范畴 $bold("CRing")$ 中为张量积 $R times.circle_(bb(Z)) S$，在 $bold("Ring")$ 中则非平凡],
+    结论: [$bold("Ring")$ 有全部小积，由#环的直积;给出；余积在#交换幺环;范畴 $bold("CRing")$ 中为张量积 $R times.circle_(bb(Z)) S$，在 $bold("Ring")$ 中则非平凡],
   )
 ]
 

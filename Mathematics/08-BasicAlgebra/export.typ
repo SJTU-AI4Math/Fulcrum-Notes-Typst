@@ -266,6 +266,7 @@
 #let 互素 = optionLink("Coprime", [互素])
 
 // 二次整环 / Gauss 整环 / 范数
+#let 扩环 = optionLink("RingExtension", [扩环])
 #let 二次整环 = optionLink("QuadraticIntegerRing", [二次整环])
 #let Gauss整环 = optionLink("GaussianIntegers", [Gauss 整环])
 #let Eisenstein整环 = optionLink("EisensteinIntegers", [Eisenstein 整环])
@@ -275,6 +276,7 @@
 
 // 分式域
 #let 分式域 = optionLink("FieldOfFractions", [分式域])
+#let 分式域等价关系 = optionLink("FieldOfFractionsEquiv", [分式域等价关系])
 #let Frac = (R) => $#optionLink(
   "FieldOfFractions",
   $op("Frac")$
@@ -282,4 +284,3 @@
 
 // 环范畴
 #let 环范畴 = optionLink("CategoryOfRings", [环范畴])
-#let 环直积 = optionLink("RingDirectProduct", [环直积])
