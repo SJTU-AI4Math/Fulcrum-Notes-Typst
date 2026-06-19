@@ -221,6 +221,8 @@
 // 直和与中国剩余定理
 #let 环的直积 = optionLink("RingDirectProduct", [环的直积])
 #let 理想互素 = optionLink("CoprimeIdeals", [理想互素])
+#let 理想格 = optionLink("LatticeOfIdeals", [理想格])
+#let 格 = optionLink("Lattice", [格])
 #let 中国剩余定理 = optionLink("ChineseRemainderTheorem", [中国剩余定理])
 
 // 环同态

@@ -982,6 +982,13 @@
   )
 ]
 
+#性质条目("理想全体构成格", "Ideals form a Lattice", uuid: "LatticeOfIdeals")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#环]),
+    结论: [$R$ 的全体#理想;在包含序 $subset.eq$ 下构成#格；对任意 $I, J$ 是 $R$ 的#理想，$I + J$ 是 $I, J$ 在该格中的上确界（最小公共#理想），$I inter J$ 是下确界（最大公共#理想）],
+  )
+]
+
 
 == 商环
 
@@ -1063,10 +1070,29 @@
   )
 ]
 
+#性质条目("理想互素的等价刻画", "Equivalent Characterizations of Coprime Ideals", uuid: "CoprimeIdealsEquivalences")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$I, J$ 是 $R$ 的#理想]),
+    结论: [以下命题等价：
+      $I$ 与 $J$ #理想互素;
+      #iff;$I + J = R$
+      #iff;$exists a : I, exists b : J, a + b = 1$
+      #iff;$I dot J = I inter J$
+      #iff;$R slash (I inter J) -> R slash I times R slash J, a + (I inter J) mapsto (a + I, a + J)$ 是#环同构],
+  )
+]
+
+#引理条目("典范同态的直积是满射", "Product of Canonical Maps is Surjective", uuid: "ProductOfCanonicalMapsSurjective")[
+  #定理子句(
+    条件: ([~$(R, +, dot)$ 是#交换幺环], [$I_1, dots, I_n$ 是 $R$ 的#理想], [$forall i != j, I_i$ 与 $I_j$ #理想互素]),
+    结论: [$a mapsto (a + I_1, dots, a + I_n) : R -> product_(k=1)^n R slash I_k$ 是满射],
+  )
+]
+
 #定理条目("中国剩余定理", "Chinese Remainder Theorem", uuid: "ChineseRemainderTheorem")[
   #定理子句(
     条件: ([~$(R, +, dot)$ 是#交换幺环], [$I_1, dots, I_n$ 是 $R$ 的#理想], [$forall i != j, I_i$ 与 $I_j$ #理想互素]),
-    结论: [自然映射 $R slash (I_1 inter dots inter I_n) -> product_(k=1)^n R slash I_k$，$a + (I_1 inter dots inter I_n) |-> (a + I_1, dots, a + I_n)$ 是#环同构],
+    结论: [$a + (I_1 inter dots inter I_n) mapsto (a + I_1, dots, a + I_n) : R slash (I_1 inter dots inter I_n) -> product_(k=1)^n R slash I_k$ 是#环同构],
   )
 ]
 
