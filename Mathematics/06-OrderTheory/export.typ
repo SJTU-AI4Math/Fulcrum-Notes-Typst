@@ -35,6 +35,11 @@
   [单调],
 )
 
+#let 上确界 = optionLink("Supremum", [上确界])
+#let 下确界 = optionLink("Infimum", [下确界])
+#let Sup = (S) => $#optionLink("Supremum", $op("Sup")$) #S$
+#let Inf = (S) => $#optionLink("Infimum", $op("Inf")$) #S$
+
 #let aleph0 = optionLink(
   "Aleph0",
   [$aleph_0$],

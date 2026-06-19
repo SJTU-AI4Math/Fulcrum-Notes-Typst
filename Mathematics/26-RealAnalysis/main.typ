@@ -276,6 +276,7 @@
 
 #定义条目("简单函数积分", "Simple Function Integral", uuid: "SimpleFunctionIntegral")[
   #定义子句(
+    bstyle: "display",
     条件: ([~$phi : D -> [0, infinity)$ 是#简单;函数], [$phi = sum_(i=1)^n a_i chi_(E_i)$ 是 $phi$ 的标准形, $a_i in [0, infinity)$, $E_i$ 是 $D$ 的可测分划]),
     主体: [$phi$ 在 $D$ 上的#简单函数积分],
     内容: [$sum_(i=1)^n a_i dot m(E_i)$，约定 $0 dot infinity = 0$],
@@ -291,10 +292,12 @@
   #定理子句(
     条件: ([~$phi, psi : D -> [0, infinity)$ 是#简单;函数], [$alpha, beta in [0, infinity)$]),
     cstyle: "display",
-    结论: [
-      - 线性: $integral_D (alpha phi + beta psi) = alpha integral_D phi + beta integral_D psi$；
-      - 单调: $phi <= psi$ 在 $D$ 上 $==> integral_D phi <= integral_D psi$。
-    ],
+    结论: [$
+      #structProp(
+        (name: [线性], value: $integral_D (alpha phi + beta psi) = alpha integral_D phi + beta integral_D psi$),
+        (name: [单调], value: [$phi <= psi$ 在 $D$ 上 $==> integral_D phi <= integral_D psi$]),
+      )
+    $],
   )
 ]
 
@@ -307,14 +310,20 @@
 
 #定义条目("非负可测函数积分", "Nonnegative Measurable Integral", uuid: "NonnegativeMeasurableIntegral")[
   #定义子句(
-    主体: [$f$ 在 $D$ 上的#非负可测函数积分],
-    内容: [$sup { integral_D phi | 0 <= phi <= f, phi$ 是 $D$ 上的#简单;函数 $}$, 取值于 $[0, infinity]$],
+    bstyle: "display",
+    主体: [$f$ 的#非负可测函数积分 $: ENNReal$],
+    内容: $Sup(#setOf($integral_D phi$, type: $D -> [0\, infinity)$, $phi #h(0.3em) "是" #h(0.2em) #简单 "函数" and 0 <= phi <= f$))$,
     记号: $integral_D f$,
   )
 ]
 
+#注条目("", "")[
+  此积分定义在整个非负可测函数类型上，值域为 $ENNReal = [0, infinity]$，永远良定。$integral_D f = infinity$ 时称 $f$ 在 $D$ 上不可积。
+]
+
 #定理条目("Levi 单调收敛定理", "Monotone Convergence Theorem", uuid: "MonotoneConvergenceTheorem")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测], [$forall x in D, f_n (x) <= f_(n+1) (x)$], [$f(x) := lim_(n -> infinity) f_n (x)$]),
     结论: [$lim_(n -> infinity) integral_D f_n = integral_D f$],
   )
@@ -322,6 +331,7 @@
 
 #引理条目("Fatou 引理", "Fatou's Lemma", uuid: "FatouLemma")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测]),
     结论: [$integral_D (liminf_(n -> infinity) f_n) <= liminf_(n -> infinity) integral_D f_n$],
   )
@@ -330,11 +340,13 @@
 #性质条目("非负积分的线性 / 单调 / 可数可加", "", uuid: "NonnegativeIntegralProperties")[
   #定理子句(
     cstyle: "display",
-    结论: [
-      - 线性: $integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$, $alpha, beta in [0, infinity)$；
-      - 单调: $f <= g$ a.e. $==> integral_D f <= integral_D g$；
-      - 可数可加: $D = union.big_(n : bb(N)) D_n$ 为可测互不相交并 $==> integral_D f = sum_(n : bb(N)) integral_(D_n) f$。
-    ],
+    结论: [$
+      #structProp(
+        (name: [线性], value: [$integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$，其中 $alpha, beta in [0, infinity)$]),
+        (name: [单调], value: [$f <= g$ a.e. $==> integral_D f <= integral_D g$]),
+        (name: [可数可加], value: [$D = union.big_(n : bb(N)) D_n$ 为可测互不相交并 $==> integral_D f = sum_(n : bb(N)) integral_(D_n) f$]),
+      )
+    $],
   )
 ]
 
@@ -343,29 +355,50 @@
 
 #约定[
   - $f : D -> EReal$ #函数Lebesgue可测
-  - $f^+ := max(f, 0)$, $f^- := max(-f, 0)$（正部 / 负部, 均非负可测）
-]
-
-#定义条目("Lebesgue 可积", "Lebesgue Integrable", uuid: "LebesgueIntegrable")[
-  #定义子句(
-    主体: [$f$ 在 $D$ 上#Lebesgue可积],
-    isPredicate: true,
-    内容: [$integral_D |f| < infinity$，等价于 $integral_D f^+ < infinity and integral_D f^- < infinity$],
-  )
+  - $f^+ := max(f, 0) : D -> ENNReal$, $f^- := max(-f, 0) : D -> ENNReal$（正部 / 负部, 均非负可测）
 ]
 
 #定义条目("Lebesgue 积分", "Lebesgue Integral", uuid: "LebesgueIntegral")[
   #定义子句(
-    条件: ([~$f$ #Lebesgue可积]),
-    主体: [$f$ 在 $D$ 上的#Lebesgue积分],
-    内容: [$integral_D f^+ - integral_D f^-$],
+    bstyle: "display",
+    主体: [$f$ 的#Lebesgue积分 $: EReal$],
+    内容: [$
+      cases(
+        integral_D f^+ - integral_D f^-\, &"若" integral_D f^+ < infinity #h(0.3em) "或" #h(0.3em) integral_D f^- < infinity\,,
+        "未定义"\, &"若" integral_D f^+ = integral_D f^- = infinity
+      )
+    $],
     记号: $integral_D f$,
   )
 ]
 
+#定义条目("Lebesgue 可积", "Lebesgue Integrable", uuid: "LebesgueIntegrable")[
+  #定义子句(
+    bstyle: "display",
+    主体: [$f$ 在 $D$ 上#Lebesgue可积],
+    isPredicate: true,
+    内容: [$integral_D |f| < infinity$，等价于 $integral_D f^+ < infinity and integral_D f^- < infinity$，等价于 $integral_D f in Real$（即积分有限）],
+  )
+]
+
 #注条目("", "")[
-  - 若仅有一侧 ($integral_D f^+$ 或 $integral_D f^-$) 有限, 也可定义积分 $integral_D f := integral_D f^+ - integral_D f^- in [-infinity, infinity]$ (此时 $f$ 不必可积)。
-  - $f$ 可积 $iff |f|$ 可积。
+  Lebesgue 积分作为函数定义在可测函数类型上 (非负情形值域 $ENNReal$，永远良定；一般情形值域 $EReal$，需 $f^+, f^-$ 不全为 $infinity$)。#strong[Lebesgue 积分的可积性与函数的局部性质无关，只与积分值是否发散至无穷远有关]：当函数可测时，$f$ 的可积性恰等价于 $integral_D |f| < infinity$。
+]
+
+#性质条目("有限测度集上的有界可测函数可积", "Bounded Measurable on Finite Measure Set is Integrable", uuid: "BoundedOnFiniteMeasureIntegrable")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([~$f : D -> Real$ #函数Lebesgue可测], [$f$ #函数有界], [$m(D) < infinity$]),
+    结论: [$f$ 在 $D$ 上#Lebesgue可积，且 $integral_D |f| <= op("sup")_(x in D) |f(x)| dot m(D)$],
+  )
+]
+
+#性质条目("Riemann 可积与 Lebesgue 积分的兼容性", "Compatibility with Riemann Integral", uuid: "LebesgueRiemannCompatibility")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([~$f : [a, b] -> Real$ 在 $[a, b]$ 上 Riemann 可积]),
+    结论: [$f$ 在 $[a, b]$ 上#Lebesgue可积，且 Lebesgue 积分等于 Riemann 积分：$integral_([a, b]) f = integral_a^b f(x) dif x$],
+  )
 ]
 
 #定理条目("Lebesgue 控制收敛定理", "Dominated Convergence Theorem", uuid: "DominatedConvergenceTheorem")[
@@ -384,23 +417,18 @@
   #定理子句(
     条件: ([~$f, g : D -> EReal$ #Lebesgue可积], [$alpha, beta : Real$]),
     cstyle: "display",
-    结论: [
-      - 线性: $alpha f + beta g$ 可积，$integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$；
-      - 单调: $f <= g$ a.e. $==> integral_D f <= integral_D g$；
-      - 三角不等式: $|integral_D f| <= integral_D |f|$。
-    ],
+    结论: [$
+      #structProp(
+        (name: [线性], value: [$alpha f + beta g$ #Lebesgue可积，且 $integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$]),
+        (name: [单调], value: $f <= g #h(0.5em) "a.e." ==> integral_D f <= integral_D g$),
+        (name: [三角不等式], value: $|integral_D f| <= integral_D |f|$),
+      )
+    $],
   )
 ]
 
 
 == 与 Riemann 积分的关系
-
-#定理条目("Riemann 可积蕴含 Lebesgue 可积", "Riemann Integrable Implies Lebesgue Integrable", uuid: "RiemannImpliesLebesgue")[
-  #定理子句(
-    条件: ([~$f : [a, b] -> Real$ 在 $[a, b]$ 上 Riemann 可积]),
-    结论: [$f$ 在 $[a, b]$ 上#Lebesgue可积，且两个积分相等],
-  )
-]
 
 #定理条目("Riemann 可积的 Lebesgue 刻画", "Lebesgue Characterization of Riemann Integrability", uuid: "LebesgueCharRiemann")[
   #定理子句(
@@ -507,6 +535,7 @@
 
 #定义条目("不定积分", "Indefinite Integral", uuid: "IndefiniteIntegral")[
   #定义子句(
+    bstyle: "display",
     条件: ([~$f : [a, b] -> Real$ #Lebesgue可积]),
     主体: [$f$ 的#不定积分],
     内容: [$F : [a, b] -> Real$, $F(x) := integral_a^x f + C$，$C$ 为常数],
@@ -515,6 +544,7 @@
 
 #性质条目("不定积分是绝对连续", "", uuid: "IndefiniteIntegralAbsolutelyContinuous")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$f : [a, b] -> Real$ #Lebesgue可积]),
     结论: [$F(x) := integral_a^x f$ 在 $[a, b]$ 上#绝对连续；进而#有界变差],
   )
@@ -522,6 +552,7 @@
 
 #定理条目("Lebesgue 微分定理", "Lebesgue Differentiation Theorem", uuid: "LebesgueDifferentiationTheorem")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$f : [a, b] -> Real$ #Lebesgue可积], [$F(x) := integral_a^x f$]),
     结论: [$F'(x) = f(x)$ 在 $[a, b]$ 上几乎处处],
   )
@@ -529,6 +560,7 @@
 
 #定理条目("微积分基本定理 (Lebesgue 形式)", "Fundamental Theorem of Calculus (Lebesgue)", uuid: "FundamentalTheoremCalculusLebesgue")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$f : [a, b] -> Real$]),
     结论: [$f$ 在 $[a, b]$ 上#绝对连续#iff;$f'$ 存在 a.e.、$f'$ 在 $[a, b]$ 上#Lebesgue可积、且 $forall x in [a, b], f(x) = f(a) + integral_a^x f'$],
   )
@@ -651,6 +683,7 @@
 
 #定理条目("Hölder 不等式", "Hölder's Inequality", uuid: "HoelderInequality")[
   #定理子句(
+    cstyle: "display",
     条件: ([~$1 <= p, q <= infinity$], [$1/p + 1/q = 1$（共轭指标，约定 $1/infinity = 0$）]),
     结论: [$forall f in L^p, g in L^q, integral_X |f g| dif mu <= ||f||_p dot ||g||_q$],
   )

@@ -32,6 +32,9 @@
   [极限点],
 )
 
+#let 极限 = optionLink("Limit", [极限])
+#let Lim = (x) => $#optionLink("Limit", $op("Lim")$) #x$
+
 #let convergentForSeq = optionLink(
   "SeqConvergence",
   [收敛],
