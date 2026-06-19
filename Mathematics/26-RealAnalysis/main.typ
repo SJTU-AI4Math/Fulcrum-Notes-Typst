@@ -237,7 +237,7 @@
 #定理条目("Lusin 定理", "Lusin's Theorem", uuid: "LusinTheorem")[
   #定理子句(
     条件: ([~$f : D -> Real$], [$f$ 几乎处处取有限值]),
-    结论: [$f$ #函数Lebesgue可测#iff;$forall epsilon > 0, exists$ 闭集 $K subset.eq D, m(D without K) < epsilon and f|_K$ #实函数连续],
+    结论: [$f$ #函数Lebesgue可测#iff;$forall epsilon > 0, exists$ 闭集 $K subset.eq D, m(D without K) < epsilon$，且 $exists g : D -> Real$，$g$ #实函数连续;且 $forall x : K, g(x) = f(x)$],
   )
 ]
 
