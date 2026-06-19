@@ -527,10 +527,36 @@
 
 #定义条目("绝对连续", "Absolutely Continuous", uuid: "AbsolutelyContinuous")[
   #定义子句(
+    bstyle: "display",
     主体: [$f$ 在 $[a, b]$ 上#绝对连续],
     isPredicate: true,
-    内容: [$forall epsilon > 0, exists delta > 0, forall {(alpha_i, beta_i)}_(i=1)^n$ 是 $[a, b]$ 中两两不交的开区间, $sum_(i=1)^n (beta_i - alpha_i) < delta ==> sum_(i=1)^n |f(beta_i) - f(alpha_i)| < epsilon$],
+    内容: [$forall epsilon > 0, exists delta > 0, forall {(alpha_i, beta_i)}_(i=1)^n$ 是 $[a, b]$ 中两两不交的开区间, $sum_(i=1)^n (beta_i - alpha_i) < delta ==> sum_(i=1)^n V_(alpha_i)^(beta_i) (f) < epsilon$],
   )
+]
+
+#性质条目("Lipschitz 蕴含绝对连续", "Lipschitz Implies Absolutely Continuous", uuid: "LipschitzImpliesAbsolutelyContinuous")[
+  #定理子句(
+    条件: ([~$f : [a, b] -> Real$], [$f$ 是#Lipschitz;的，常数 $L$]),
+    结论: [$f$ 在 $[a, b]$ 上#绝对连续],
+  )
+]
+
+#性质条目("绝对连续蕴含一致连续", "Absolutely Continuous Implies Uniformly Continuous", uuid: "AbsolutelyContinuousImpliesUniformlyContinuous")[
+  #定理子句(
+    条件: ([~$f : [a, b] -> Real$ 在 $[a, b]$ 上#绝对连续]),
+    结论: [$f$ 在 $[a, b]$ 上#实函数一致连续；进而#实函数连续],
+  )
+]
+
+#性质条目("绝对连续蕴含有界变差", "Absolutely Continuous Implies Bounded Variation", uuid: "AbsolutelyContinuousImpliesBoundedVariation")[
+  #定理子句(
+    条件: ([~$f : [a, b] -> Real$ 在 $[a, b]$ 上#绝对连续]),
+    结论: [$f$ 在 $[a, b]$ 上#有界变差],
+  )
+]
+
+#注条目("", "")[
+  紧致区间 $[a, b]$ 上绝对连续自动蕴含有界变差：取 (V) 中 $epsilon = 1$ 对应 $delta$，把 $[a, b]$ 等分成 $N = ceil((b-a) slash delta)$ 个长 $< delta$ 的子区间，每段全变差 $<= 1$，故 $V_a^b (f) <= N < infinity$。本质上靠 $[a, b]$ 的紧致性（有限 Lebesgue 测度），在无界区间或一般测度集上不成立。
 ]
 
 #定义条目("不定积分", "Indefinite Integral", uuid: "IndefiniteIntegral")[

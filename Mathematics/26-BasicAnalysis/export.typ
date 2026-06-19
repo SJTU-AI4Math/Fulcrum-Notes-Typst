@@ -9,6 +9,11 @@
   [连续],
 )
 
+#let 实函数一致连续 = optionLink(
+  "RealFunctionUniformlyContinuous",
+  [一致连续],
+)
+
 #let dv = (f, x) => [
   #optionLink("Derivative", $frac(dif #f, dif #x)$)
 ]
