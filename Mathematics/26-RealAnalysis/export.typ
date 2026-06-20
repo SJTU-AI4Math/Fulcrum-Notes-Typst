@@ -48,6 +48,8 @@
 #let Vitali覆盖 = optionLink("VitaliCover", [Vitali 覆盖])
 #let 有界变差 = optionLink("BoundedVariation", [有界变差])
 #let 全变差 = optionLink("TotalVariation", [全变差])
+#let 可测集上全变差 = optionLink("TotalVariationOnMeasurableSet", [全变差])
+#let V_集 = (E) => $#optionLink("TotalVariationOnMeasurableSet", $V$)_(#E)$
 #let 绝对连续 = optionLink("AbsolutelyContinuous", [绝对连续])
 #let 不定积分 = optionLink("IndefiniteIntegral", [不定积分])
 #let Lebesgue点 = optionLink("LebesguePoint", [Lebesgue 点])

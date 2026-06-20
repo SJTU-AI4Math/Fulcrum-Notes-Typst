@@ -25,6 +25,7 @@
 #import "../54-Topology/main.typ": *
 #import "../28-MeasureTheory/export.typ": *
 #import "../26-BasicAnalysis/export.typ": *
+#import "../46-FunctionalAnalysis/export.typ": *
 
 #show: FulcrumCN
 #show: TypeStyle
@@ -529,14 +530,35 @@
 #定义条目("可测集上的全变差", "Total Variation on a Measurable Set", uuid: "TotalVariationOnMeasurableSet")[
   #定义子句(
     bstyle: "display",
-    主体: [$f$ 在可测集 $E subset.eq [a, b]$ 上的#全变差],
-    内容: [$V_E (f) := inf { sum_(i=1)^n V_(alpha_i)^(beta_i) (f) : E subset.eq union.big.sq_(i=1)^n (alpha_i, beta_i) subset.eq [a, b] }$，对所有有限不交开区间覆盖取下确界],
+    条件: ([~$f : [a, b] -> Real$], [$E subset.eq [a, b]$ 任意子集]),
+    主体: [$f$ 在 $E$ 上的#全变差],
+    内容: [$V_E (f) := inf { sum_(n=1)^(infinity) V_(alpha_n)^(beta_n) (f) : E subset.eq union.big_(n=1)^(infinity) (alpha_n, beta_n) subset.eq [a, b] }$，对所有由 $[a, b]$ 中开区间构成的可数覆盖取下确界 (允许空覆盖, $V_(emptyset) (f) := 0$)],
     记号: $V_E (f)$,
   )
 ]
 
 #注条目("", "")[
-  此定义采取#strong[外覆盖]形式 (analogous to outer measure), 而非"$E$ 内开区间的 sup"。原因: Cantor 集 $C$ 的 Lebesgue 测度为 $0$, 但 Devil's staircase $f$ 在 $C$ 上承载全部增长——若取 inner 形式则 $V_C (f) = 0$, 这会让 Devil's staircase 被错判为绝对连续 (反例本应排除)。outer 形式正确处理: $V_E (f) -> 0$ 等价于 $f$ 把任意测度趋零的集合"压"成总振幅趋零。
+  - #strong[外覆盖];形式 (analogous to outer measure), #strong[不是];"$E$ 内开区间的 sup"。原因: Cantor 集 $C$ 的 Lebesgue 测度为 $0$, 但 Devil's staircase $f$ 在 $C$ 上承载全部增长——若取 inner 形式则 $V_C (f) = 0$, 会让 Devil's staircase 被错判为绝对连续。
+  - #strong[可数];覆盖 (非有限) 是必要的, 否则 $V_(dot) (f)$ 只能做到有限可加, 后续 $sigma$-可加性失败。
+  - 当 $E = [alpha, beta]$ 为区间时, $V_E (f)$ 与单调分划 sup 形式给出的 $V_alpha^beta (f)$ 一致。
+  - 当 $f$ 非#有界变差;时, $V_([a,b]) (f) = +infinity$, 与 outer-cover inf 的取值范围 $[0, +infinity]$ 自然相容。
+]
+
+#性质条目("可测集上全变差是 Borel 测度", "V_E(f) is a Borel Measure", uuid: "TotalVariationIsBorelMeasure")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([~$f : [a, b] -> Real$]),
+    结论: [
+      - $E mapsto V_E (f)$ 是 $[a, b]$ 上的一个外测度 (即非负、$V_(emptyset) (f) = 0$、单调、可数次可加);
+      - 由 Carathéodory 构造, 限制到由 $V_(dot)(f)$ 诱导的 Carathéodory $sigma$-代数 $cal(M)_(V_f)$ 上, 是一个完备的 (非负, 可能取 $+infinity$ 值的) 测度;
+      - $scr(B) ([a, b]) subset.eq cal(M)_(V_f)$, 故 $V_(dot) (f)$ 限制到 #Borel集族 上是一个 $[a, b]$ 上的#Borel测度, 满足 $sigma$-可加: 若 $E = union.big.sq.big_(n=1)^infinity E_n$ 是不交可数 Borel 并, 则 $V_E (f) = sum_(n=1)^infinity V_(E_n) (f)$;
+      - 当 $f$ 在 $[a, b]$ 上#有界变差;时, 此测度有限, $V_([a, b]) (f) < infinity$。
+    ],
+  )
+]
+
+#注条目("", "")[
+  这是 Lebesgue-Stieltjes 框架的"裸"版本: 不诱导符号测度, 直接用全变差 outer-measure 构造给出 $|mu_f|$ 的几何对象。优雅在于"测度 = 几何长度被 $f$ 放大后的对应物"这个直觉 — $V_(dot) (f)$ 度量的是"$f$ 在该集合上消耗的振幅总量"。后续可在 §符号测度 / Radon-Nikodym 一节将其与 Stieltjes 测度 $|mu_f|$ 同构。
 ]
 
 #定义条目("绝对连续", "Absolutely Continuous", uuid: "AbsolutelyContinuous")[
@@ -583,6 +605,21 @@
 
 #注条目("", "")[
   紧致区间 $[a, b]$ 上绝对连续自动蕴含有界变差：取定义中 $epsilon = 1$ 对应 $delta$，把 $[a, b]$ 等分成 $N = ceil((b-a) slash delta)$ 个长 $< delta$ 的子区间 (每段 Lebesgue 测度 $< delta$, 故 $V_(I_k) (f) < 1$), 累加得 $V_a^b (f) <= N < infinity$。本质上靠 $[a, b]$ 的紧致性 (有限 Lebesgue 测度)，在无界区间或一般测度集上不成立。
+]
+
+#性质条目("BV([a,b]) 是 Banach 空间", "BV is a Banach Space", uuid: "BVIsBanach")[
+  #定理子句(
+    cstyle: "display",
+    结论: [
+      - 记 $"BV" ([a, b]) := \{ f : [a, b] -> Real | f #有界变差 \}$。它是 $Real$ 上的#线性空间。
+      - 在其上定义 $|| f ||_("BV") := |f(a)| + V_([a, b]) (f)$, 则 $||dot||_("BV")$ 是 $"BV" ([a, b])$ 上的范数 (常数项 $|f(a)|$ 用以 kill 常数 kernel)。
+      - $("BV" ([a, b]), ||dot||_("BV"))$ 是 #bs (使用 Helly selection 定理证完备性: BV 中 Cauchy 列有逐点收敛子列, 极限仍 BV 且 $|| dot ||_("BV")$-收敛)。
+    ],
+  )
+]
+
+#注条目("", "")[
+  $V_([a, b]) (dot)$ 本身只是 #半范数 (常数函数全变差为 $0$), 需加 $|f(a)|$ 项才升级成范数。等价的选择: 商掉常数得 $"BV" ([a, b]) slash Real$, 上面 $V_([a, b]) (dot)$ 直接是范数。两种处理在文献中都常见。
 ]
 
 #定义条目("不定积分", "Indefinite Integral", uuid: "IndefiniteIntegral")[
