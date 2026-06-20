@@ -523,6 +523,20 @@
 
 #约定[
   - $f : [a, b] -> Real$
+  - $E subset.eq [a, b]$ 为 $[a, b]$ 的 Lebesgue 可测子集
+]
+
+#定义条目("可测集上的全变差", "Total Variation on a Measurable Set", uuid: "TotalVariationOnMeasurableSet")[
+  #定义子句(
+    bstyle: "display",
+    主体: [$f$ 在可测集 $E subset.eq [a, b]$ 上的#全变差],
+    内容: [$V_E (f) := inf { sum_(i=1)^n V_(alpha_i)^(beta_i) (f) : E subset.eq union.big.sq_(i=1)^n (alpha_i, beta_i) subset.eq [a, b] }$，对所有有限不交开区间覆盖取下确界],
+    记号: $V_E (f)$,
+  )
+]
+
+#注条目("", "")[
+  此定义采取#strong[外覆盖]形式 (analogous to outer measure), 而非"$E$ 内开区间的 sup"。原因: Cantor 集 $C$ 的 Lebesgue 测度为 $0$, 但 Devil's staircase $f$ 在 $C$ 上承载全部增长——若取 inner 形式则 $V_C (f) = 0$, 这会让 Devil's staircase 被错判为绝对连续 (反例本应排除)。outer 形式正确处理: $V_E (f) -> 0$ 等价于 $f$ 把任意测度趋零的集合"压"成总振幅趋零。
 ]
 
 #定义条目("绝对连续", "Absolutely Continuous", uuid: "AbsolutelyContinuous")[
@@ -530,7 +544,19 @@
     bstyle: "display",
     主体: [$f$ 在 $[a, b]$ 上#绝对连续],
     isPredicate: true,
-    内容: [$forall epsilon > 0, exists delta > 0, forall {(alpha_i, beta_i)}_(i=1)^n$ 是 $[a, b]$ 中两两不交的开区间, $sum_(i=1)^n (beta_i - alpha_i) < delta ==> sum_(i=1)^n V_(alpha_i)^(beta_i) (f) < epsilon$],
+    内容: [$lim_(m(E) -> 0^+) V_E (f) = 0$，即 $forall epsilon > 0, exists delta > 0, forall E in cal(L) ([a, b]), m(E) < delta ==> V_E (f) < epsilon$],
+  )
+]
+
+#性质条目("绝对连续的 Royden 刻画", "Royden's Characterization of Absolute Continuity", uuid: "AbsolutelyContinuousIff")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([~$f : [a, b] -> Real$]),
+    结论: [以下等价:
+      + $f$ 在 $[a, b]$ 上#绝对连续;
+      + $forall epsilon > 0, exists delta > 0$, 对 $[a, b]$ 中任意有限两两不交开区间族 $\{(alpha_i, beta_i)\}_(i=1)^n$, $sum_(i=1)^n (beta_i - alpha_i) < delta ==> sum_(i=1)^n V_(alpha_i)^(beta_i) (f) < epsilon$;
+      + 上一条把 $sum V_(alpha_i)^(beta_i)(f)$ 换成 $sum |f(beta_i) - f(alpha_i)|$ 仍等价 (经典 Royden 形式).
+    ],
   )
 ]
 
@@ -556,7 +582,7 @@
 ]
 
 #注条目("", "")[
-  紧致区间 $[a, b]$ 上绝对连续自动蕴含有界变差：取 (V) 中 $epsilon = 1$ 对应 $delta$，把 $[a, b]$ 等分成 $N = ceil((b-a) slash delta)$ 个长 $< delta$ 的子区间，每段全变差 $<= 1$，故 $V_a^b (f) <= N < infinity$。本质上靠 $[a, b]$ 的紧致性（有限 Lebesgue 测度），在无界区间或一般测度集上不成立。
+  紧致区间 $[a, b]$ 上绝对连续自动蕴含有界变差：取定义中 $epsilon = 1$ 对应 $delta$，把 $[a, b]$ 等分成 $N = ceil((b-a) slash delta)$ 个长 $< delta$ 的子区间 (每段 Lebesgue 测度 $< delta$, 故 $V_(I_k) (f) < 1$), 累加得 $V_a^b (f) <= N < infinity$。本质上靠 $[a, b]$ 的紧致性 (有限 Lebesgue 测度)，在无界区间或一般测度集上不成立。
 ]
 
 #定义条目("不定积分", "Indefinite Integral", uuid: "IndefiniteIntegral")[
