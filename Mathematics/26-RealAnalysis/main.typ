@@ -213,12 +213,26 @@
   )
 ]
 
+#性质条目("几乎一致收敛蕴含几乎处处与依测度收敛", "", uuid: "AlmostUniformImpliesAeAndMeasure", contributors: (猫猫,))[
+  #定理子句(
+    条件: ([~$f_n, f : D -> EReal$ #函数Lebesgue可测], [$f_n thin ae一致收敛符(D) thin f$]),
+    结论: [$f_n thin ae逐点收敛符(D) thin f$ #h(0.5em) 且 #h(0.5em) $f_n thin 依测度收敛符(D) thin f$],
+  )
+]
+
 #定义条目("依测度收敛", "Convergence in Measure", uuid: "ConvergenceInMeasure")[
   #定义子句(
     主体: [$f_n -> f$ 在 $D$ 上#依测度收敛],
     isPredicate: true,
     内容: [$forall eta > 0, lim_(n -> infinity) m({ x in D | |f_n (x) - f(x)| >= eta }) = 0$],
     记号: $f_n thin 依测度收敛符(D) thin f$,
+  )
+]
+
+#性质条目("有限测度集上几乎处处收敛蕴含依测度收敛", "", uuid: "AeImpliesMeasureOnFinite", contributors: (猫猫,))[
+  #定理子句(
+    条件: ([~$m(D) < infinity$], [$f_n, f : D -> EReal$ #函数Lebesgue可测], [$f_n thin ae逐点收敛符(D) thin f$]),
+    结论: [$f_n thin 依测度收敛符(D) thin f$],
   )
 ]
 
@@ -232,8 +246,8 @@
   )
 ]
 
-#注条目("", "")[
-  Egorov 定理依赖 $m(D) < infinity$；在无限测度集上结论一般不成立。例: $D = bb(R)$，$f_n = chi_([n, n+1])$ 处处收敛到 $0$ 但非几乎一致。
+#反例条目("Egorov 定理的有限测度条件不可去", "", uuid: "EgorovFiniteMeasureNeeded", contributors: (猫猫,))[
+  取 $D = bb(R)$，$f_n = chi_([n\, n+1])$。则 $f_n thin 逐点收敛符(D) thin 0$（从而 $f_n thin ae逐点收敛符(D) thin 0$），但 $f_n$ 不在 $D$ 上 #几乎一致收敛 到 $0$（任意 $E in cal(L) (D)$ 满足 $m(E) < 1$，$D without E$ 仍含无穷多个 $[n, n+1]$，$sup_(x in D without E) |f_n (x)| = 1 arrow.r.not 0$）。
 ]
 
 #定理条目("Lusin 定理", "Lusin's Theorem", uuid: "LusinTheorem")[
@@ -247,19 +261,6 @@
   #定理子句(
     条件: ([~$f_n thin 依测度收敛符(D) thin f$]),
     结论: [$exists$ 子列 $f_(n_k) thin ae逐点收敛符(D) thin f$],
-  )
-]
-
-#性质条目("依测度收敛的相互关系", "", uuid: "ConvergenceComparison")[
-  #定理子句(
-    条件: ([~$f_n, f : D -> EReal$ #函数Lebesgue可测]),
-    cstyle: "display",
-    结论: [
-      - 若 $m(D) < infinity$，则 $f_n thin ae逐点收敛符(D) thin f ==> f_n thin 依测度收敛符(D) thin f$；
-      - $f_n thin ae一致收敛符(D) thin f ==> f_n thin ae逐点收敛符(D) thin f and f_n thin 依测度收敛符(D) thin f$；
-      - $f_n thin 依测度收敛符(D) thin f ==>$ 存在子列 $f_(n_k) thin ae逐点收敛符(D) thin f$（Riesz）；
-      - 反向蕴含一般不成立。
-    ],
   )
 ]
 
