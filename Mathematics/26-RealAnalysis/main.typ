@@ -332,22 +332,6 @@
   此积分定义在整个非负可测函数类型上，值域为 $ENNReal = [0, infinity]$，永远良定。$integral_D f = infinity$ 时称 $f$ 在 $D$ 上不可积。
 ]
 
-#定理条目("Levi 单调收敛定理", "Monotone Convergence Theorem", uuid: "MonotoneConvergenceTheorem")[
-  #定理子句(
-    cstyle: "display",
-    条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测], [$forall x in D, f_n (x) <= f_(n+1) (x)$], [$f(x) := lim_(n -> infinity) f_n (x)$]),
-    结论: [$lim_(n -> infinity) integral_D f_n = integral_D f$],
-  )
-]
-
-#引理条目("Fatou 引理", "Fatou's Lemma", uuid: "FatouLemma")[
-  #定理子句(
-    cstyle: "display",
-    条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测]),
-    结论: [$integral_D (liminf_(n -> infinity) f_n) <= liminf_(n -> infinity) integral_D f_n$],
-  )
-]
-
 #性质条目("非负积分的线性 / 单调 / 可数可加", "", uuid: "NonnegativeIntegralProperties")[
   #定理子句(
     cstyle: "display",
@@ -404,6 +388,37 @@
   )
 ]
 
+#性质条目("Lebesgue 积分的线性", "Linearity of Lebesgue Integral", uuid: "LebesgueIntegralLinearity")[
+  #定理子句(
+    条件: ([~$f, g : D -> EReal$ #Lebesgue可积], [$alpha, beta : Real$]),
+    cstyle: "display",
+    结论: [$alpha f + beta g$ 在 $D$ 上#Lebesgue可积，且 $integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$],
+  )
+]
+
+#性质条目("Lebesgue 积分的单调性", "Monotonicity of Lebesgue Integral", uuid: "LebesgueIntegralMonotone")[
+  #定理子句(
+    条件: ([~$f, g : D -> EReal$ #Lebesgue可积], [#几乎处处 $x : D, f(x) <= g(x)$]),
+    cstyle: "display",
+    结论: [$integral_D f <= integral_D g$],
+  )
+]
+
+#性质条目("Lebesgue 积分的三角不等式", "Triangle Inequality of Lebesgue Integral", uuid: "LebesgueIntegralTriangle")[
+  #定理子句(
+    条件: ([~$f : D -> EReal$ #Lebesgue可积]),
+    cstyle: "display",
+    结论: [$|integral_D f| <= integral_D |f|$],
+  )
+]
+
+#定理条目("Riemann 可积的 Lebesgue 刻画", "Lebesgue Characterization of Riemann Integrability", uuid: "LebesgueCharRiemann")[
+  #定理子句(
+    条件: ([~$f : [a, b] -> Real$ 有界]),
+    结论: [$f$ 在 $[a, b]$ 上 Riemann 可积#iff;$f$ 在 $[a, b]$ 上的不连续点集 Lebesgue 测度为 $0$],
+  )
+]
+
 #性质条目("Riemann 可积与 Lebesgue 积分的兼容性", "Compatibility with Riemann Integral", uuid: "LebesgueRiemannCompatibility")[
   #定理子句(
     cstyle: "display",
@@ -412,39 +427,68 @@
   )
 ]
 
-#定理条目("Lebesgue 控制收敛定理", "Dominated Convergence Theorem", uuid: "DominatedConvergenceTheorem")[
+
+== Lebesgue 积分收敛定理
+
+#约定[
+  - $f_n, f : D -> EReal$ #函数Lebesgue可测
+]
+
+#定理条目("有界收敛定理 (a.e. 一致收敛 + 有限测度)", "Bounded Convergence Theorem", uuid: "BoundedConvergenceTheorem")[
   #定理子句(
-    条件: ([~$f_n, f : D -> EReal$ #函数Lebesgue可测], [$f_n -> f$ a.e. 在 $D$], [$exists g : D -> [0, infinity]$ #Lebesgue可积, $forall n, |f_n| <= g$ a.e.]),
     cstyle: "display",
+    条件: ([~$m(D) < infinity$], [$f_n thin ae一致收敛符(D) thin f$], [$exists M : Real, forall n,$ #几乎处处 $x : D, |f_n (x)| <= M$]),
     结论: [
-      - $f, f_n$ 均在 $D$ 上#Lebesgue可积；
-      - $lim_(n -> infinity) integral_D f_n = integral_D f$；
-      - $lim_(n -> infinity) integral_D |f_n - f| = 0$（即 $f_n -> f$ 在 $L^1 (D)$ 范数下）。
+      #structProp(
+        (name: [可积], value: [$f, f_n$ 均在 $D$ 上 #Lebesgue可积]),
+        (name: [积分收敛], value: $lim_(n -> infinity) integral_D f_n = integral_D f$),
+        (name: $L^1$ + [收敛], value: $lim_(n -> infinity) integral_D |f_n - f| = 0$),
+      )
     ],
   )
 ]
 
-#性质条目("Lebesgue 积分的线性 / 单调 / 三角不等式", "", uuid: "LebesgueIntegralProperties")[
+#定理条目("Levi 单调收敛定理", "Monotone Convergence Theorem", uuid: "MonotoneConvergenceTheorem")[
   #定理子句(
-    条件: ([~$f, g : D -> EReal$ #Lebesgue可积], [$alpha, beta : Real$]),
     cstyle: "display",
-    结论: [$
-      #structProp(
-        (name: [线性], value: [$alpha f + beta g$ #Lebesgue可积，且 $integral_D (alpha f + beta g) = alpha integral_D f + beta integral_D g$]),
-        (name: [单调], value: $f <= g #h(0.5em) "a.e." ==> integral_D f <= integral_D g$),
-        (name: [三角不等式], value: $|integral_D f| <= integral_D |f|$),
-      )
-    $],
+    条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测], [$forall x in D, f_n (x) <= f_(n+1) (x)$], [$f(x) := lim_(n -> infinity) f_n (x)$]),
+    结论: [$lim_(n -> infinity) integral_D f_n = integral_D f$],
   )
 ]
 
-
-== 与 Riemann 积分的关系
-
-#定理条目("Riemann 可积的 Lebesgue 刻画", "Lebesgue Characterization of Riemann Integrability", uuid: "LebesgueCharRiemann")[
+#引理条目("Fatou 引理", "Fatou's Lemma", uuid: "FatouLemma")[
   #定理子句(
-    条件: ([~$f : [a, b] -> Real$ 有界]),
-    结论: [$f$ 在 $[a, b]$ 上 Riemann 可积#iff;$f$ 在 $[a, b]$ 上的不连续点集 Lebesgue 测度为 $0$],
+    cstyle: "display",
+    条件: ([~$f_n : D -> [0, infinity]$ #函数Lebesgue可测]),
+    结论: [$integral_D (liminf_(n -> infinity) f_n) <= liminf_(n -> infinity) integral_D f_n$],
+  )
+]
+
+#定理条目("Lebesgue 控制收敛定理", "Dominated Convergence Theorem", uuid: "DominatedConvergenceTheorem")[
+  #定理子句(
+    条件: ([~$f_n thin ae逐点收敛符(D) thin f$], [$exists g : D -> [0, infinity]$ #Lebesgue可积, $forall n,$ #几乎处处 $x : D, |f_n (x)| <= g(x)$]),
+    cstyle: "display",
+    结论: [
+      #structProp(
+        (name: [可积], value: [$f, f_n$ 均在 $D$ 上 #Lebesgue可积]),
+        (name: [积分收敛], value: $lim_(n -> infinity) integral_D f_n = integral_D f$),
+        (name: $L^1$ + [收敛], value: $lim_(n -> infinity) integral_D |f_n - f| = 0$),
+      )
+    ],
+  )
+]
+
+#推论条目("广义控制收敛定理 (函数列作控制函数)", "Generalized Dominated Convergence Theorem", uuid: "GeneralizedDominatedConvergenceTheorem")[
+  #定理子句(
+    条件: ([~$f_n, f, g_n, g : D -> EReal$ #函数Lebesgue可测], [$f_n thin ae逐点收敛符(D) thin f$], [$g_n thin ae逐点收敛符(D) thin g$], [$forall n,$ #几乎处处 $x : D, |f_n (x)| <= g_n (x)$], [$g_n, g$ 均在 $D$ 上 #Lebesgue可积], [$lim_(n -> infinity) integral_D g_n = integral_D g$]),
+    cstyle: "display",
+    结论: [
+      #structProp(
+        (name: [可积], value: [$f, f_n$ 均在 $D$ 上 #Lebesgue可积]),
+        (name: [积分收敛], value: $lim_(n -> infinity) integral_D f_n = integral_D f$),
+        (name: $L^1$ + [收敛], value: $lim_(n -> infinity) integral_D |f_n - f| = 0$),
+      )
+    ],
   )
 ]
 
