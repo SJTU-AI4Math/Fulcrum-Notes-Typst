@@ -247,7 +247,15 @@
 ]
 
 #反例条目("Egorov 定理的有限测度条件不可去", "", uuid: "EgorovFiniteMeasureNeeded", contributors: (猫猫,))[
-  取 $D = bb(R)$，$f_n = chi_([n\, n+1])$。则 $f_n thin 逐点收敛符(D) thin 0$（从而 $f_n thin ae逐点收敛符(D) thin 0$），但 $f_n$ 不在 $D$ 上 #几乎一致收敛 到 $0$（任意 $E in cal(L) (D)$ 满足 $m(E) < 1$，$D without E$ 仍含无穷多个 $[n, n+1]$，$sup_(x in D without E) |f_n (x)| = 1 arrow.r.not 0$）。
+  $exists D : Set(Real), m(D) = infinity$，$exists f_n\, f : D -> EReal, f_n thin ae逐点收敛符(D) thin f$，$f$ 几乎处处取有限值，但 $not (f_n thin ae一致收敛符(D) thin f)$。
+]
+
+#构造条目("Egorov 反例：$D = bb(R)$, $f_n = chi_([n, n+1])$, $f = 0$", "Construction: $D = bb(R)$, $f_n = chi_([n, n+1])$, $f = 0$", uuid: "EgorovFiniteMeasureNeededConstruction", contributors: (猫猫,))[
+  取 $D := bb(R)$，$f := 0$，$f_n := chi_([n\, n+1])$。则：
+  - $m(D) = infinity$；
+  - $f_n thin ae逐点收敛符(D) thin f$：事实上 $forall x : D$，至多一个 $n$ 使 $f_n (x) = 1$，故 $forall x : D, f_n (x) -> 0 = f(x)$（处处收敛 $==>$ 几乎处处收敛）；
+  - $f equiv 0$ 处处有限；
+  - $not (f_n thin ae一致收敛符(D) thin f)$：任取 $E in cal(L) (D), m(E) < 1$，则 $D without E$ 仍含无穷多 $[n, n+1]$（否则 $m(D without E) < infinity$ 与 $m(D) = infinity$ 矛盾），故 $forall N : bb(N), exists n >= N, [n, n+1] subset.eq.not E$，$sup_(x in D without E) |f_n (x)| = 1 arrow.r.not 0$，即 $f_n$ 在 $D without E$ 上不一致收敛到 $0$。
 ]
 
 #定理条目("Lusin 定理", "Lusin's Theorem", uuid: "LusinTheorem")[
