@@ -34,7 +34,7 @@
 //   依测度收敛     f_n ->^μ_D f
 #let 逐点收敛符 = (D) => $limits(stretch(arrow.r))_(#D)$
 #let ae逐点收敛符 = (D) => $limits(stretch(#optionLink("AlmostEverywhereConvergence", $arrow.r$)))^("a.e.")_(#D)$
-#let 一致收敛符 = (D) => $limits(stretch(arrow.r.double))_(#D)$
+#let 一致收敛符 = (D) => $limits(stretch(arrows.rr))_(#D)$
 #let ae一致收敛符 = (D) => $limits(stretch(#optionLink("AlmostUniformConvergence", $arrows.rr$)))^("a.e.")_(#D)$
 #let 依测度收敛符 = (D) => $limits(stretch(#optionLink("ConvergenceInMeasure", $arrow.r$)))^(mu)_(#D)$
 
