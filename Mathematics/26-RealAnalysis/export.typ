@@ -26,6 +26,18 @@
 #let 几乎一致收敛 = optionLink("AlmostUniformConvergence", [几乎一致收敛])
 #let 依测度收敛 = optionLink("ConvergenceInMeasure", [依测度收敛])
 
+// 收敛符号化 (上下标堆叠在箭头正上 / 正下方)
+//   逐点收敛       f_n ->_D f
+//   a.e. 逐点收敛   f_n ->^(a.e.)_D f   (= 几乎处处收敛)
+//   一致收敛       f_n ⇒_D f
+//   a.e. 一致收敛   f_n ⇒^(a.e.)_D f    (= 几乎一致收敛)
+//   依测度收敛     f_n ->^μ_D f
+#let 逐点收敛符 = (D) => $limits(stretch(arrow.r))_(#D)$
+#let ae逐点收敛符 = (D) => $limits(stretch(#optionLink("AlmostEverywhereConvergence", $arrow.r$)))^("a.e.")_(#D)$
+#let 一致收敛符 = (D) => $limits(stretch(arrow.r.double))_(#D)$
+#let ae一致收敛符 = (D) => $limits(stretch(#optionLink("AlmostUniformConvergence", $arrow.r.double$)))^("a.e.")_(#D)$
+#let 依测度收敛符 = (D) => $limits(stretch(#optionLink("ConvergenceInMeasure", $arrow.r$)))^(mu)_(#D)$
+
 // ============================================================
 // §3 Lebesgue 积分
 // ============================================================

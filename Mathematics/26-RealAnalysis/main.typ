@@ -200,7 +200,7 @@
     主体: [$f_n -> f$ 在 $D$ 上#几乎处处收敛],
     isPredicate: true,
     内容: [#几乎处处 $x : D, lim_(n -> infinity) f_n (x) = f(x)$],
-    记号: $f_n -> f " a.e."$,
+    记号: $f_n thin ae逐点收敛符(D) thin f$,
   )
 ]
 
@@ -208,7 +208,8 @@
   #定义子句(
     主体: [$f_n -> f$ 在 $D$ 上#几乎一致收敛],
     isPredicate: true,
-    内容: [$forall epsilon > 0, exists E in cal(L) (D), m(E) < epsilon and f_n -> f$ 在 $D without E$ 上一致收敛],
+    内容: [$forall epsilon > 0, exists E in cal(L) (D), m(E) < epsilon and f_n thin 一致收敛符(D without E) thin f$],
+    记号: $f_n thin ae一致收敛符(D) thin f$,
   )
 ]
 
@@ -217,7 +218,7 @@
     主体: [$f_n -> f$ 在 $D$ 上#依测度收敛],
     isPredicate: true,
     内容: [$forall eta > 0, lim_(n -> infinity) m({ x in D | |f_n (x) - f(x)| >= eta }) = 0$],
-    记号: $f_n attach(->, t: m) f$,
+    记号: $f_n thin 依测度收敛符(D) thin f$,
   )
 ]
 
@@ -226,8 +227,8 @@
 
 #定理条目("Egorov 定理", "Egorov's Theorem", uuid: "EgorovTheorem")[
   #定理子句(
-    条件: ([~$m(D) < infinity$], [$f_n -> f$ 在 $D$ 上#几乎处处收敛], [$f$ 几乎处处取有限值]),
-    结论: [$f_n -> f$ 在 $D$ 上#几乎一致收敛],
+    条件: ([~$m(D) < infinity$], [$f_n thin ae逐点收敛符(D) thin f$], [$f$ 几乎处处取有限值]),
+    结论: [$f_n thin ae一致收敛符(D) thin f$],
   )
 ]
 
@@ -244,8 +245,8 @@
 
 #定理条目("Riesz 定理", "Riesz's Theorem", uuid: "RieszTheorem")[
   #定理子句(
-    条件: ([~$f_n -> f$ 在 $D$ 上#依测度收敛]),
-    结论: [$exists$ 子列 $f_(n_k) -> f$ 在 $D$ 上#几乎处处收敛],
+    条件: ([~$f_n thin 依测度收敛符(D) thin f$]),
+    结论: [$exists$ 子列 $f_(n_k) thin ae逐点收敛符(D) thin f$],
   )
 ]
 
@@ -254,9 +255,9 @@
     条件: ([~$f_n, f : D -> EReal$ #函数Lebesgue可测]),
     cstyle: "display",
     结论: [
-      - 若 $m(D) < infinity$，则 $f_n -> f$ #几乎处处收敛 $==> f_n -> f$ #依测度收敛；
-      - $f_n -> f$ #几乎一致收敛 $==> f_n -> f$ #几乎处处收敛 $and f_n -> f$ #依测度收敛；
-      - $f_n -> f$ #依测度收敛 $==>$ 存在子列#几乎处处收敛（Riesz）；
+      - 若 $m(D) < infinity$，则 $f_n thin ae逐点收敛符(D) thin f ==> f_n thin 依测度收敛符(D) thin f$；
+      - $f_n thin ae一致收敛符(D) thin f ==> f_n thin ae逐点收敛符(D) thin f and f_n thin 依测度收敛符(D) thin f$；
+      - $f_n thin 依测度收敛符(D) thin f ==>$ 存在子列 $f_(n_k) thin ae逐点收敛符(D) thin f$（Riesz）；
       - 反向蕴含一般不成立。
     ],
   )
