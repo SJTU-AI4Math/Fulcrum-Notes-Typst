@@ -434,10 +434,24 @@
   - $f_n, f : D -> EReal$ #函数Lebesgue可测
 ]
 
-#定理条目("有界收敛定理 (a.e. 一致收敛 + 有限测度)", "Bounded Convergence Theorem", uuid: "BoundedConvergenceTheorem")[
+#引理条目("一致收敛下的积分极限交换", "Uniform Convergence Allows Limit-Integral Swap", uuid: "UniformConvergenceIntegralSwap")[
   #定理子句(
     cstyle: "display",
-    条件: ([~$m(D) < infinity$], [$f_n thin ae一致收敛符(D) thin f$], [$exists M : Real, forall n,$ #几乎处处 $x : D, |f_n (x)| <= M$]),
+    条件: ([~$m(D) < infinity$], [$exists M : Real, forall n,$ #几乎处处 $x : D, |f_n (x)| <= M$], [$f_n thin ae一致收敛符(D) thin f$]),
+    结论: [
+      #structProp(
+        (name: [可积], value: [$f, f_n$ 均在 $D$ 上 #Lebesgue可积]),
+        (name: [积分收敛], value: $lim_(n -> infinity) integral_D f_n = integral_D f$),
+        (name: $L^1$ + [收敛], value: $lim_(n -> infinity) integral_D |f_n - f| = 0$),
+      )
+    ],
+  )
+]
+
+#定理条目("有界收敛定理", "Bounded Convergence Theorem", uuid: "BoundedConvergenceTheorem")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([~$m(D) < infinity$], [$exists M : Real, forall n,$ #几乎处处 $x : D, |f_n (x)| <= M$], [$f_n thin ae逐点收敛符(D) thin f$]),
     结论: [
       #structProp(
         (name: [可积], value: [$f, f_n$ 均在 $D$ 上 #Lebesgue可积]),
