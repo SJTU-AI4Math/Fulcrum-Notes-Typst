@@ -79,7 +79,13 @@
 
 #let 矩阵指数良定 = optionLink("MatrixExponentialWelldefined", [矩阵指数良定])
 
-#let 矩阵指数的关键性质 = optionLink("MatrixExponentialProperties", [矩阵指数的关键性质])
+#let MatrixExponentialAtZero = optionLink("MatrixExponentialAtZero", [矩阵指数初值归一])
+
+#let MatrixExponentialODE = optionLink("MatrixExponentialODE", [矩阵指数满足矩阵 ODE])
+
+#let MatrixExponentialGroupProperty = optionLink("MatrixExponentialGroupProperty", [矩阵指数的群性质])
+
+#let MatrixExponentialInvertible = optionLink("MatrixExponentialInvertible", [矩阵指数处处可逆])
 
 #let 矩阵指数等于形式幂级数 = optionLink("MatrixExponentialEqualsPowerSeries", [矩阵指数等于形式幂级数])
 
