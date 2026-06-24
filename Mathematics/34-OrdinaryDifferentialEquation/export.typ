@@ -73,6 +73,19 @@
 
 #let 变易系数法是特解 = optionLink("VOPGivesSolution", [变易系数法是特解])
 
+// —— 矩阵指数 ——
+
+#let 矩阵指数 = optionLink("MatrixExponential", [矩阵指数])
+
+#let 矩阵指数良定 = optionLink("MatrixExponentialWelldefined", [矩阵指数良定])
+
+#let 矩阵指数的关键性质 = optionLink("MatrixExponentialProperties", [矩阵指数的关键性质])
+
+#let 矩阵指数等于形式幂级数 = optionLink("MatrixExponentialEqualsPowerSeries", [矩阵指数等于形式幂级数])
+
+// 矩阵指数符号 (const, 调用处显式带括号 / 参数)
+#let expM = optionLink("MatrixExponential", $exp$)
+
 // 基本解矩阵符号: Phi 是带 optionLink 的常量, 下标在调用处显式写 (Phi_phi)
 #let Phi基 = optionLink("FundamentalSolutionMatrix", $Phi$)
 

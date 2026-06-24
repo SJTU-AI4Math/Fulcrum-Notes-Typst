@@ -1086,10 +1086,85 @@
   // TODO §1 后续可补:
   //   - 实矩阵情形: 复特征值成对出现时, 取实部 / 虚部得到实数值基本解
   //   - 对角化退化情形 (所有 Jordan 块都是 1x1)
-  //   - 矩阵指数 exp(tA) 与 Phi(0) = I 的 normalize 关系 — 即 exp(tA) := Phi_phi(t) Phi_phi(0)^{-1}
-  //   - 与形式幂级数 sum (tA)^k/k! 的等价性
   //   - 例: 2x2, 3x3 具体计算
-  下一步计划补 "矩阵指数 $exp(t A) := #Phi基 _(bold(phi)) (t) #Phi基 _(bold(phi)) (0)^(-1)$ 的定义" — 验证其与形式幂级数 $sum_(k=0)^infinity (t A)^k slash k!$ 的等价性, 并不依赖 $bold(phi)$ 的选取.
+]
+
+=== 矩阵指数
+
+#基本解矩阵 $#Phi基 _(bold(phi))$ 依赖于具体的基本解组 $bold(phi)$. 但用它构造的 $#Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(0)^(-1)$ 不依赖 $bold(phi)$ 选取, 这是一个良定的矩阵值函数 — 称为*矩阵指数*. 它统一了几个等价表述: Jordan 链解打包 / Banach 代数形式幂级数 / $#Phi基 _(bold(phi)) (0) = I$ 标准化的基本解矩阵.
+
+#定义条目(
+  "矩阵指数",
+  "Matrix Exponential",
+  uuid: "MatrixExponential",
+)[
+  #定义子句(
+    主体: [$A$ 的*矩阵指数* $#expM (t A)$],
+    内容: [
+      $bb(R) -> "Mat"_(n times n)(bb(C))$ 函数 $#expM (t A) := #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(0)^(-1)$, 其中 $bold(phi)$ 为 $dv(bold(x), t) = A bold(x)$ 的任一组 #常系数基本解.
+    ],
+    记号: $#expM (t A)$,
+  )
+]
+
+#定理条目(
+  "矩阵指数良定",
+  "Matrix Exponential is Well-defined",
+  uuid: "MatrixExponentialWelldefined",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$bold(phi), bold(psi)$ 都是 $dv(bold(x), t) = A bold(x)$ 的 #常系数基本解],),
+    结论: [
+      $forall t in bb(R), #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(0)^(-1) = #Phi基 _(bold(psi))(t) #Phi基 _(bold(psi))(0)^(-1)$.
+    ],
+  )
+]
+
+#注[
+  设 $bold(psi) = bold(phi) M$, $M in op("GL")_n (bb(C))$ (任两组基本解之间相差一个右乘可逆矩阵, 来自 #齐次通解). 则 $#Phi基 _(bold(psi))(t) = #Phi基 _(bold(phi))(t) M$, 所以 $#Phi基 _(bold(psi))(t) #Phi基 _(bold(psi))(0)^(-1) = #Phi基 _(bold(phi))(t) M M^(-1) #Phi基 _(bold(phi))(0)^(-1) = #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(0)^(-1)$.
+]
+
+#定理条目(
+  "矩阵指数的关键性质",
+  "Key Properties of the Matrix Exponential",
+  uuid: "MatrixExponentialProperties",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A in "Mat"_(n times n)(bb(C))$],),
+    结论: [
+      $#structProp(
+        (name: [初值归一], value: [$#expM (0 dot A) = I$]),
+        (name: [矩阵 ODE], value: [$forall t in bb(R), dv(#expM (t A), t) = A #expM (t A) = #expM (t A) A$]),
+        (name: [群性质], value: [$forall s\, t in bb(R), #expM ((s+t) A) = #expM (s A) dot #expM (t A)$]),
+        (name: [处处可逆], value: [$forall t in bb(R), #expM (t A) in op("GL")_n (bb(C))$ 且 $#expM (t A)^(-1) = #expM (-t A)$]),
+      )$
+    ],
+  )
+]
+
+#定理条目(
+  "矩阵指数等于形式幂级数",
+  "Matrix Exponential Equals Formal Power Series",
+  uuid: "MatrixExponentialEqualsPowerSeries",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A in "Mat"_(n times n)(bb(C))$],),
+    结论: [
+      $forall t in bb(R), #expM (t A) = sum_(k=0)^(infinity) (t A)^k / k!$, 该级数在 $"Mat"_(n times n)(bb(C))$ 上 (任一相容矩阵范数下) 绝对收敛.
+    ],
+  )
+]
+
+#注[
+  证明草: 形式幂级数 $S(t) := sum_(k=0)^infinity (t A)^k slash k!$ 在 $norm(A)$ 的算子范数下界以 $sum norm(A)^k t^k slash k! = e^(norm(A) t)$, 故绝对收敛. 逐项求导得 $S'(t) = A S(t)$, 又 $S(0) = I$. 由解的唯一性, $S(t)$ 等于由"初值 $I$ + 矩阵 ODE" 刻画的唯一函数, 即 #expM 满足同样的初值问题, 故二者相等.
+]
+
+#注[
+  *齐次通解的简化表述*: 由 #矩阵指数的关键性质 "初值归一", 取 $#Phi基 _(bold(phi))(0) = I$ 的基本解组时, $#Phi基 _(bold(phi)) = #expM (dot A)$. 此时
+  $ bold(x)(t) = #expM (t A) bold(x)(0). $
 ]
 
 == 常系数非齐次线性微分方程组
@@ -1195,8 +1270,13 @@
 ]
 
 #注[
+  *非齐次通解的简化表述*: 由 #矩阵指数的关键性质 取 $#Phi基 _(bold(phi)) = #expM (dot A)$ (即取 $#Phi基 _(bold(phi)) (0) = I$ 的基本解组), 则
+  $ bold(x)(t) = #expM ((t - t_0) A) bold(x)(t_0) + integral_(t_0)^(t) #expM ((t - s) A) bold(b)(s) dif s. $
+  右端首项是齐次通解 (#矩阵指数的关键性质 "群性质" 把 $#expM (t A) #expM (-t_0 A)$ 合并为 $#expM ((t-t_0) A)$), 第二项是 #变易系数法 的简化 (类似合并).
+]
+
+#注[
   // TODO §2 后续可补:
-  //   - exp(tA) 形式的简化公式: x(t) = exp((t-t_0)A) x_0 + ∫_{t_0}^t exp((t-s)A) b(s) ds
   //   - 共振情形 (b 与齐次解空间有共同 e^(λt) 因子)
   //   - 具体例: b(t) 为多项式 / 指数 / 三角 时的对照表
 ]
