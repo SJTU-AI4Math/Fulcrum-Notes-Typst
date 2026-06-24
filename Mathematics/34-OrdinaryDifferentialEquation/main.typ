@@ -1342,9 +1342,162 @@
 
 == 周期系数线性微分方程组
 
-// TODO: 待写
-//   - Floquet 理论框架
-//   - 单调矩阵与 Floquet 指数
+#约定[
+  - $n : bb(N)^*$
+  - $T : PReal$ 是周期
+  - $A : Cont(bb(R), "Mat"_(n times n)(bb(C)))$, 满足 $forall t in bb(R), A(t + T) = A(t)$
+  - $bold(x) : bb(R) -> bb(C)^n$
+]
+
+#定义条目(
+  "周期系数线性微分方程组",
+  "Periodic-coefficient Linear System of ODEs",
+  uuid: "PeriodicLinearSystem",
+)[
+  #定义子句(
+    主体: [由 $A$ (周期 $T$) 决定的*周期系数线性微分方程组*],
+    内容: [#一阶向量ODE $bold(f) : bb(R) times bb(C)^n -> bb(C)^n, quad bold(f)(t, bold(x)) := A(t) bold(x)$],
+    记号: $dv(bold(x), t) = A(t) bold(x)$,
+  )
+]
+
 #注[
-  本节内容待补.
+  系数 $A(t)$ 不再是常矩阵, 不能直接用 #矩阵指数 写显式解; 但 $A$ 的*周期性* 允许把无穷区间上的解析归约为一个周期 $[0, T]$ 上的解析 — 这是 Floquet 理论的出发点.
+]
+
+下面把"一周期内的解演化"抽出为一个线性算子 — *monodromy 算子*. 它把任意初值 $bold(x)(0)$ 映到一周期后的状态 $bold(x)(T)$, 完全决定系统的长时间行为.
+
+#定义条目(
+  "monodromy 算子",
+  "Monodromy Operator",
+  uuid: "MonodromyOperator",
+)[
+  #定义子句(
+    主体: [#周期系数线性方程组 的*monodromy 算子* $#Mono _A$],
+    内容: [
+      线性映射 $bb(C)^n -> bb(C)^n, bold(x)_0 mapsto bold(x)_(bold(x)_0)(T)$, 其中 $bold(x)_(bold(x)_0)$ 是初值问题 $dv(bold(x), t) = A(t) bold(x), bold(x)(0) = bold(x)_0$ 的唯一解.
+    ],
+    记号: $#Mono _A$,
+  )
+]
+
+#定义条目(
+  "monodromy 矩阵",
+  "Monodromy Matrix",
+  uuid: "MonodromyMatrix",
+)[
+  #定义子句(
+    主体: [#周期系数线性方程组 关于基本解矩阵 $#Phi基 _(bold(phi))$ 的*monodromy 矩阵* $#Phi基 _(bold(phi))(T) #Phi基 _(bold(phi))(0)^(-1)$],
+    内容: [$#Mono _A$ 在 $bb(C)^n$ 标准基下的矩阵表示 $#Phi基 _(bold(phi))(T) #Phi基 _(bold(phi))(0)^(-1) in op("GL")_n (bb(C))$.],
+    记号: $#Phi基 _(bold(phi))(T) #Phi基 _(bold(phi))(0)^(-1)$,
+    条件: ([$bold(phi)$ 是 #周期系数线性方程组 的一组基本解 (这里 $cal(S)_A$ 上的基本解定义与常系数情形同构)],),
+  )
+]
+
+#注[
+  $#Mono _A$ 的定义不依赖基本解组的选取 (类似 #矩阵指数良定 的证明: 任两组基本解相差右乘可逆矩阵, 在 $#Phi基 _(bold(phi))(T) #Phi基 _(bold(phi))(0)^(-1)$ 内部抵消). 取 $#Phi基 _(bold(phi))(0) = I$ 的基本解组时矩阵表示简化为 $#Phi基 _(bold(phi))(T)$.
+]
+
+下面的核心定理表明: 周期系数情形下, 基本解矩阵可以*因式分解*为 "周期部分 × 常系数指数演化", 即周期 system 在一个周期变换 $P(t)$ 下与常系数 system 等价.
+
+#定理条目(
+  "Floquet 定理",
+  "Floquet's Theorem",
+  uuid: "FloquetTheorem",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A : Cont(bb(R), "Mat"_(n times n)(bb(C)))$ 周期 $T$], [$bold(phi)$ 是 #周期系数线性方程组 的基本解组, $#Phi基 _(bold(phi))(0) = I$],),
+    结论: [
+      存在 $B in "Mat"_(n times n)(bb(C))$ 与 $P : Cont(bb(R), "GL"_n (bb(C)))$ (周期 $T$, 即 $P(t + T) = P(t)$, $P(0) = I$) 使得
+      $ #Phi基 _(bold(phi))(t) = P(t) #expM (t B) . $
+      其中 $B$ 由 monodromy 矩阵满足 $#Phi基 _(bold(phi))(T) = #expM (T B)$ 决定; 在矩阵对数的任一分支下 $B = (1 slash T) op("Log") #Phi基 _(bold(phi))(T)$.
+    ],
+  )
+]
+
+#注[
+  证明思路: 由 $#Phi基 _(bold(phi))(T) in "GL"_n (bb(C))$ (#FundamentalSolutionMatrixInvertible 类比), 存在 $B$ 使 $#expM (T B) = #Phi基 _(bold(phi))(T)$ (复数 GL 上矩阵对数总存在). 定义 $P(t) := #Phi基 _(bold(phi))(t) #expM (-t B)$, 验证 $P(t + T) = #Phi基 _(bold(phi))(t + T) #expM (-(t + T) B) = #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(T) #expM (-T B) #expM (-t B) = #Phi基 _(bold(phi))(t) #expM (-t B) = P(t)$, 其中 $#Phi基 _(bold(phi))(t + T) = #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(T)$ 来自 $A$ 的 $T$-周期性导致 $bb(R) -> "Mat"_n, t mapsto #Phi基 _(bold(phi))(t + T)$ 也是基本解矩阵 (满足同一矩阵 ODE).
+]
+
+#注[
+  几何意义: 在变量替换 $bold(y)(t) := P(t)^(-1) bold(x)(t)$ 下, 周期 system $dv(bold(x), t) = A(t) bold(x)$ 变成常系数 system $dv(bold(y), t) = B bold(y)$. 即 *任何周期系数线性 system 可化为常系数 system 加一个周期变换*.
+]
+
+下面把 #Floquet定理 中 monodromy 矩阵的*谱信息* 抽出来, 称为 Floquet 乘子和 Floquet 指数; 它们刻画解的长时间渐近行为.
+
+#定义条目(
+  "Floquet 乘子",
+  "Floquet Multiplier",
+  uuid: "FloquetMultiplier",
+)[
+  #定义子句(
+    主体: [#周期系数线性方程组 的*Floquet 乘子*],
+    内容: [#monodromy算子 $#Mono _A$ 的 #特征值, 即 monodromy 矩阵 $#Phi基 _(bold(phi))(T) #Phi基 _(bold(phi))(0)^(-1)$ 的特征值 (与 $bold(phi)$ 选取无关).],
+  )
+]
+
+#定义条目(
+  "Floquet 指数",
+  "Floquet Exponent",
+  uuid: "FloquetExponent",
+)[
+  #定义子句(
+    主体: [Floquet 乘子 $rho$ 对应的*Floquet 指数*],
+    内容: [
+      复数 $mu in bb(C)$ 满足 $e^(T mu) = rho$; 即 $mu := (1 slash T) log rho$ 在复对数的任一分支下. Floquet 指数在 $2 pi i slash T$ 平移意义下唯一.
+    ],
+  )
+]
+
+#注[
+  $mu$ 也是 #Floquet定理 中常系数矩阵 $B$ 的 #特征值: $B$ 的谱通过 $rho = e^(T mu)$ 与 monodromy 矩阵的谱 $sigma(#Phi基 _(bold(phi))(T))$ 一一对应 (mod $2 pi i slash T$).
+]
+
+#定理条目(
+  "周期系数线性方程组解的渐近行为",
+  "Asymptotic Behavior of Solutions to Periodic Linear System",
+  uuid: "PeriodicSolutionStability",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A$ 周期 $T$], [$rho_1, dots, rho_n$ 是 #周期系数线性方程组 的全部 Floquet 乘子 (重数计)],),
+    结论: [
+      解的长时间行为由 ${rho_i}$ 在单位圆 ${|z| = 1}$ 上的位置决定; 等价地, 由 Floquet 指数实部 $op("Re") mu_i$ 的符号决定:
+      $bold(x)(t) -> bold(0)$ 对一切初值 $iff$ $forall i, |rho_i| < 1 iff forall i, op("Re") mu_i < 0$.
+    ],
+  )
+]
+
+#性质条目(
+  "无 Floquet 乘子在单位圆外则解有界",
+  "Bounded Solutions iff All Multipliers in Closed Unit Disk",
+  uuid: "PeriodicBoundedSolutions",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A$ 周期 $T$], [$rho_1, dots, rho_n$ 是全部 Floquet 乘子],),
+    结论: [$cal(S)_A$ 中一切解在 $bb(R)$ 上有界 $iff$ $forall i, |rho_i| <= 1$ 且 $|rho_i| = 1$ 的 $rho_i$ 在 $#Mono _A$ 的 Jordan 分解中只对应 $1 times 1$ 块 — 等价地, 这些 $rho_i$ 的代数重数 = 几何重数.],
+  )
+]
+
+#性质条目(
+  "存在 T-周期非零解的 Floquet 刻画",
+  "Existence of Nontrivial T-Periodic Solution",
+  uuid: "PeriodicNontrivialPeriodicSolution",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A$ 周期 $T$],),
+    结论: [存在非零 $T$-周期解 $iff$ $1$ 是某个 Floquet 乘子 $iff$ $0$ 是某个 Floquet 指数.],
+  )
+]
+
+#注[
+  // TODO §3 后续可补:
+  //   - 实矩阵情形: 复 Floquet 指数可能成对出现 (mu, bar(mu)), 取实部 / 虚部得实数值表示
+  //   - kT-周期解的存在性 = k 阶根是 Floquet 乘子
+  //   - 周期非齐次方程 dv x t = A(t) x + b(t) (b 也 T-周期) 的 Fredholm 二择性
+  //   - 经典例: Hill 方程 / Mathieu 方程
+  //   - 与 Lyapunov 指数的关系
 ]

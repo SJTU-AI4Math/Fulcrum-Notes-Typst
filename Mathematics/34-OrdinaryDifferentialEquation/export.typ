@@ -73,7 +73,32 @@
 
 #let 变易系数法是特解 = optionLink("VOPGivesSolution", [变易系数法是特解])
 
+#let FundamentalSolutionMatrixInvertible = optionLink("FundamentalSolutionMatrixInvertible", [基本解矩阵处处可逆])
+
+#let FundamentalSolutionMatrixODE = optionLink("FundamentalSolutionMatrixODE", [基本解矩阵满足矩阵 ODE])
+
 #let Duhamel公式 = optionLink("DuhamelFormula", [Duhamel 公式])
+
+// ============================================================
+// §3 周期系数线性微分方程组 — cross-ref optionLink 包装
+// ============================================================
+
+#let 周期系数线性方程组 = optionLink("PeriodicLinearSystem", [周期系数线性微分方程组])
+
+#let Floquet定理 = optionLink("FloquetTheorem", [Floquet 定理])
+
+#let monodromy算子 = optionLink("MonodromyOperator", [monodromy 算子])
+
+#let monodromy矩阵 = optionLink("MonodromyMatrix", [monodromy 矩阵])
+
+#let Floquet乘子 = optionLink("FloquetMultiplier", [Floquet 乘子])
+
+#let Floquet指数 = optionLink("FloquetExponent", [Floquet 指数])
+
+#let 周期解稳定性 = optionLink("PeriodicSolutionStability", [周期系数线性方程组解的渐近行为])
+
+// monodromy 算子符号 (const, 通常调用 #Mono _(A) 或 #Mono _(Phi))
+#let Mono = optionLink("MonodromyOperator", $cal(M)$)
 
 // —— 矩阵指数 ——
 
