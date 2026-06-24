@@ -1306,16 +1306,38 @@
   其中 $bold(c) = #Phi基 _(bold(phi))(t_0)^(-1) bold(x)(t_0)$, 当 $#Phi基 _(bold(phi))(t_0) = I$ 时 $bold(c) = bold(x)(t_0)$.
 ]
 
+下面把 #变易系数法 用 #矩阵指数 重新表述, 得到的紧凑公式称为 *Duhamel 公式* — 整个外源项响应是齐次响应核 $#expM (dot A)$ 与外源项 $bold(b)$ 的 #卷积. 它的几何意义: 在每个时刻 $s$ 给系统一个 \"瞬间冲量\" $bold(b)(s) dif s$, 经过齐次演化 $#expM ((t-s) A)$ 演到 $t$ 时刻, 把所有 $s in [t_0, t]$ 的贡献叠加起来即得.
+
+#定理条目(
+  "Duhamel 公式",
+  "Duhamel's Formula",
+  uuid: "DuhamelFormula",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A in "Mat"_(n times n)(bb(C))$],
+      [$I subset.eq bb(R)$ 是区间, $t_0 in I$],
+      [$bold(b) : Cont(I, bb(C)^n)$],
+      [$bold(x)_0 in bb(C)^n$],
+    ),
+    结论: [
+      初值问题 $dv(bold(x), t) = A bold(x) + bold(b)(t)$, $bold(x)(t_0) = bold(x)_0$ 在 $I$ 上的唯一解是
+      $ bold(x)(t) = #expM ((t - t_0) A) bold(x)_0 + (#expM (dot A) #conv bold(b))(t), $
+      其中 $#conv$ 是 $[t_0, t]$ 上的 #卷积: $(#expM (dot A) #conv bold(b))(t) = integral_(t_0)^(t) #expM ((t - s) A) bold(b)(s) dif s$.
+    ],
+  )
+]
+
 #注[
-  *非齐次通解的简化表述*: 由 #MatrixExponentialAtZero, 选取 $#Phi基 _(bold(phi)) (0) = I$ 的基本解组使 $#Phi基 _(bold(phi)) = #expM (dot A)$, 则
-  $ bold(x)(t) = #expM ((t - t_0) A) bold(x)(t_0) + integral_(t_0)^(t) #expM ((t - s) A) bold(b)(s) dif s. $
-  右端首项是齐次通解 (#MatrixExponentialGroupProperty 把 $#expM (t A) #expM (-t_0 A)$ 合并为 $#expM ((t-t_0) A)$), 第二项是 #变易系数法 的简化 (类似合并).
+  证明思路: 取 $#Phi基 _(bold(phi)) (0) = I$ 的基本解组 (存在性由 #齐次通解 给出, 等价于 $#Phi基 _(bold(phi)) = #expM (dot A)$ 由 #MatrixExponentialAtZero). 用 #变易系数法是特解 和 #MatrixExponentialGroupProperty 化简: $#Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(s)^(-1) = #expM (t A) #expM (-s A) = #expM ((t-s) A)$, 类似 $#Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(t_0)^(-1) = #expM ((t-t_0) A)$. 代入 $bold(x)(t) = #Phi基 _(bold(phi))(t) bold(c) + #VOP$ 即得.
 ]
 
 #注[
   // TODO §2 后续可补:
   //   - 共振情形 (b 与齐次解空间有共同 e^(λt) 因子)
   //   - 具体例: b(t) 为多项式 / 指数 / 三角 时的对照表
+  //   - 弱意义下的 Duhamel (b ∈ L^1_loc, x 在 Sobolev 意义下满足)
 ]
 
 == 周期系数线性微分方程组

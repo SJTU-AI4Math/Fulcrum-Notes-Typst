@@ -73,6 +73,8 @@
 
 #let 变易系数法是特解 = optionLink("VOPGivesSolution", [变易系数法是特解])
 
+#let Duhamel公式 = optionLink("DuhamelFormula", [Duhamel 公式])
+
 // —— 矩阵指数 ——
 
 #let 矩阵指数 = optionLink("MatrixExponential", [矩阵指数])
