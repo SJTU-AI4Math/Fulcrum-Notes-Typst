@@ -50,3 +50,29 @@
 #let Jordan链产生的解族都是解 = optionLink("JordanChainSolutionsSolve", [Jordan 链产生的解族都是解])
 
 #let Jordan基产生的解组是基本解 = optionLink("JordanBasisSolutionsAreFundamental", [Jordan 基产生的解组是基本解])
+
+// ============================================================
+// §2 常系数非齐次线性微分方程组 — cross-ref optionLink 包装
+// ============================================================
+
+#let 常系数非齐次线性方程组 = optionLink("NonhomogeneousLinearSystem", [常系数非齐次线性微分方程组])
+
+#let 仿射解空间定理 = optionLink("NonhomogeneousSolutionAffineSpace", [非齐次方程组的解集是仿射空间])
+
+#let 基本解矩阵 = optionLink("FundamentalSolutionMatrix", [基本解矩阵])
+
+#let 基本解矩阵的关键性质 = optionLink("FundamentalSolutionMatrixProperties", [基本解矩阵的关键性质])
+
+#let 齐次通解 = optionLink("HomogeneousGeneralSolutionViaPhi", [常系数齐次线性方程组的通解参数化])
+
+#let 变易系数法 = optionLink("VariationOfParameters", [变易系数法])
+
+#let 变易系数法产生特解 = optionLink("VOPGivesSolution", [变易系数法产生非齐次方程组的特解])
+
+#let 非齐次通解 = optionLink("NonhomogeneousGeneralSolutionViaVOP", [常系数非齐次线性方程组的通解参数化])
+
+// 基本解矩阵符号: Phi_phi(t) 中 phi 是基本解组
+#let PhiSym = (phi) => $#optionLink("FundamentalSolutionMatrix", $Phi$)_(#phi)$
+
+// 变易系数法符号: VOP(Phi, b, t_0)
+#let VOP = optionLink("VariationOfParameters", $op("VOP")$)
