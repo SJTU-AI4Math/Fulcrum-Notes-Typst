@@ -71,8 +71,10 @@
 
 #let 非齐次通解 = optionLink("NonhomogeneousGeneralSolutionViaVOP", [常系数非齐次线性方程组的通解参数化])
 
-// 基本解矩阵符号: Phi_phi(t) 中 phi 是基本解组
-#let PhiSym = (phi) => $#optionLink("FundamentalSolutionMatrix", $Phi$)_(#phi)$
+#let 变易系数法是特解 = optionLink("VOPGivesSolution", [变易系数法是特解])
+
+// 基本解矩阵符号: Phi 是带 optionLink 的常量, 下标在调用处显式写 (Phi_phi)
+#let Phi基 = optionLink("FundamentalSolutionMatrix", $Phi$)
 
 // 变易系数法符号: VOP(Phi, b, t_0)
 #let VOP = optionLink("VariationOfParameters", $op("VOP")$)

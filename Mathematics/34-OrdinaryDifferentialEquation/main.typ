@@ -1029,57 +1029,9 @@
   证明思路: 由 #Jordan链产生的解族都是解 知 $#JBS (bold(B)) subset.eq cal(S)_A$ 且每条链内部线性无关. 不同特征值的广义特征子空间在 $cal(S)_A$ 内对应的解族也直和 (因 $t -> infinity$ 时各 $e^(lambda_alpha t)$ 增长速率不同), 故全体 $n$ 个函数线性无关; 又 $dim cal(S)_A = n$, 它们恰好生成 $cal(S)_A$.
 ]
 
-#注[
-  // TODO §1 后续可补:
-  //   - 实矩阵情形: 复特征值成对出现时, 取实部 / 虚部得到实数值基本解
-  //   - 对角化退化情形 (所有 Jordan 块都是 1x1)
-  //   - 基本解矩阵 Phi(t) 与矩阵指数 exp(tA) 的来路 — 即 Phi : R → GL_n(C), Phi(0) = I, 然后 exp(tA) := Phi(t)
-  //   - 与形式幂级数 sum (tA)^k/k! 的等价性
-  //   - 例: 2x2, 3x3 具体计算
-  下一步计划补 "基本解矩阵 $Phi(t)$ 与矩阵指数 $exp(t A)$ 的来路" — 把基本解打包成 $n times n$ 矩阵, 在 $Phi(0) = I$ normalize 下定义 $exp(t A) := Phi(t)$, 并验证其与形式幂级数 $sum_(k=0)^infinity (t A)^k slash k!$ 的等价性.
-]
+=== 基本解矩阵与齐次通解
 
-== 常系数非齐次线性微分方程组
-
-#约定[
-  - $n : bb(N)^*$
-  - $A : "Mat"_(n times n)(bb(C))$
-  - $I subset.eq bb(R)$ 是区间
-  - $bold(b) : Cont(I, bb(C)^n)$
-  - $bold(x) : I -> bb(C)^n$
-]
-
-=== 方程的形式与解空间结构
-
-#定义条目("常系数非齐次线性微分方程组", "Constant-coefficient Nonhomogeneous Linear System of ODEs", uuid: "NonhomogeneousLinearSystem")[
-  #定义子句(
-    主体: [由 $(A, bold(b))$ 决定的*常系数非齐次线性微分方程组*],
-    内容: [#一阶向量ODE $bold(f) : I times bb(C)^n -> bb(C)^n, quad bold(f)(t, bold(x)) := A bold(x) + bold(b)(t)$],
-    记号: $dv(bold(x), t) = A bold(x) + bold(b)(t)$,
-  )
-]
-
-#定理条目(
-  "非齐次方程组的解集是仿射空间",
-  "Solution Set of Nonhomogeneous System is an Affine Space",
-  uuid: "NonhomogeneousSolutionAffineSpace",
-)[
-  #定理子句(
-    cstyle: "display",
-    条件: ([$bold(x)_* in cal(S)_(A, bold(b))$ 是 #常系数非齐次线性方程组 的任一固定解 ("特解")],),
-    结论: [
-      解集 $cal(S)_(A, bold(b)) = bold(x)_* + cal(S)_A$, 即映射 $cal(S)_A -> cal(S)_(A, bold(b)), bold(y) mapsto bold(x)_* + bold(y)$ 是双射. 因此 $cal(S)_(A, bold(b))$ 是 $cal(S)_A$ 上的仿射空间, 维度 $n$.
-    ],
-  )
-]
-
-#注[
-  线性映射相减抵消非齐次项: 若 $bold(x)_1, bold(x)_2 in cal(S)_(A, bold(b))$, 则 $dv((bold(x)_1 - bold(x)_2), t) = A (bold(x)_1 - bold(x)_2)$, 即 $bold(x)_1 - bold(x)_2 in cal(S)_A$. 反向: $bold(x)_* + bold(y)$ 对 $bold(y) in cal(S)_A$ 显然落在 $cal(S)_(A, bold(b))$.
-]
-
-=== 基本解矩阵
-
-为了写出 $cal(S)_(A, bold(b))$ 的显式解, 先把齐次方程的一组 #常系数基本解 打包成一个矩阵值函数, 它的形式可逆性是后续变易系数法的关键.
+为了写出 $cal(S)_A$ 的*显式参数化* (以及后续非齐次解的显式构造), 把一组 #常系数基本解 按列打包成矩阵值函数. 它的形式可逆性是后续 #变易系数法 的关键.
 
 #定义条目(
   "基本解矩阵",
@@ -1087,11 +1039,11 @@
   uuid: "FundamentalSolutionMatrix",
 )[
   #定义子句(
-    主体: [由 #常系数基本解 $bold(phi) = (bold(phi)_1, dots, bold(phi)_n)$ 决定的*基本解矩阵* $#PhiSym (bold(phi))$],
+    主体: [由 #常系数基本解 $bold(phi) = (bold(phi)_1, dots, bold(phi)_n)$ 决定的*基本解矩阵* $#Phi基 _(bold(phi))$],
     内容: [
-      $bb(R) -> "Mat"_(n times n)(bb(C))$ 函数 $(#PhiSym (bold(phi)))(t) := mat(bold(phi)_1 (t), bold(phi)_2 (t), dots.c, bold(phi)_n (t))$, 即第 $i$ 列为 $bold(phi)_i (t)$.
+      $bb(R) -> "Mat"_(n times n)(bb(C))$ 函数 $(#Phi基 _(bold(phi)))(t) := mat(bold(phi)_1 (t), bold(phi)_2 (t), dots.c, bold(phi)_n (t))$, 即第 $i$ 列为 $bold(phi)_i (t)$.
     ],
-    记号: $(#PhiSym (bold(phi)))(t)$,
+    记号: $(#Phi基 _(bold(phi)))(t)$,
   )
 ]
 
@@ -1105,15 +1057,15 @@
     条件: ([$bold(phi)$ 是 $dv(bold(x), t) = A bold(x)$ 的一组 #常系数基本解],),
     结论: [
       $#structProp(
-        (name: [矩阵 ODE], value: [$forall t in bb(R), dv((#PhiSym (bold(phi)))(t), t) = A (#PhiSym (bold(phi)))(t)$]),
-        (name: [处处可逆], value: [$forall t in bb(R), (#PhiSym (bold(phi)))(t) in op("GL")_n (bb(C))$]),
+        (name: [矩阵 ODE], value: [$forall t in bb(R), dv((#Phi基 _(bold(phi)))(t), t) = A (#Phi基 _(bold(phi)))(t)$]),
+        (name: [处处可逆], value: [$forall t in bb(R), (#Phi基 _(bold(phi)))(t) in op("GL")_n (bb(C))$]),
       )$
     ],
   )
 ]
 
 #注[
-  "处处可逆" 来自 Liouville 公式: $det (#PhiSym (bold(phi)))$ 满足 $dv(d, t) = ("tr" A) det$, 故 $det(#PhiSym (bold(phi)))(t) = det(#PhiSym (bold(phi)))(0) e^(("tr" A) t)$, 而 $det(#PhiSym (bold(phi)))(0) eq.not 0$ 来自 $bold(phi)_i$ 线性无关.
+  "处处可逆" 来自 Liouville 公式: $det (#Phi基 _(bold(phi)))$ 满足 $dv(d, t) = ("tr" A) det$, 故 $det(#Phi基 _(bold(phi)))(t) = det(#Phi基 _(bold(phi)))(0) e^(("tr" A) t)$, 而 $det(#Phi基 _(bold(phi)))(0) eq.not 0$ 来自 $bold(phi)_i$ 线性无关.
 ]
 
 #定理条目(
@@ -1125,14 +1077,64 @@
     cstyle: "display",
     条件: ([$bold(phi)$ 是 $dv(bold(x), t) = A bold(x)$ 的一组 #常系数基本解],),
     结论: [
-      映射 $bb(C)^n -> cal(S)_A, bold(c) mapsto (t mapsto (#PhiSym (bold(phi)))(t) bold(c))$ 是线性同构. 即 $cal(S)_A$ 中任意解可唯一写成 $bold(x)(t) = (#PhiSym (bold(phi)))(t) bold(c)$, $bold(c) in bb(C)^n$.
+      映射 $bb(C)^n -> cal(S)_A, bold(c) mapsto (t mapsto (#Phi基 _(bold(phi)))(t) bold(c))$ 是线性同构. 即 $cal(S)_A$ 中任意解可唯一写成 $bold(x)(t) = (#Phi基 _(bold(phi)))(t) bold(c)$, $bold(c) in bb(C)^n$.
     ],
   )
 ]
 
-=== 变易系数法
+#注[
+  // TODO §1 后续可补:
+  //   - 实矩阵情形: 复特征值成对出现时, 取实部 / 虚部得到实数值基本解
+  //   - 对角化退化情形 (所有 Jordan 块都是 1x1)
+  //   - 矩阵指数 exp(tA) 与 Phi(0) = I 的 normalize 关系 — 即 exp(tA) := Phi_phi(t) Phi_phi(0)^{-1}
+  //   - 与形式幂级数 sum (tA)^k/k! 的等价性
+  //   - 例: 2x2, 3x3 具体计算
+  下一步计划补 "矩阵指数 $exp(t A) := #Phi基 _(bold(phi)) (t) #Phi基 _(bold(phi)) (0)^(-1)$ 的定义" — 验证其与形式幂级数 $sum_(k=0)^infinity (t A)^k slash k!$ 的等价性, 并不依赖 $bold(phi)$ 的选取.
+]
 
-齐次通解 $bold(x)(t) = #PhiSym (bold(phi)) (t) bold(c)$ 中, $bold(c)$ 是常向量. 变易系数法的思想: 把 $bold(c)$ 替换为待定函数 $bold(c)(t)$, 强行让 $#PhiSym (bold(phi)) (t) bold(c)(t)$ 满足非齐次方程, 反解出 $bold(c)(t)$.
+== 常系数非齐次线性微分方程组
+
+#约定[
+  - $n : bb(N)^*$
+  - $A : "Mat"_(n times n)(bb(C))$
+  - $I subset.eq bb(R)$ 是区间
+  - $bold(b) : Cont(I, bb(C)^n)$
+  - $bold(x) : I -> bb(C)^n$
+]
+
+#定义条目("常系数非齐次线性微分方程组", "Constant-coefficient Nonhomogeneous Linear System of ODEs", uuid: "NonhomogeneousLinearSystem")[
+  #定义子句(
+    主体: [由 $(A, bold(b))$ 决定的*常系数非齐次线性微分方程组*],
+    内容: [#一阶向量ODE $bold(f) : I times bb(C)^n -> bb(C)^n, quad bold(f)(t, bold(x)) := A bold(x) + bold(b)(t)$],
+    记号: $dv(bold(x), t) = A bold(x) + bold(b)(t)$,
+  )
+]
+
+=== 解空间是 (特解) + (齐次解空间)
+
+#定理条目(
+  "非齐次方程组的解集是仿射空间",
+  "Solution Set of Nonhomogeneous System is an Affine Space",
+  uuid: "NonhomogeneousSolutionAffineSpace",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$bold(x)_* in cal(S)_(A, bold(b))$ 是 #常系数非齐次线性方程组 的任一固定解 ("特解")],),
+    结论: [
+      映射 $cal(S)_A -> cal(S)_(A, bold(b)), bold(y) mapsto bold(x)_* + bold(y)$ 是双射. 故 $cal(S)_(A, bold(b)) = bold(x)_* + cal(S)_A$ 是 $cal(S)_A$ 上的仿射空间, 维度 $n$.
+    ],
+  )
+]
+
+#注[
+  正向: 若 $bold(x)_1, bold(x)_2 in cal(S)_(A, bold(b))$, 则 $dv((bold(x)_1 - bold(x)_2), t) = A (bold(x)_1 - bold(x)_2)$, 即 $bold(x)_1 - bold(x)_2 in cal(S)_A$. 反向: 取 $bold(y) in cal(S)_A$, 则 $bold(x)_* + bold(y) in cal(S)_(A, bold(b))$.
+]
+
+=== 特解的构造: 变易系数法
+
+由 #仿射解空间定理 知, 求 $cal(S)_(A, bold(b))$ 只需找一个特解 $bold(x)_* in cal(S)_(A, bold(b))$. 余下任务是构造特解.
+
+齐次通解 $bold(x)(t) = (#Phi基 _(bold(phi))) (t) bold(c)$ 中 $bold(c)$ 是常向量. *变易系数法*的思想: 把 $bold(c)$ 替换为待定函数 $bold(c)(t)$, 强行让 $(#Phi基 _(bold(phi))) (t) bold(c)(t)$ 满足非齐次方程, 反解 $bold(c)(t)$.
 
 #定义条目(
   "变易系数法",
@@ -1140,11 +1142,11 @@
   uuid: "VariationOfParameters",
 )[
   #定义子句(
-    主体: [基于 #基本解矩阵 $#PhiSym (bold(phi))$, 非齐次项 $bold(b)$, 初值时刻 $t_0$ 的*变易系数法*输出 $#VOP (#PhiSym (bold(phi)), bold(b), t_0)$],
+    主体: [基于 #基本解矩阵 $#Phi基 _(bold(phi))$, 非齐次项 $bold(b)$, 初值时刻 $t_0$ 的*变易系数法*输出 $#VOP (#Phi基 _(bold(phi)), bold(b), t_0)$],
     内容: [
-      $I -> bb(C)^n$ 函数 $(#VOP (#PhiSym (bold(phi)), bold(b), t_0))(t) := (#PhiSym (bold(phi)))(t) integral_(t_0)^(t) (#PhiSym (bold(phi)))(s)^(-1) bold(b)(s) dif s$.
+      $I -> bb(C)^n$ 函数 $(#VOP (#Phi基 _(bold(phi)), bold(b), t_0))(t) := (#Phi基 _(bold(phi)))(t) integral_(t_0)^(t) (#Phi基 _(bold(phi)))(s)^(-1) bold(b)(s) dif s$.
     ],
-    记号: $#VOP (#PhiSym (bold(phi)), bold(b), t_0)$,
+    记号: $#VOP (#Phi基 _(bold(phi)), bold(b), t_0)$,
     条件: (
       [$bold(phi)$ 是齐次方程 $dv(bold(x), t) = A bold(x)$ 的一组 #常系数基本解],
       [$bold(b) : Cont(I, bb(C)^n)$],
@@ -1167,50 +1169,35 @@
     ),
     结论: [
       $#structProp(
-        (name: [满足非齐次方程], value: [$#VOP (#PhiSym (bold(phi)), bold(b), t_0) in cal(S)_(A, bold(b))$]),
-        (name: [零初值], value: [$(#VOP (#PhiSym (bold(phi)), bold(b), t_0))(t_0) = bold(0)$]),
+        (name: [是非齐次方程的解], value: [$#VOP (#Phi基 _(bold(phi)), bold(b), t_0) in cal(S)_(A, bold(b))$]),
+        (name: [零初值], value: [$(#VOP (#Phi基 _(bold(phi)), bold(b), t_0))(t_0) = bold(0)$]),
       )$
     ],
   )
 ]
 
 #注[
-  验证 "满足非齐次方程": 记 $bold(u)(t) := (#VOP (#PhiSym (bold(phi)), bold(b), t_0))(t) = #PhiSym (bold(phi))(t) bold(c)(t)$, 其中 $bold(c)(t) = integral_(t_0)^t #PhiSym (bold(phi))(s)^(-1) bold(b)(s) dif s$. 则
+  验证 "是非齐次方程的解": 记 $bold(u)(t) := (#VOP (#Phi基 _(bold(phi)), bold(b), t_0))(t) = #Phi基 _(bold(phi))(t) bold(c)(t)$, 其中 $bold(c)(t) := integral_(t_0)^t #Phi基 _(bold(phi))(s)^(-1) bold(b)(s) dif s$. 则
   $
-    bold(u)'(t) &= #PhiSym (bold(phi))'(t) bold(c)(t) + #PhiSym (bold(phi))(t) bold(c)'(t) \
-    &= A #PhiSym (bold(phi))(t) bold(c)(t) + #PhiSym (bold(phi))(t) #PhiSym (bold(phi))(t)^(-1) bold(b)(t) \
+    bold(u)'(t) &= #Phi基 _(bold(phi))'(t) bold(c)(t) + #Phi基 _(bold(phi))(t) bold(c)'(t) \
+    &= A #Phi基 _(bold(phi))(t) bold(c)(t) + #Phi基 _(bold(phi))(t) #Phi基 _(bold(phi))(t)^(-1) bold(b)(t) \
     &= A bold(u)(t) + bold(b)(t),
   $
   其中第二步用了 #基本解矩阵的关键性质 (矩阵 ODE) 与 微积分基本定理.
 ]
 
-#定理条目(
-  "常系数非齐次线性方程组的通解参数化",
-  "General Solution of Nonhomogeneous System via VOP",
-  uuid: "NonhomogeneousGeneralSolutionViaVOP",
-)[
-  #定理子句(
-    cstyle: "display",
-    条件: (
-      [$bold(phi)$ 是 $dv(bold(x), t) = A bold(x)$ 的一组 #常系数基本解],
-      [$bold(b) : Cont(I, bb(C)^n)$],
-      [$t_0 in I$],
-    ),
-    结论: [
-      映射 $bb(C)^n -> cal(S)_(A, bold(b)), bold(c) mapsto (t mapsto #PhiSym (bold(phi))(t) bold(c) + (#VOP (#PhiSym (bold(phi)), bold(b), t_0))(t))$ 是双射. 即 $cal(S)_(A, bold(b))$ 中任意解可唯一写成
-      $ bold(x)(t) = #PhiSym (bold(phi))(t) bold(c) + (#VOP (#PhiSym (bold(phi)), bold(b), t_0))(t), quad bold(c) in bb(C)^n. $
-    ],
-  )
-]
-
 #注[
-  $bold(c)$ 由初值 $bold(x)(t_0)$ 给出: $bold(c) = #PhiSym (bold(phi))(t_0)^(-1) bold(x)(t_0)$. 当 $#PhiSym (bold(phi))(t_0) = I$ 时 $bold(c) = bold(x)(t_0)$, 这是初值问题的标准表述.
+  把 #变易系数法是特解 + #仿射解空间定理 合起来:
+  $ cal(S)_(A, bold(b)) = #VOP (#Phi基 _(bold(phi)), bold(b), t_0) + cal(S)_A. $
+  即*非齐次通解* = *变易系数法给的特解* + *齐次通解*. 显式公式由 #齐次通解 给出:
+  $ bold(x)(t) = #Phi基 _(bold(phi))(t) bold(c) + (#VOP (#Phi基 _(bold(phi)), bold(b), t_0))(t), quad bold(c) in bb(C)^n. $
+  其中 $bold(c) = #Phi基 _(bold(phi))(t_0)^(-1) bold(x)(t_0)$, 当 $#Phi基 _(bold(phi))(t_0) = I$ 时 $bold(c) = bold(x)(t_0)$.
 ]
 
 #注[
   // TODO §2 后续可补:
-  //   - exp(tA) 形式的基本解矩阵 (即 Phi(0) = I) 简化公式: x(t) = exp((t-t_0)A) x_0 + ∫_{t_0}^t exp((t-s)A) b(s) ds
-  //   - 共振情形的特殊处理 (b 与齐次解空间有共同 e^(λt) 因子)
+  //   - exp(tA) 形式的简化公式: x(t) = exp((t-t_0)A) x_0 + ∫_{t_0}^t exp((t-s)A) b(s) ds
+  //   - 共振情形 (b 与齐次解空间有共同 e^(λt) 因子)
   //   - 具体例: b(t) 为多项式 / 指数 / 三角 时的对照表
 ]
 
