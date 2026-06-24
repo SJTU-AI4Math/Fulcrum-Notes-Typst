@@ -8,6 +8,15 @@
 /* differential theory */
 #import "../26-BasicAnalysis/export.typ": *
 
+/* linear algebra (特征值理论 / Jordan 标准型 术语化) */
+#import "../15-LinearAlgebra/export.typ": *
+
+/* type theory (structProp 等) */
+#import "../03-TypeTheory/export.typ": *
+
+/* contributors */
+#import "../contributors.typ": *
+
 #show: FulcrumCN
 
 // #hideRemark
@@ -881,4 +890,168 @@
   常微分方程
   $ dv(x, t) = x ln |x| $
   满足初值条件 $x(0)=0$ 的解是唯一的. 这是因为 $f(t,x)=x ln |x|$ 满足 Osgood 条件, 但不满足 Lipschitz 条件.
+]
+
+// ============================================================
+= 线性微分方程组
+// ============================================================
+//
+// 章节结构 (猫猫 2026-06-24 拍板):
+//   §1 常系数齐次线性微分方程组
+//   §2 常系数非齐次线性微分方程组
+//   §3 周期系数 ...... (TODO)
+//
+// 风格: 新 API (#定义条目 / #定理条目 + *子句), 即使 ODE 章前半部为老 API
+// Jordan 标准型 / 广义特征向量等术语由 15-LinearAlgebra/export.typ 提供 optionLink
+// (LA 章对应 entry 暂未补; link 当前降级为纯文本不报错, 将来 entry 落地时自动生效)
+//
+// ============================================================
+
+== 常系数齐次线性微分方程组
+
+#约定[
+  - $n : bb(N)^*$
+  - $A : "Mat"_(n times n)(bb(C))$ 是 $n times n$ 复矩阵
+  - $bold(x) : bb(R) -> bb(C)^n$ 是未知向量函数
+]
+
+=== 方程的形式与解空间结构
+
+#定义条目("常系数齐次线性微分方程组", "Constant-coefficient Homogeneous Linear System of ODEs", uuid: "ConstantCoefficientHomogeneousLinearSystem")[
+  #定义子句(
+    主体: [由矩阵 $A$ 决定的*常系数齐次线性微分方程组*],
+    内容: [形如
+      $ dv(bold(x), t) = A bold(x) $
+      的常微分方程组, 其中 $A in "Mat"_(n times n)(bb(C))$ 是常矩阵.],
+    记号: $dv(bold(x), t) = A bold(x)$,
+  )
+]
+
+#注[
+  按 #一阶向量ODE 的标准形式, 这里 $bold(f)(t, bold(x)) = A bold(x)$, 相区域 $U = bb(R) times bb(C)^n$. "常系数" 即 $A$ 不依赖 $t$, 等价地这是 #自治ODE.
+]
+
+#定理条目("常系数齐次线性方程组解的基本结构", "Solution Space of Constant-coefficient Homogeneous Linear System", uuid: "ConstantCoefficientHomogeneousSolutionSpace")[
+  #定理子句(
+    cstyle: "display",
+    条件: ([$A in "Mat"_(n times n)(bb(C))$]),
+    结论: [$dv(bold(x), t) = A bold(x)$ 的所有解构成 $bb(C)$ 上的 $n$ 维线性空间.],
+  )
+  #注条目("\"解空间 n 维\" 的来路", "")[
+    #定理子句(
+      cstyle: "display",
+      结论: [由解的存在唯一性 (Picard-Lindelöf 定理对应用于 $bold(f)(t,bold(x))=A bold(x)$ 满足全局 Lipschitz 条件) , 对任意初值 $bold(x)(0) = bold(c) in bb(C)^n$ 存在唯一解; 这给出 $bb(C)^n -> {"解"}$ 的线性双射 $bold(c) mapsto bold(x)_(bold(c))(dot)$.],
+    )
+  ]
+]
+
+=== 由 Jordan 链构造基本解
+
+下面构造 $n$ 个具体的线性无关解, 它们由 $A$ 的 #广义特征向量 在 #Jordan链 上排成的结构产生.
+
+#定义条目("常系数线性方程组的基本解", "Fundamental Solution of Constant-coefficient Linear System", uuid: "FundamentalSolutionConstantCoefficient")[
+  #定义子句(
+    主体: [$bold(phi)_1, dots, bold(phi)_n : bb(R) -> bb(C)^n$ 是 $dv(bold(x), t) = A bold(x)$ 的一组*基本解*],
+    isPredicate: true,
+    内容: [
+      $#structProp(
+        (name: [都是解], value: [$forall i, dv(bold(phi)_i, t) = A bold(phi)_i$]),
+        (name: [线性无关], value: [$bold(phi)_1, dots, bold(phi)_n$ 作为函数 $bb(R) -> bb(C)^n$ 线性无关]),
+      )$
+    ],
+  )
+  #注条目("基本解 = 解空间的基", "")[
+    #定理子句(
+      结论: [由 #解空间结构定理 知解空间 $n$ 维, 故基本解的存在即给出该空间的一组基; 任意解 $bold(x)(t) = sum_(i=1)^n c_i bold(phi)_i (t)$, $c_i in bb(C)$ 由初值唯一确定.],
+    )
+  ]
+]
+
+#定理条目(
+  "Jordan 链产生基本解",
+  "Jordan Chain Produces Fundamental Solutions",
+  uuid: "JordanChainFundamentalSolutions",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$lambda in bb(C)$ 是 $A$ 的一个 #特征值],
+      [$bold(v)_0, bold(v)_1, dots, bold(v)_(m-1) in bb(C)^n$ 是 $A$ 在 $lambda$ 处的一条 #Jordan链, 即
+        $ A bold(v)_0 = lambda bold(v)_0, quad A bold(v)_k = lambda bold(v)_k + bold(v)_(k-1) " " (1 <= k <= m-1) $],
+    ),
+    结论: [
+      对 $0 <= k <= m-1$ 定义
+      $ bold(phi)_k (t) := e^(lambda t) sum_(j=0)^(k) t^j / j! bold(v)_(k-j) , $
+      则
+      $#structProp(
+        (name: [都是解], value: [$forall 0 <= k <= m-1, dv(bold(phi)_k, t) = A bold(phi)_k$]),
+        (name: [线性无关], value: [$bold(phi)_0, dots, bold(phi)_(m-1)$ 作为函数 $bb(R) -> bb(C)^n$ 线性无关]),
+      )$
+    ],
+  )
+  #注条目("展开看前几项", "")[
+    #定理子句(
+      结论: [
+        $
+          bold(phi)_0 (t) &= e^(lambda t) bold(v)_0 \
+          bold(phi)_1 (t) &= e^(lambda t) (t bold(v)_0 + bold(v)_1) \
+          bold(phi)_2 (t) &= e^(lambda t) (t^2 / 2 bold(v)_0 + t bold(v)_1 + bold(v)_2) \
+          dots.v
+        $
+        即长度 $m$ 的 Jordan 链给出 $m$ 个解, 解中 $t$ 的最高次为 $m-1$.
+      ],
+    )
+  ]
+]
+
+#定理条目(
+  "Jordan 链族给出基本解",
+  "Jordan Chains Yield a Fundamental Solution Set",
+  uuid: "JordanChainsYieldFundamentalSolutions",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A in "Mat"_(n times n)(bb(C))$],
+      [$A$ 在 $bb(C)^n$ 上有一组 #Jordan基 $bold(v)_(alpha, 0), bold(v)_(alpha, 1), dots, bold(v)_(alpha, m_alpha - 1)$, 其中 $alpha$ 遍历 Jordan 块的索引, $sum_alpha m_alpha = n$, 每条链对应特征值 $lambda_alpha$],
+    ),
+    结论: [
+      对每条 Jordan 链按 #Jordan链产生基本解 构造的解 $bold(phi)_(alpha, k) (t)$ ($0 <= k <= m_alpha - 1$), 全体合起来恰构成 $dv(bold(x), t) = A bold(x)$ 的一组 #常系数基本解.
+    ],
+  )
+  #注条目("从存在性 Jordan 标准型到具体基本解", "")[
+    #定理子句(
+      结论: [
+        #Jordan标准型 的存在性 (15-LinearAlgebra 章) 给出 $bb(C)^n$ 上的 Jordan 基; 把 #Jordan链产生基本解 应用到每条链, 由 "不同特征值的广义特征子空间直和分解 + 每块内构造的解在该块内线性无关" 拼出全空间内的 $n$ 个线性无关解.
+      ],
+    )
+  ]
+]
+
+#注[
+  // TODO §1 后续可补内容:
+  //   - 实矩阵情形: 复特征值成对出现时, 取实部 / 虚部得到实数值基本解
+  //   - $A$ 可对角化的退化情形 (所有 Jordan 块都是 1x1)
+  //   - 由基本解组装"基本解矩阵" $Phi(t)$ 及矩阵指数 $exp(t A)$ 的来路
+  //   - 例: $2 times 2$, $3 times 3$ 具体计算样例
+  下一步计划补 \"基本解矩阵 $Phi(t)$ 与 $exp(t A)$ 的等价性\" — 即把基本解打包成 $n times n$ 矩阵, 在 $Phi(0) = I$ normalize 下定义 $exp(t A) := Phi(t)$, 并验证其等同于形式幂级数 $sum_(k=0)^infinity (t A)^k slash k!$. 这条留作下一轮 entry.
+]
+
+== 常系数非齐次线性微分方程组
+
+// TODO: 待写
+//   - 常数变易法 (Variation of Parameters)
+//   - $exp(t A)$ 形式的基本解矩阵作用
+//   - 具体例: $bold(b)(t)$ 为多项式 / 指数 / 三角 时的代入法
+#注[
+  本节内容待补.
+]
+
+== 周期系数线性微分方程组
+
+// TODO: 待写
+//   - Floquet 理论框架
+//   - 单调矩阵与 Floquet 指数
+#注[
+  本节内容待补.
 ]

@@ -100,3 +100,53 @@ lr(
   "LinearRestriction",
   $|$,
 )_#s$
+
+// ============================================================
+// 特征值理论 / Jordan 标准型 (术语化 only, entry 待 LA 章补)
+// ============================================================
+
+// —— 特征值 / 特征向量族 ——
+
+#let 特征值 = optionLink("Eigenvalue", [特征值], url: "https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%B5%E5%80%BC")
+
+#let 特征向量 = optionLink("Eigenvector", [特征向量], url: "https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%B5%E5%90%91%E9%87%8F")
+
+#let 广义特征向量 = optionLink("GeneralizedEigenvector", [广义特征向量], url: "https://en.wikipedia.org/wiki/Generalized_eigenvector")
+
+#let 特征子空间 = optionLink("Eigenspace", [特征子空间])
+
+#let 广义特征子空间 = optionLink("GeneralizedEigenspace", [广义特征子空间])
+
+#let 特征多项式 = optionLink("CharacteristicPolynomial", [特征多项式], url: "https://zh.wikipedia.org/wiki/%E7%89%B9%E5%BE%81%E5%A4%9A%E9%A1%B9%E5%BC%8F")
+
+#let 极小多项式 = optionLink("MinimalPolynomial", [极小多项式], url: "https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E5%A4%9A%E9%A1%B9%E5%BC%8F")
+
+#let 代数重数 = optionLink("AlgebraicMultiplicity", [代数重数])
+
+#let 几何重数 = optionLink("GeometricMultiplicity", [几何重数])
+
+// —— Jordan 标准型 ——
+
+#let Jordan标准型 = optionLink("JordanCanonicalForm", [Jordan 标准型], url: "https://zh.wikipedia.org/wiki/%E7%BA%A6%E5%B0%94%E5%BD%93%E6%A0%87%E5%87%86%E5%9E%8B")
+
+#let Jordan块 = optionLink("JordanBlock", [Jordan 块])
+
+#let Jordan链 = optionLink("JordanChain", [Jordan 链])
+
+#let Jordan基 = optionLink("JordanBasis", [Jordan 基])
+
+// Jordan 块符号: $J_m(λ)$ 表 m 阶 Jordan 块对应特征值 λ
+#let JBlock = (m, lambdas) => $#optionLink("JordanBlock", $J$)_(#m)(#lambdas)$
+
+// —— 谱 / 算子函数计算的基本对象 ——
+
+#let 谱 = optionLink("Spectrum", [谱], url: "https://zh.wikipedia.org/wiki/%E8%B0%B1_(%E6%95%B0%E5%AD%A6)")
+
+#let Spec = optionLink("Spectrum", $op("Spec")$)
+
+// 幂零部分 / 半单部分 (Jordan-Chevalley 分解)
+#let 幂零 = optionLink("Nilpotent", [幂零])
+
+#let 半单 = optionLink("Semisimple", [半单])
+
+#let JordanChevalley = optionLink("JordanChevalleyDecomposition", [Jordan-Chevalley 分解])
