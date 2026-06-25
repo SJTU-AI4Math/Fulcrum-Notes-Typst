@@ -124,3 +124,53 @@
 
 // 变易系数法符号: VOP(Phi, b, t_0)
 #let VOP = optionLink("VariationOfParameters", $op("VOP")$)
+
+// ============================================================
+// = 常微分方程的定性理论 章 — § Lyapunov 稳定性
+// ============================================================
+
+// —— 概念 ——
+
+#let 平衡点 = optionLink("Equilibrium", [平衡点])
+
+#let Lyapunov稳定 = optionLink("LyapunovStable", [Lyapunov 稳定])
+
+#let 渐近稳定 = optionLink("AsymptoticallyStable", [渐近稳定])
+
+#let 不稳定 = optionLink("UnstableEquilibrium", [不稳定])
+
+#let 吸引点 = optionLink("AttractingPoint", [吸引点])
+
+#let 吸引域 = optionLink("BasinOfAttraction", [吸引域])
+
+// —— 线性 system 稳定性判据 ——
+
+#let 渐近稳定的谱判据 = optionLink(
+  "ConstantCoefficientAsymptoticStabilityCriterion",
+  [常系数齐次线性方程组的渐近稳定判据],
+)
+
+#let Lyapunov稳定的谱判据 = optionLink(
+  "ConstantCoefficientLyapunovStabilityCriterion",
+  [常系数齐次线性方程组的 Lyapunov 稳定判据],
+)
+
+#let 不稳定的谱判据 = optionLink(
+  "ConstantCoefficientInstabilityCriterion",
+  [常系数齐次线性方程组的不稳定判据],
+)
+
+#let 周期系数渐近稳定的Floquet判据 = optionLink(
+  "PeriodicLinearAsymptoticStabilityCriterion",
+  [周期系数线性方程组的渐近稳定判据],
+)
+
+#let 周期系数Lyapunov稳定的Floquet判据 = optionLink(
+  "PeriodicLinearLyapunovStabilityCriterion",
+  [周期系数线性方程组的 Lyapunov 稳定判据],
+)
+
+#let 周期系数不稳定的Floquet判据 = optionLink(
+  "PeriodicLinearInstabilityCriterion",
+  [周期系数线性方程组的不稳定判据],
+)

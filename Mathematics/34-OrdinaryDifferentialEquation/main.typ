@@ -1501,3 +1501,267 @@
   //   - 经典例: Hill 方程 / Mathieu 方程
   //   - 与 Lyapunov 指数的关系
 ]
+
+= 常微分方程的定性理论
+
+== Lyapunov 稳定性
+
+#约定[
+  - $n : bb(N)^*$
+  - $Omega subset.eq bb(R)^n$ 非空开集
+  - $bold(f) in Cont(Omega, bb(R)^n)$ 局部 Lipschitz, 视作自治一阶向量 ODE $dv(bold(x), t) = bold(f)(bold(x))$ (#一阶向量ODE 在 #自治ODE 情形下的标准函数式表示)
+  - $bold(x)_* in Omega$, $bold(x)_0 in Omega$
+  - $bold(phi.alt)_(bold(x)_0)$ 记初值问题 $dv(bold(x), t) = bold(f)(bold(x)), bold(x)(0) = bold(x)_0$ 在最大向前存在区间上的唯一解 (由 Picard-Lindelöf 局部存在唯一性 + 标准延拓保证)
+  - $|dot.op|$ 是 $bb(R)^n$ 上的任一固定范数 (稳定性概念不依赖范数选取, 因 $bb(R)^n$ 上诸范数等价)
+]
+
+*平衡点是自治 ODE 中"不动"的点 — 起点放在那里, 解就一直待在那里.*
+
+#定义条目(
+  "平衡点",
+  "Equilibrium / Stationary Point",
+  uuid: "Equilibrium",
+)[
+  #定义子句(
+    主体: [自治 ODE $bold(f)$ 的*平衡点*],
+    内容: [$bold(f)$ 的零点, 即 $bold(x)_* in Omega$ 满足 $bold(f)(bold(x)_*) = bold(0)$.],
+    记号: $bold(x)_*$,
+  )
+]
+
+#注[
+  $bold(x)_*$ 是 $bold(f)$ 的平衡点 当且仅当 $bold(phi.alt)(t) equiv bold(x)_*$ 是 $dv(bold(x), t) = bold(f)(bold(x))$ 的解, 称为 #平衡点 处的*常解*. 平衡点与常解一一对应.
+]
+
+*稳定性是关于"邻近初值的解长期会不会偏离平衡点"的局部 quantifier 嵌套陈述.* 三类基本性质由两条独立量化条件复合而成: (i) ε-δ 局部有界 (Lyapunov 稳定), (ii) 局部收敛 (吸引). 渐近稳定 = 二者皆有; 不稳定 = (i) 失败.
+
+#定义条目(
+  "Lyapunov 稳定",
+  "Lyapunov Stable",
+  uuid: "LyapunovStable",
+)[
+  #定义子句(
+    主体: [假设 $bold(x)_*$ 是 #平衡点; $bold(x)_*$ 是 *Lyapunov 稳定* 的],
+    isPredicate: true,
+    内容: [
+      对任意 $epsilon in bb(R)_+$, 存在 $delta in bb(R)_+$, 使得对一切 $bold(x)_0 in Omega$ 满足 $|bold(x)_0 - bold(x)_*| < delta$, $bold(phi.alt)_(bold(x)_0)$ 在 $[0, +infinity)$ 上存在 (即解全局向前存在), 且
+      $ forall t in [0, +infinity), quad |bold(phi.alt)_(bold(x)_0)(t) - bold(x)_*| < epsilon. $
+    ],
+  )
+]
+
+#注[
+  Lyapunov 稳定包含*两层断言*: (i) 邻近初值的解全局向前存在 (不在有限时间爆破); (ii) 解一致地被 $epsilon$-界控制. 仅有 (ii) 不够 — 若解在 $T < +infinity$ 处爆破, "$forall t in [0, T), |bold(phi.alt)(t) - bold(x)_*| < epsilon$" 仍能成立, 但这不是稳定的常识含义.
+]
+
+#定义条目(
+  "吸引点",
+  "Attracting Point",
+  uuid: "AttractingPoint",
+)[
+  #定义子句(
+    主体: [假设 $bold(x)_*$ 是 #平衡点; $bold(x)_*$ 是 *吸引点*],
+    isPredicate: true,
+    内容: [
+      存在 $eta in bb(R)_+$, 使得对一切 $bold(x)_0 in Omega$ 满足 $|bold(x)_0 - bold(x)_*| < eta$, $bold(phi.alt)_(bold(x)_0)$ 在 $[0, +infinity)$ 上存在, 且
+      $ lim_(t -> +infinity) bold(phi.alt)_(bold(x)_0)(t) = bold(x)_*. $
+    ],
+  )
+]
+
+#定义条目(
+  "吸引域",
+  "Basin of Attraction",
+  uuid: "BasinOfAttraction",
+)[
+  #定义子句(
+    主体: [假设 $bold(x)_*$ 是 #吸引点; $bold(x)_*$ 的*吸引域*],
+    内容: [
+      $ {bold(x)_0 in Omega thin : thin bold(phi.alt)_(bold(x)_0) "在" [0, +infinity) "上存在", lim_(t -> +infinity) bold(phi.alt)_(bold(x)_0)(t) = bold(x)_*}. $
+    ],
+    记号: $cal(B)(bold(x)_*)$,
+  )
+]
+
+#注[
+  吸引域 $cal(B)(bold(x)_*)$ 是 $Omega$ 的一个 (一般不闭) 子集; 由 $bold(phi.alt)$ 对初值的连续依赖, 它是 $Omega$ 中的开集. 当 $cal(B)(bold(x)_*) = Omega$ 时 $bold(x)_*$ 称*全局吸引*.
+]
+
+#定义条目(
+  "渐近稳定",
+  "Asymptotically Stable",
+  uuid: "AsymptoticallyStable",
+)[
+  #定义子句(
+    主体: [假设 $bold(x)_*$ 是 #平衡点; $bold(x)_*$ 是*渐近稳定*的],
+    isPredicate: true,
+    内容: [$bold(x)_*$ 同时是 #Lyapunov稳定 的与 #吸引点.],
+  )
+]
+
+#定义条目(
+  "不稳定",
+  "Unstable",
+  uuid: "UnstableEquilibrium",
+)[
+  #定义子句(
+    主体: [假设 $bold(x)_*$ 是 #平衡点; $bold(x)_*$ 是*不稳定*的],
+    isPredicate: true,
+    内容: [$bold(x)_*$ 不是 #Lyapunov稳定 的.],
+  )
+]
+
+#注[
+  渐近稳定 strictly 强于吸引 (即 "吸引但不 Lyapunov 稳定"的退化平衡点确实存在, 经典反例 Vinograd 在 $bb(R)^2$ 上显式构造). 故定义渐近稳定时必须显式加上 Lyapunov 稳定一条, 不能省.
+]
+
+#注[
+  #平衡点 的稳定性三分: Lyapunov 稳定但不吸引 / 渐近稳定 / 不稳定; 三类两两不交且覆盖一切平衡点 (按 (i) 是否成立 + (ii) 是否成立的真值表枚举, "(i) 失败 + (ii) 成立"即上面 Vinograd 例).
+]
+
+*线性 system 的稳定性完全由系数矩阵的谱决定.* 对 $dv(bold(x), t) = A bold(x)$, $bold(0)$ 始终是 #平衡点 ($A bold(0) = bold(0)$), 故谈"$bold(0)$ 的稳定性"无需额外假设. 由 $bold(phi.alt)_(bold(x)_0)(t) = #expM (t A) bold(x)_0$ 的显式解, 长时间行为由 $#expM (t A)$ 的范数渐近完全刻画, 后者由 $A$ 的 Jordan 分解决定.
+
+#定理条目(
+  "常系数齐次线性方程组的渐近稳定判据",
+  "Asymptotic Stability Criterion for Constant-Coefficient Linear System",
+  uuid: "ConstantCoefficientAsymptoticStabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A in "Mat"_(n times n)(bb(C))$],
+      [考虑 #常系数齐次线性方程组 $dv(bold(x), t) = A bold(x)$ 在 $bold(0)$ 处的平衡点],
+    ),
+    结论: [
+      $bold(0)$ 是 #渐近稳定 $iff$ $A$ 的全部特征值实部严格小于零, 即 $forall lambda in sigma(A), op("Re") lambda < 0$.
+    ],
+  )
+]
+
+#注[
+  此条件下 $A$ 称*Hurwitz 矩阵*. 等价描述: $exists c, M in bb(R)_+, forall t in [0, +infinity), norm(#expM (t A)) <= M e^(-c t)$ — 指数衰减一致地成立.
+]
+
+#定理条目(
+  "常系数齐次线性方程组的 Lyapunov 稳定判据",
+  "Lyapunov Stability Criterion for Constant-Coefficient Linear System",
+  uuid: "ConstantCoefficientLyapunovStabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A in "Mat"_(n times n)(bb(C))$],
+      [考虑 #常系数齐次线性方程组 $dv(bold(x), t) = A bold(x)$ 在 $bold(0)$ 处的平衡点],
+    ),
+    结论: [
+      $bold(0)$ 是 #Lyapunov稳定 $iff$ 以下两条同时成立:
+      $ forall lambda in sigma(A), op("Re") lambda <= 0; quad forall lambda in sigma(A) "with" op("Re") lambda = 0, "代数重数"(lambda) = "几何重数"(lambda). $
+      等价地: 满足 $op("Re") lambda < 0$ 的 $lambda$ 任意, 而满足 $op("Re") lambda = 0$ 的 $lambda$ 在 $A$ 的 Jordan 分解里只对应 $1 times 1$ 块.
+    ],
+  )
+]
+
+#定理条目(
+  "常系数齐次线性方程组的不稳定判据",
+  "Instability Criterion for Constant-Coefficient Linear System",
+  uuid: "ConstantCoefficientInstabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A in "Mat"_(n times n)(bb(C))$],
+      [考虑 #常系数齐次线性方程组 $dv(bold(x), t) = A bold(x)$ 在 $bold(0)$ 处的平衡点],
+    ),
+    结论: [
+      $bold(0)$ 是 #不稳定 $iff$ 以下至少一条成立:
+      $ exists lambda in sigma(A), op("Re") lambda > 0; quad exists lambda in sigma(A) "with" op("Re") lambda = 0, "代数重数"(lambda) > "几何重数"(lambda). $
+    ],
+  )
+]
+
+#注[
+  三个判据来自 $#expM (t A)$ 的 Jordan 分解显式: 在 $J_m (lambda)$-块上 $#expM (t J_m (lambda)) = e^(lambda t) sum_(k=0)^(m-1) (t^k slash k!) N^k$ (其中 $N$ 是幂零部分), 单分量行为是 $e^(op("Re") lambda thin t)$ 乘 $t$ 的次数不超过 $m - 1$ 的多项式. 故:
+  - $op("Re") lambda < 0$: 多项式被指数衰减压垮, 整体衰减.
+  - $op("Re") lambda = 0, m = 1$: $|e^(lambda t)| = 1$ 有界.
+  - $op("Re") lambda = 0, m >= 2$: 多项式增长.
+  - $op("Re") lambda > 0$: 指数发散.
+
+  三个判据相互不交且穷举一切 $A$, 与 #平衡点 三分法对应.
+]
+
+*周期系数情形的稳定性由 Floquet 乘子 / Floquet 指数完全决定 — 把谱条件中的 $sigma(A)$ 替换为 monodromy 矩阵的谱, 把 $op("Re") lambda$ 与 $0$ 比较替换为 $|rho|$ 与 $1$ 比较 (或等价地 $op("Re") mu$ 与 $0$ 比较).*
+
+#定理条目(
+  "周期系数线性方程组的渐近稳定判据",
+  "Asymptotic Stability Criterion for Periodic Linear System",
+  uuid: "PeriodicLinearAsymptoticStabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A : Cont(bb(R), "Mat"_(n times n)(bb(C)))$ 周期 $T$],
+      [考虑 #周期系数线性方程组 在 $bold(0)$ 处的平衡点],
+      [$rho_1, dots, rho_n$ 是全部 #Floquet乘子, $mu_1, dots, mu_n$ 是对应的 #Floquet指数],
+    ),
+    结论: [
+      $bold(0)$ 是 #渐近稳定 $iff$ $forall i, |rho_i| < 1$ $iff$ $forall i, op("Re") mu_i < 0$.
+    ],
+  )
+]
+
+#定理条目(
+  "周期系数线性方程组的 Lyapunov 稳定判据",
+  "Lyapunov Stability Criterion for Periodic Linear System",
+  uuid: "PeriodicLinearLyapunovStabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A : Cont(bb(R), "Mat"_(n times n)(bb(C)))$ 周期 $T$],
+      [考虑 #周期系数线性方程组 在 $bold(0)$ 处的平衡点],
+      [$rho_1, dots, rho_n$ 是全部 #Floquet乘子],
+    ),
+    结论: [
+      $bold(0)$ 是 #Lyapunov稳定 $iff$ 以下两条同时成立:
+      $ forall i, quad |rho_i| <= 1; quad forall i "with" |rho_i| = 1, "代数重数"(rho_i) = "几何重数"(rho_i) "在 monodromy 矩阵中". $
+    ],
+  )
+]
+
+#定理条目(
+  "周期系数线性方程组的不稳定判据",
+  "Instability Criterion for Periodic Linear System",
+  uuid: "PeriodicLinearInstabilityCriterion",
+)[
+  #定理子句(
+    cstyle: "display",
+    条件: (
+      [$A : Cont(bb(R), "Mat"_(n times n)(bb(C)))$ 周期 $T$],
+      [考虑 #周期系数线性方程组 在 $bold(0)$ 处的平衡点],
+      [$rho_1, dots, rho_n$ 是全部 #Floquet乘子],
+    ),
+    结论: [
+      $bold(0)$ 是 #不稳定 $iff$ 以下至少一条成立:
+      $ exists i, |rho_i| > 1; quad exists i "with" |rho_i| = 1, "代数重数"(rho_i) > "几何重数"(rho_i) "在 monodromy 矩阵中". $
+    ],
+  )
+]
+
+#注[
+  这三条判据是 #周期解稳定性 (§ 周期系数线性微分方程组) 的"稳定性语言"重述; 由 #Floquet定理, 在变量替换 $bold(y) := P(t)^(-1) bold(x)$ 下周期 system 等价于常系数 system $dv(bold(y), t) = B bold(y)$, 而 $sigma(B)$ 与 ${mu_i}$ (mod $2 pi i slash T$) 一一对应, 故 Floquet 判据等价于 $B$ 的常系数判据. 周期变换 $P(t)$ 是有界双向连续映射, 不改变 $bold(0)$ 的稳定性类型.
+]
+
+#注[
+  // TODO § Lyapunov 稳定性 后续可补:
+  //   - 实矩阵情形复特征值成对出现, 各判据的实形式
+  //   - 离散化 (Floquet 乘子) 与连续 (Floquet 指数) 之间的等价具体例
+  //   - 临界情形 $|rho| = 1$ 但有 $k times k$ 块 ($k >= 2$): "弱不稳定" 的多项式发散
+
+  // TODO § 后续节 (本章 = 定性理论 的其它节):
+  //   - § 线性化与第一方法: Df(x_*) 的谱判断局部稳定性; 双曲性 (∀λ, Re λ ≠ 0) + Hartman-Grobman 定理
+  //   - § Lyapunov 函数与第二方法: 严格 Lyapunov 函数推出渐近稳定; Chetaev 推出不稳定
+  //   - § LaSalle 不变原理: 非严格 Lyapunov 函数 + ω-极限集
+  //   - § 极限集与吸引子: ω-极限集 / α-极限集 / Poincaré-Bendixson (2D 情形)
+  //   - § 流形理论: 稳定流形 / 不稳定流形 / 中心流形
+  //   - § 应用例: 阻尼摆 / Lotka-Volterra / Lorenz 系统前奏
+]
